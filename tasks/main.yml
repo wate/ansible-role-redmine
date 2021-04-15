@@ -1,0 +1,10 @@
+---
+- name: install ruby
+  import_tasks: ruby.yml
+- name: install dependency packages
+  yum:
+    name: "{{ redmine_dependency_packages }}"
+- name: redmine database setting
+  import_tasks: database.yml
+- name: setup redmine
+  import_tasks: redmine.yml

@@ -1,0 +1,24 @@
+---
+- name: install ruby
+  yum:
+    name:
+      - "{{ redmine_ruby_package }}"
+      - "{{ redmine_ruby_package }}-ruby-devel"
+      - "{{ redmine_ruby_package }}-rubygems"
+      - "{{ redmine_ruby_package }}-rubygems-devel"
+      - "{{ redmine_ruby_package }}-rubygem-bundler"
+      - "{{ redmine_ruby_package }}-rubygem-rake"
+- name: set ld.so.conf
+  template:
+    src: ld.so.conf/rh-ruby.conf.j2
+    dest: /etc/ld.so.conf.d/rh-ruby.conf
+  register: ruby_result
+- name: execute ldconfig
+  command: ldconfig
+  when: ruby_result is changed
+- name: set alternatives
+  command: |
+    update-alternatives --install /usr/bin/ruby ruby /opt/rh/{{ redmine_ruby_package }}/root/bin/ruby 25 \
+    --slave /usr/bin/gem gem /opt/rh/{{ redmine_ruby_package }}/root/usr/bin/gem
+    --slave /usr/bin/bundle bundle /opt/rh/{{ redmine_ruby_package }}/root/usr/bin/bundle \
+    --slave /usr/bin/rake rake /opt/rh/{{ redmine_ruby_package }}/root/usr/bin/rake

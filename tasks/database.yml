@@ -1,0 +1,23 @@
+---
+- name: install database adapter
+  yum:
+    name:
+      - mariadb
+      - mariadb-devel
+      - python2-PyMySQL
+- name: create database
+  mysql_db:
+    name: "{{ redmine_db_cfg.production.database }}"
+    encoding: "{{ redmine_db_cfg.production.encoding }}"
+    login_unix_socket: /var/lib/mysql/mysql.sock
+- name: create database user
+  mysql_user:
+    name: "{{ redmine_db_cfg.production.username }}"
+    password: "{{ redmine_db_cfg.production.password }}"
+    host: "{{ item }}"
+    priv: "{{ redmine_db_cfg.production.database }}.*:ALL"
+    login_unix_socket: /var/lib/mysql/mysql.sock
+  loop:
+    - localhost
+    - 127.0.0.1
+  no_log: true

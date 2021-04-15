@@ -1,0 +1,10 @@
+---
+- name: restart redmine
+  systemd:
+    daemon_reload: true
+    name: redmine
+    state: restarted
+- name: reload redmine
+  systemd:
+    name: redmine
+    state: reloaded

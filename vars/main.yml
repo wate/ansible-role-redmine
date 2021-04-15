@@ -1,0 +1,17 @@
+---
+redmine_ruby_package: rh-ruby25
+
+redmine_dependency_packages:
+  - git
+  - unzip
+  - ImageMagick
+  - ImageMagick-devel
+  - zlib-devel
+  - google-noto-sans-cjk-fonts
+
+redmine_user: redmine
+redmine_home: /opt/redmine
+redmine_theme_dir: "{{ redmine_home }}/public/themes"
+redmine_plugin_dir: "{{ redmine_home }}/plugins"
+
+redmine_mode: production
