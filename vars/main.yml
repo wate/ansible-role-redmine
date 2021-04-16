@@ -7,6 +7,10 @@ redmine_dependency_packages:
   - ImageMagick
   - ImageMagick-devel
   - zlib-devel
+  - ipa-gothic-fonts
+  - ipa-mincho-fonts
+  - ipa-pgothic-fonts
+  - ipa-pmincho-fonts
   - google-noto-sans-cjk-fonts
 
 redmine_user: redmine
