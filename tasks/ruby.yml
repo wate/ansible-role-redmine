@@ -8,10 +8,12 @@
       - "{{ redmine_ruby_package }}-rubygems-devel"
       - "{{ redmine_ruby_package }}-rubygem-bundler"
       - "{{ redmine_ruby_package }}-rubygem-rake"
+  register: package_result
 - name: set ld.so.conf
   template:
     src: ld.so.conf/rh-ruby.conf.j2
     dest: /etc/ld.so.conf.d/rh-ruby.conf
+    mode: "0666"
   register: ruby_result
 - name: execute ldconfig
   command: ldconfig
@@ -22,3 +24,4 @@
     --slave /usr/bin/gem gem /opt/rh/{{ redmine_ruby_package }}/root/usr/bin/gem
     --slave /usr/bin/bundle bundle /opt/rh/{{ redmine_ruby_package }}/root/usr/bin/bundle \
     --slave /usr/bin/rake rake /opt/rh/{{ redmine_ruby_package }}/root/usr/bin/rake
+  when: package_result is changed

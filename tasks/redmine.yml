@@ -9,6 +9,7 @@
     owner: "{{ redmine_user }}"
     group: "{{ redmine_user }}"
     state: directory
+    mode: "0755"
 - block:
   - name: checkout Redmine
     git:

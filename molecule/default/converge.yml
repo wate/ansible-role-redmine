@@ -1,6 +1,9 @@
 ---
 - name: Converge
   hosts: all
+  roles:
+    - name: common
+    - name: mariadb
   tasks:
     - name: "Include role"
       include_role:
