@@ -27,9 +27,9 @@
       src: config
       dest: "{{ redmine_home }}/.bundle/config"
       mode: "0644"
-  - name: copy Gemfile.local file
-    copy:
-      src: Gemfile.local
+  - name: create Gemfile.local file
+    template:
+      src: Gemfile.local.j2
       dest: "{{ redmine_home }}/Gemfile.local"
       mode: "0644"
   - name: set redmine database config variable
@@ -77,17 +77,23 @@
       dest: "{{ redmine_theme_dir }}/{{ item.directory if item.directory is defined else item.name }}"
       version: master
     loop: "{{ redmine_themes | selectattr('repo', 'defined') | list }}"
+    loop_control:
+      label: "{{ item.name }}"
   - name: install themes from file
     unarchive:
       src: "{{ item.file }}"
       dest: "{{ redmine_theme_dir }}"
     loop: "{{ redmine_themes | selectattr('file', 'defined') | list }}"
+    loop_control:
+      label: "{{ item.name }}"
   - name: install plugin from git
     git:
       repo: "{{ item.repo }}"
       dest: "{{ redmine_plugin_dir }}/{{ item.directory if item.directory is defined else 'redmine_' +  item.name }}"
       version: "{{ item.version | default('master') }}"
     loop: "{{ redmine_plugins | selectattr('repo', 'defined') | list }}"
+    loop_control:
+      label: "{{ item.name }}"
     notify: restart redmine
     register: plugin_install_from_git_result
   - name: download plugin archive file
@@ -95,6 +101,8 @@
       url: "{{ item.url }}"
       dest: "{{ redmine_home }}/tmp/{{ item.url | basename }}"
     loop: "{{ redmine_plugins | selectattr('url', 'defined') | list }}"
+    loop_control:
+      label: "{{ item.name }}"
   - name: unarchive downloaded plugin archive file
     unarchive:
       src: "{{ redmine_home }}/tmp/{{ item.url | basename }}"
@@ -102,6 +110,8 @@
       remote_src: true
       mode: "0755"
     loop: "{{ redmine_plugins | selectattr('url', 'defined') | list }}"
+    loop_control:
+      label: "{{ item.name }}"
     notify: restart redmine
     register: plugin_install_from_url_result
   - name: unarchive plugin archive file
@@ -110,12 +120,16 @@
       dest: "{{ redmine_plugin_dir }}"
       mode: "0755"
     loop: "{{ redmine_plugins | selectattr('file', 'defined') | list }}"
+    loop_control:
+      label: "{{ item.name }}"
     notify: restart redmine
     register: plugin_install_from_file_result
   - name: install plugin dependency packages
     apt:
       name: "{{ item.1 }}"
     loop: "{{ redmine_plugins | subelements('required_packages', {'skip_missing': True}) }}"
+    loop_control:
+      label: "{{ item.name }}"
     notify: restart redmine
     become: true
     become_user: root
@@ -146,7 +160,7 @@
       mode: "0644"
     register: result
   - name: update redmine settings
-    shell: "bundle exec rails console <{{ redmine_home }}/tmp/settings.rb"
+    shell: "bundle exec rails r {{ redmine_home }}/tmp/settings.rb"
     args:
       chdir: "{{ redmine_home }}"
   - name: remove setting file

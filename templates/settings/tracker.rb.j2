@@ -19,7 +19,12 @@ default_core_fields = [
 not_exists_copy_from_trackers = trackers.reject {|item| item['copy_workflow_from'].present? }
 if not_exists_copy_from_trackers
   not_exists_copy_from_trackers.each do |item|
-    tracker = Tracker.find_by_name(item['name'])
+    if item['id'].present?
+      tracker = Tracker.find_by_id(item['id'])
+      tracker.name = item['name']
+    else
+      tracker = Tracker.find_by_name(item['name'])
+    end
     unless tracker
       tracker = Tracker.new
       tracker.name = item['name']

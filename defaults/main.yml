@@ -1,6 +1,12 @@
 ---
 redmine_version: "4.1-stable"
 
+redmine_gemfile_local_content: |
+  gem 'puma', '~> 3.7'
+  gem 'rmagick', '~> 2.2'
+
+redmine_mode: production
+
 redmine_db_cfg:
   production:
     adapter: mysql2
@@ -321,23 +327,9 @@ redmine_receive_pop3_cron_job:
   # hour: "*"
   # minute: "*/5"
 
-redmine_puma_cfg:
-  # bind: "unix://{{ redmine_home }}/tmp/redmine.sock"
-  # bind: "tcp://0.0.0.0:9292"
-  pidfile: "{{ redmine_home }}/tmp/redmine.pid"
-  state_path: "{{ redmine_home }}/tmp/redmine.state"
-  stdout_redirect:
-    stdout: "{{ redmine_home }}/log/stdout.log"
-    stderr: "{{ redmine_home }}/log/stderr.log"
-    append: false
-  # quiet: false
-  threads:
-    min: 0
-    max: 16
-  workers: 2
-  # prune_bundler: false
-  preload_app: true
-
+redmine_puma_extra_cfg: ""
+  # bind "unix:#{app_root}/tmp/redmine.socket"
+  # activate_control_app
 
 # --------------------
 # Redmineの設定(システム管理者)
