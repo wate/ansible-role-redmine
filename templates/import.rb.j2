@@ -7,3 +7,33 @@ require "pp"
 {% include "settings/setting.rb" %}
 {% include "settings/role.rb" %}
 {% include "settings/workflow.rb" %}
+
+# カスタムフィールドインポート時のバリデーションチェック用のデータを
+# 定数として定義
+ALLOW_FIELD_FORMTS = [
+  'string',
+  'text',
+  'link',
+  'date',
+  'list',
+  'int',
+  'float',
+  'bool',
+  'version',
+  'user',
+  'attachment',
+  'enumeration'
+].map(&:freeze).freeze
+
+ALLOW_LENGTH_FORMATS = ['string', 'text', 'link', 'int', 'float'].map(&:freeze).freeze
+ALLOW_REGEXP_FORMATS = ['string','text', 'link', 'int', 'float'].map(&:freeze).freeze
+ALLOW_DEFAULT_VALUE_FORMATS = ['string', 'text', 'link', 'int', 'float', 'date', 'bool'].map(&:freeze).freeze
+ALLOW_TEXT_FORMATTING_FORMATS = ['string', 'text'].map(&:freeze).freeze
+ALLOW_URL_PATTERN_FORMATS = ['string', 'link', 'date', 'int', 'float', 'bool', 'enumeration'].map(&:freeze).freeze
+ALLOW_EDIT_TAG_STYLE_FORMATS = ['version', 'user', 'list', 'bool', 'enumeration'].map(&:freeze).freeze
+ALLOW_MULTIPLE_FORMATS = ['version', 'user', 'list', 'enumeration'].map(&:freeze).freeze
+ALLOW_SEARCHABLE_FORMATS = ['string', 'text', 'list'].map(&:freeze).freeze
+
+{% include "settings/issue_custom_field.rb" %}
+
+
