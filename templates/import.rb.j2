@@ -8,7 +8,23 @@ require "pp"
 {% include "settings/role.rb" %}
 {% include "settings/workflow.rb" %}
 
+ALLOW_FIELD_FORMTS = [
+  'string',
+  'text',
+  'link',
+  'date',
+  'list',
+  'int',
+  'float',
+  'bool',
+  'version',
+  'user',
+  'attachment',
+  'enumeration'
+].map(&:freeze).freeze
+
 {% include "settings/custom_field.rb" %}
 {% include "settings/issue_custom_field.rb" %}
+{% include "settings/project_custom_field.rb" %}
 
 

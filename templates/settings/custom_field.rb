@@ -28,7 +28,7 @@ def import_custom_filed(cf, setting)
   # 正規表現
   cf.regexp = setting['regexp'] if setting.key?('field_format') && allow_regexp_formats.include?(setting['field_format'])
   # 初期値
-  if setting.key?('field_format') && allow_default_value_formats.include?(setting['field_format'])
+  if setting.key?('default_value') && allow_default_value_formats.include?(setting['field_format'])
     cf.default_value = setting['default_value'].to_s
   end
   # テキスト書式
