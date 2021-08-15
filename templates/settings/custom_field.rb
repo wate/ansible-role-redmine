@@ -78,13 +78,27 @@ def import_custom_filed(cf, setting)
   # 表示
   cf.visible = true
   if setting.key?('visible')
+    unless cf.is_a?(UserCustomField)
       if setting['visible'].is_a?(Array)
         cf.role_ids = Role.where(:name => setting['visible']).pluck(:id).map {|v| v.to_s }
+        cf.visible = false
       else
         cf.visible = !!setting['visible']
+      end
+    else
+      cf.visible = !!setting['visible']
+    end
+  end
+  if cf.is_a?(UserCustomField)
+    # ユーザーカスタムフィールドの固有処理
+    # 編集可能
+    cf.editable = true
+    if setting.key?('editable')
+      cf.visible = !!setting['editable']
     end
   end
   if cf.is_a?(IssueCustomField)
+    # チケットカスタムフィールドの固有処理
     # トラッカー
     if setting.key?('trackers')
       cf.tracker_ids = Tracker.where(:name => setting['trackers']).pluck(:id).map {|v| v.to_s }
