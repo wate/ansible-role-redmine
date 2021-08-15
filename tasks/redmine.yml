@@ -183,7 +183,7 @@
           tracker: "{{ redmine_trackers | default([]) }}"
           setting: "{{ redmine_settings | default({}) }}"
           role: "{{ redmine_roles | default([]) }}"
-          # workflow: "{{ redmine_workflows | default([]) }}"
+          workflow: "{{ redmine_workflows | default([]) }}"
       # when: redmine_orverwrite
     - name: update redmine settings
       shell: "bundle exec rails r {{ redmine_home }}/tmp/import.rb"
