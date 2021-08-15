@@ -24,12 +24,7 @@ def import_issue_custom_filed(custom_fileds)
     cf.regexp = item['regexp'] if item.key?('field_format') && ALLOW_REGEXP_FORMATS.include?(item['field_format'])
     # 初期値
     if item.key?('field_format') && ALLOW_DEFAULT_VALUE_FORMATS.include?(item['field_format'])
-      if item['field_format'] == 'bool'
-        default_value = item['default_value'].to_s
-      else
-        default_value = item['default_value'].to_s
-      end
-      cf.default_value = default_value
+      cf.default_value = item['default_value'].to_s
     end
     # テキスト書式
     if item.key?('text_formatting') && ALLOW_TEXT_FORMATTING_FORMATS.include?(item['field_format'])
@@ -97,6 +92,7 @@ def import_issue_custom_filed(custom_fileds)
     cf.save
   end
 end
+
 issue_custom_fileds = []
 issue_custom_fileds = YAML.load_file('./tmp/import/issue_custom_field.yml') if File.exists?('./tmp/import/issue_custom_field.yml')
 
