@@ -6,7 +6,6 @@ require "pp"
 {% include "settings/tracker.rb" %}
 {% include "settings/setting.rb" %}
 {% include "settings/role.rb" %}
-{% include "settings/workflow.rb" %}
 
 ALLOW_FIELD_FORMTS = [
   'string',
@@ -28,4 +27,7 @@ ALLOW_FIELD_FORMTS = [
 {% include "settings/project_custom_field.rb" %}
 {% include "settings/user_custom_field.rb" %}
 
+{% include "settings/workflow.rb" %}
+{% include "settings/user.rb" %}
+{# {% include "settings/project.rb" %} #}
 

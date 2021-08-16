@@ -89,6 +89,10 @@ def import_custom_filed(cf, setting)
       cf.visible = !!setting['visible']
     end
   end
+
+  # 表示順序
+  cf.position = setting['position'] if setting['position'].present?
+
   if cf.is_a?(UserCustomField)
     # ユーザーカスタムフィールドの固有処理
     # 編集可能
