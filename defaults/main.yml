@@ -2,8 +2,8 @@
 redmine_version: "4.1-stable"
 
 redmine_gemfile_local_content: |
-  gem 'puma', '~> 3.7'
-  gem 'rmagick', '~> 2.2'
+  gem "puma", "~> 3.7"
+  gem "rmagick"
 
 redmine_mode: production
 

@@ -1,5 +1,5 @@
 ---
-redmine_ruby_package: rh-ruby25
+redmine_ruby_package: rh-ruby26
 
 redmine_dependency_packages:
   - git
