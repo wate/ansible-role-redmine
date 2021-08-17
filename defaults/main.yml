@@ -102,14 +102,14 @@ redmine_cfg:
     # openid_authentication_store: :memory
 
 redmine_themes: []
-  # - name: gitmike
-  #   repo: "https://github.com/makotokw/redmine-theme-gitmike.git"
   # - name: farend_fancy
   #   repo: "https://github.com/farend/redmine_theme_farend_fancy.git"
   # - name: farend_basic
   #   repo: "https://github.com/farend/redmine_theme_farend_basic.git"
-  # - name: gitmike
+  # - name: PurpleMine2
   #   repo: "https://github.com/mrliptontea/PurpleMine2.git"
+  # - name: gitmike
+  #   repo: "https://github.com/makotokw/redmine-theme-gitmike.git"
 
 redmine_plugins: []
   # - name: view_customize
