@@ -402,6 +402,43 @@ redmine_puma_extra_cfg: ""
 #     copy_workflow_from: 機能
 
 # --------------------
+# Redmineの設定(チケットの優先度)
+# --------------------
+# redmine_priorities:
+#   - name: 低い
+#     id: 1
+#   - name: 通常
+#     id: 2
+#     is_default: true
+#   - name: 高い
+#     id: 3
+#   - name: 早急に
+#     id: 4
+#   - name: 緊急
+#     id: 5
+
+# --------------------
+# Redmineの設定(文書カテゴリ)
+# --------------------
+# redmine_document_categories:
+#   - name: ユーザーマニュアル
+#     id: 6
+#   - name: 開発ドキュメント
+#     id: 7
+#   - name: インフラドキュメント
+
+# --------------------
+# Redmineの設定(作業分類)
+# --------------------
+# redmine_time_entry_activities:
+#   - name: 設計
+#     id: 8
+#   - name: コーディング
+#     id: 9
+#   - name: テスト
+#   - name: ドキュメント
+
+# --------------------
 # Redmineの設定(ワークフロー)
 # --------------------
 # redmine_workflows:
@@ -821,6 +858,9 @@ redmine_puma_extra_cfg: ""
 #   - name: キー・バリュー リスト
 #     field_format: enumeration
 
+# --------------------
+# Redmineの設定(カスタムフィールド[ユーザー)
+# --------------------
 # redmine_user_custom_fields:
 #     ## 名称
 #   - name: テキスト
