@@ -20,7 +20,5 @@ end
 document_categories = []
 document_categories = YAML.load_file('./tmp/import/document_category.yml') if File.exists?('./tmp/import/document_category.yml')
 
-puts document_categories
-
 import_document_category(document_categories) if document_categories.present?
 #{% endraw %}
