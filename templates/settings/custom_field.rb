@@ -76,7 +76,6 @@ def import_custom_filed(cf, setting)
     cf.is_filter = setting['is_filter'] ? true : false
   end
   # 表示
-  cf.visible = true
   if setting.key?('visible')
     unless cf.is_a?(UserCustomField)
       if setting['visible'].is_a?(Array)
