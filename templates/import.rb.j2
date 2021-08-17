@@ -1,5 +1,6 @@
 require 'yaml'
-require "pp"
+
+User.current = User.find_by_id(1)
 
 {% include "settings/admin.rb" %}
 {% include "settings/status.rb" %}
