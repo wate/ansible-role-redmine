@@ -1,11 +1,7 @@
-{% if redmine_projects is defined %}
-# プロジェクト
-projects = YAML.load(<<EOT)
-{{ redmine_projects | to_yaml }}
-EOT
-# 親プロジェクトがないプロジェクトを登録
-not_has_parent_projects = projects.reject {|item| item['parent'].present? }
-if not_has_parent_projects
+#{% raw %}
+def import_project(projects)
+  # 親プロジェクトがないプロジェクトを登録
+  not_has_parent_projects = projects.reject {|item| item['parent'].present? }
   not_has_parent_projects.each do |item|
     project = Project.find_by_identifier(item['identifier'])
     unless project
@@ -28,10 +24,8 @@ if not_has_parent_projects
     end
     project.save
   end
-end
-# 親プロジェクトがあるプロジェクトを登録
-has_parent_projects = projects.select {|item| item['parent'].present? }
-if has_parent_projects
+  # 親プロジェクトがあるプロジェクトを登録
+  has_parent_projects = projects.select {|item| item['parent'].present? }
   has_parent_projects.each do |item|
     project = Project.find_by_identifier(item['identifier'])
     unless project
@@ -60,4 +54,9 @@ if has_parent_projects
     end
   end
 end
-{% endif %}
+
+projects = []
+projects = YAML.load_file('./tmp/import/project.yml') if File.exists?('./tmp/import/project.yml')
+
+import_project(projects) if projects.present?
+#{% endraw %}

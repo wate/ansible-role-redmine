@@ -102,12 +102,14 @@ redmine_cfg:
     # openid_authentication_store: :memory
 
 redmine_themes: []
-  # - name: gitmike
-  #   repo: "https://github.com/makotokw/redmine-theme-gitmike.git"
   # - name: farend_fancy
   #   repo: "https://github.com/farend/redmine_theme_farend_fancy.git"
   # - name: farend_basic
   #   repo: "https://github.com/farend/redmine_theme_farend_basic.git"
+  # - name: PurpleMine2
+  #   repo: "https://github.com/mrliptontea/PurpleMine2.git"
+  # - name: gitmike
+  #   repo: "https://github.com/makotokw/redmine-theme-gitmike.git"
 
 redmine_plugins: []
   # - name: view_customize
@@ -118,7 +120,7 @@ redmine_plugins: []
   #   post_install_action: |
   #     ln -sf {{ redmine_home }}/plugins/redmine_message_customize/35_change_load_order_locales.rb {{ redmine_home }}/config/initializers/35_change_load_order_locales.rb
   # - name: issue_templates
-  #   repo: "https://github.com/akiko-pusu/redmine_issue_templates.git"
+  #   repo: "https://github.com/agileware-jp/redmine_issue_templates.git"
   # - name: vividtone_my_page_blocks
   #   repo: "https://github.com/vividtone/redmine_vividtone_my_page_blocks.git"
   # - name: wiki_page_tree
@@ -400,6 +402,43 @@ redmine_puma_extra_cfg: ""
 #       # 説明
 #       - description
 #     copy_workflow_from: 機能
+
+# --------------------
+# Redmineの設定(チケットの優先度)
+# --------------------
+# redmine_priorities:
+#   - name: 低い
+#     id: 1
+#   - name: 通常
+#     id: 2
+#     is_default: true
+#   - name: 高い
+#     id: 3
+#   - name: 早急に
+#     id: 4
+#   - name: 緊急
+#     id: 5
+
+# --------------------
+# Redmineの設定(文書カテゴリ)
+# --------------------
+# redmine_document_categories:
+#   - name: ユーザーマニュアル
+#     id: 6
+#   - name: 開発ドキュメント
+#     id: 7
+#   - name: インフラドキュメント
+
+# --------------------
+# Redmineの設定(作業分類)
+# --------------------
+# redmine_time_entry_activities:
+#   - name: 設計
+#     id: 8
+#   - name: コーディング
+#     id: 9
+#   - name: テスト
+#   - name: ドキュメント
 
 # --------------------
 # Redmineの設定(ワークフロー)
@@ -694,6 +733,137 @@ redmine_puma_extra_cfg: ""
 # Redmineの設定(カスタムフィールド[プロジェクト])
 # --------------------
 # redmine_project_custom_fields:
+#     ## 名称
+#   - name: テキスト
+#     ## 形式
+#     ## * string:テキスト
+#     ## * version:バージョン
+#     ## * attachment:ファイル
+#     ## * user:ユーザー
+#     ## * list:リスト
+#     ## * link:リンク
+#     ## * float:小数
+#     ## * int:整数
+#     ## * date:日付
+#     ## * bool:真偽値
+#     ## * text:長いテキスト
+#     ## * enumeration:キー・バリュー リスト
+#     field_format: string
+#     ## 説明
+#     # description: ""
+#     ## 最小(形式が以下の場合のみ)
+#     ## * テキスト
+#     ## * 整数
+#     ## * 小数
+#     ## * リンク
+#     ## * 長いテキスト
+#     # min_length: ""
+#     ## 最大(形式が以下の場合のみ)
+#     ## * テキスト
+#     ## * 整数
+#     ## * 小数
+#     ## * リンク
+#     ## * 長いテキスト
+#     # max_length: ""
+#     ## 正規表現(形式が以下の場合のみ)
+#     ## * テキスト
+#     ## * 整数
+#     ## * 小数
+#     ## * リンク
+#     ## * 長いテキスト
+#     # regexp: ""
+#     ## デフォルト値(形式が以下の場合のみ)
+#     ## * テキスト
+#     ## * リンク
+#     ## * 整数
+#     ## * 小数
+#     ## * 日付
+#     ## * 真偽値(1:はい/0:いいえ)
+#     ## * 長いテキスト
+#     # default_value: ""
+#     ## テキスト書式(形式が「テキスト」または「長いテキスト」の場合のみ)
+#     # text_formatting: false
+#     ## 値に設定するリンクURL / URL(形式が以下以外の場合のみ)
+#     ## * ユーザー
+#     ## * バージョン
+#     ## * ファイル
+#     ## * 長いテキスト
+#     # url_pattern: ""
+#     ## 表示(入力形式)
+#     ## ※形式が以下の場合のみ
+#     ## * バージョン
+#     ## * ユーザー
+#     ## * リスト
+#     ## * 真偽値
+#     ## * キー・バリュー リスト
+#     ## ※設定値一覧
+#     ## *(空):ドロップダウンリスト
+#     ## * check_box:チェックボックス
+#     ## * radio:ラジオ(形式が「真偽値」の場合のみ)
+#     # edit_tag_style: ""
+#     ## 複数選択可(形式が以下の場合のみ)
+#     ## * ユーザー
+#     ## * バージョン
+#     ## * リスト
+#     ## * キー・バリュー リスト
+#     # multiple: false
+#     ## 必須
+#     # is_required: false
+#     ## 表示
+#     # visible: true
+#     ## 検索対象(形式が以下の場合のみの場合のみ)
+#     ## * テキスト
+#     ## * リスト
+#     ## * 長いテキスト
+#     # searchable: false
+#     ## フィルタとして使用(形式が「ファイル」以外の場合のみ)
+#     # is_filter: false
+#   - name: バージョン
+#     field_format: version
+#     ## ステータス(形式が「バージョン」の場合のみ)
+#     version_status:
+#       - open
+#       - locked
+#   - name: ファイル
+#     field_format: attachment
+#     ## 許可する拡張子(形式が「ファイル」の場合のみ)
+#     extensions_allowed:
+#       - jpg
+#       - gif
+#       - png
+#   - name: ユーザー
+#     field_format: user
+#     ## ロール(形式が「ユーザー」の場合のみ)
+#     user_role:
+#       - 管理者
+#       - 開発者
+#   - name: リスト
+#     field_format: list
+#     ## 選択肢(形式が「リスト」の場合のみ)
+#     possible_values: |
+#       選択肢1
+#       選択肢2
+#       選択肢3
+#       選択肢4
+#   - name: リンク
+#     field_format: link
+#   - name: 小数
+#     field_format: float
+#   - name: 整数
+#     field_format: int
+#   - name: 日付
+#     field_format: date
+#   - name: 真偽値
+#     field_format: bool
+#   - name: 長いテキスト
+#     field_format: text
+#   - name: キー・バリュー リスト
+#     field_format: enumeration
+
+# --------------------
+# Redmineの設定(カスタムフィールド[ユーザー)
+# --------------------
+# redmine_user_custom_fields:
 #     ## 名称
 #   - name: テキスト
 #     ## 形式

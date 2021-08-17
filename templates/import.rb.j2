@@ -1,0 +1,37 @@
+require 'yaml'
+require "pp"
+
+{% include "settings/admin.rb" %}
+{% include "settings/status.rb" %}
+{% include "settings/tracker.rb" %}
+{% include "settings/setting.rb" %}
+{% include "settings/role.rb" %}
+
+ALLOW_FIELD_FORMTS = [
+  'string',
+  'text',
+  'link',
+  'date',
+  'list',
+  'int',
+  'float',
+  'bool',
+  'version',
+  'user',
+  'attachment',
+  'enumeration'
+].map(&:freeze).freeze
+
+{% include "settings/custom_field.rb" %}
+{% include "settings/issue_custom_field.rb" %}
+{% include "settings/project_custom_field.rb" %}
+{% include "settings/user_custom_field.rb" %}
+
+{% include "settings/priority.rb" %}
+{% include "settings/document_category.rb" %}
+{% include "settings/time_entry_activity.rb" %}
+
+{% include "settings/workflow.rb" %}
+{% include "settings/user.rb" %}
+{% include "settings/project.rb" %}
+
