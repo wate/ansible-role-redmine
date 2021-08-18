@@ -1,0 +1,90 @@
+---
+- name: create import admin stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/admin.yml"
+  vars:
+    redmine_import_data: "{{ redmine_admin | default({}) }}"
+- name: create import issue status stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/status.yml"
+  vars:
+    redmine_import_data: "{{ redmine_issue_statuses | default({}) }}"
+- name: create import tracker stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/tracker.yml"
+  vars:
+    redmine_import_data: "{{ redmine_trackers | default({}) }}"
+- name: create import redmine stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/setting.yml"
+  vars:
+    redmine_import_data: "{{ redmine_settings | default({}) }}"
+- name: create import role stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/role.yml"
+  vars:
+    redmine_import_data: "{{ redmine_roles | default({}) }}"
+- name: create import issue custom field stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/issue_custom_field.yml"
+  vars:
+    redmine_import_data: "{{ redmine_issue_custom_fields | default({}) }}"
+- name: create import project custom field stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/project_custom_field.yml"
+  vars:
+    redmine_import_data: "{{ redmine_project_custom_fields | default({}) }}"
+- name: create import user custom field stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/user_custom_field.yml"
+  vars:
+    redmine_import_data: "{{ redmine_user_custom_fields | default({}) }}"
+- name: create import priority stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/priority.yml"
+  vars:
+    redmine_import_data: "{{ redmine_priorities | default({}) }}"
+- name: create import time entry activity stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/time_entry_activity.yml"
+  vars:
+    redmine_import_data: "{{ redmine_time_entry_activities | default({}) }}"
+- name: create import document category stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/document_category.yml"
+  vars:
+    redmine_import_data: "{{ redmine_document_categories | default({}) }}"
+- name: create import workflow stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/workflow.yml"
+  vars:
+    redmine_import_data: "{{ redmine_workflows | default({}) }}"
+- name: create import user stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/user.yml"
+  vars:
+    redmine_import_data: "{{ redmine_users | default({}) }}"
+- name: create import project stting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/project.yml"
+  vars:
+    redmine_import_data: "{{ redmine_projects | default({}) }}"
+- name: update redmine settings
+  shell: "bundle exec rails r {{ redmine_home }}/tmp/import.rb"
+  args:
+    chdir: "{{ redmine_home }}"
+

@@ -169,34 +169,7 @@
         path: "{{ redmine_home }}/tmp/import"
         state: directory
     - name: import Redmine setting
-      block:
-        - name: create import setting files
-          template:
-            src: import_setting.yml.j2
-            dest: "{{ redmine_home }}/tmp/import/{{ item.key }}.yml"
-          loop: "{{ file_output_vars | dict2items }}"
-          loop_control:
-            label: "{{ item.key }}"
-          vars:
-            file_output_vars:
-              admin: "{{ redmine_admin | default({}) }}"
-              status: "{{ redmine_issue_statuses | default([]) }}"
-              tracker: "{{ redmine_trackers | default([]) }}"
-              setting: "{{ redmine_settings | default({}) }}"
-              role: "{{ redmine_roles | default([]) }}"
-              issue_custom_field: "{{ redmine_issue_custom_fields | default([]) }}"
-              project_custom_field: "{{ redmine_project_custom_fields | default([]) }}"
-              user_custom_field: "{{ redmine_user_custom_fields | default([]) }}"
-              priority: "{{ redmine_priorities | default([]) }}"
-              time_entry_activity: "{{ redmine_time_entry_activities | default([]) }}"
-              document_category: "{{ redmine_document_categories | default([]) }}"
-              workflow: "{{ redmine_workflows | default([]) }}"
-              user: "{{ redmine_users | default([]) }}"
-              project: "{{ redmine_projects | default([]) }}"
-        - name: update redmine settings
-          shell: "bundle exec rails r {{ redmine_home }}/tmp/import.rb"
-          args:
-            chdir: "{{ redmine_home }}"
+      import_tasks: import.yml
       when:  generate_token_result is changed or redmine_reimport
   become: true
   become_user: "{{ redmine_user }}"
