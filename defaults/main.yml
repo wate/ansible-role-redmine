@@ -176,6 +176,8 @@ redmine_reimport_time_entry_activity: true
 redmine_reimport_workflow: true
 ## ユーザー
 redmine_reimport_user: false
+## グループ
+redmine_reimport_group: true
 ## プロジェクト
 redmine_reimport_project: false
 
