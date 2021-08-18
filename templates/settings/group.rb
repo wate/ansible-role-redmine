@@ -11,8 +11,8 @@ def import_group(groups)
     group.name = item['name']
     if group.save
       if item['users'].present?
-        users = User.not_in_group(group).where(:login => item['users']).to_a
-        group.users << users
+        users = User.where(:login => item['users']).to_a
+        group.users = users
         end
     end
   end

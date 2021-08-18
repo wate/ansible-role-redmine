@@ -1215,6 +1215,16 @@ redmine_puma_extra_cfg: ""
 #     # locked: true
 
 # --------------------
+# Redmineの設定(グループ)
+# --------------------
+# redmine_groups:
+#   - name: グループ名
+#     users:
+#       - user1_login
+#       - user2_login
+#       - user3_login
+#       - user4_login
+# --------------------
 # Redmineの設定(プロジェクト)
 # --------------------
 # redmine_projects:
