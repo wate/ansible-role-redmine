@@ -36,5 +36,7 @@ end
 
 workflows = [];
 workflows = YAML.load_file('./tmp/import/workflow.yml') if File.exists?('./tmp/import/workflow.yml')
+
 import_workflow(workflows) if workflows.present?
+File.delete('./tmp/import/workflow.yml') if File.exists?('./tmp/import/workflow.yml')
 #{% endraw %}

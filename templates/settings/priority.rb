@@ -21,4 +21,5 @@ priorities = []
 priorities = YAML.load_file('./tmp/import/priority.yml') if File.exists?('./tmp/import/priority.yml')
 
 import_priority(priorities) if priorities.present?
+File.delete('./tmp/import/priority.yml') if File.exists?('./tmp/import/priority.yml')
 #{% endraw %}

@@ -74,5 +74,7 @@ def import_tracker(trackers)
 end
 trackers = [];
 trackers = YAML.load_file('./tmp/import/tracker.yml') if File.exists?('./tmp/import/tracker.yml')
+
 import_tracker(trackers) if trackers.present?
+File.delete('./tmp/import/tracker.yml') if File.exists?('./tmp/import/tracker.yml')
 #{% endraw %}

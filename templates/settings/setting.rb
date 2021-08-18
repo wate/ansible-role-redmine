@@ -9,5 +9,7 @@ end
 
 setting = {};
 setting = YAML.load_file('./tmp/import/setting.yml') if File.exists?('./tmp/import/setting.yml')
+
 import_setting(setting) if setting.present?
+File.delete('./tmp/import/setting.yml') if File.exists?('./tmp/import/setting.yml')
 #{% endraw %}

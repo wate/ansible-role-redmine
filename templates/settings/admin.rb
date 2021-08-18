@@ -16,6 +16,8 @@ def import_admin(admin)
 end
 admin = {};
 admin = YAML.load_file('./tmp/import/admin.yml') if File.exists?('./tmp/import/admin.yml')
+
 import_admin(admin) if admin.present?
+File.delete('./tmp/import/admin.yml') if File.exists?('./tmp/import/admin.yml')
 #{% endraw %}
 

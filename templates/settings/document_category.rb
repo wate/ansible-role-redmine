@@ -21,4 +21,5 @@ document_categories = []
 document_categories = YAML.load_file('./tmp/import/document_category.yml') if File.exists?('./tmp/import/document_category.yml')
 
 import_document_category(document_categories) if document_categories.present?
+File.delete('./tmp/import/document_category.yml') if File.exists?('./tmp/import/document_category.yml')
 #{% endraw %}

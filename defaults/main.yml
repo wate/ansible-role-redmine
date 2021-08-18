@@ -147,6 +147,11 @@ redmine_plugins: []
 redmine_lang: ja
 
 # --------------------
+# 2回目以降の再インポート判定
+# --------------------
+redmine_reimport: false
+
+# --------------------
 # Redmineの設定(管理)
 # --------------------
 redmine_settings:

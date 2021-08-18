@@ -59,4 +59,5 @@ projects = []
 projects = YAML.load_file('./tmp/import/project.yml') if File.exists?('./tmp/import/project.yml')
 
 import_project(projects) if projects.present?
+File.delete('./tmp/import/project.yml') if File.exists?('./tmp/import/project.yml')
 #{% endraw %}

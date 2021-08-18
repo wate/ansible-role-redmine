@@ -91,5 +91,7 @@ end
 
 users = []
 users = YAML.load_file('./tmp/import/user.yml') if File.exists?('./tmp/import/user.yml')
+
 import_user(users) if users.present?
+File.delete('./tmp/import/user.yml') if File.exists?('./tmp/import/user.yml')
 #{% endraw %}

@@ -21,4 +21,5 @@ time_entry_activities = []
 time_entry_activities = YAML.load_file('./tmp/import/time_entry_activity.yml') if File.exists?('./tmp/import/time_entry_activity.yml')
 
 import_time_entry_activity(time_entry_activities) if time_entry_activities.present?
+File.delete('./tmp/import/time_entry_activity.yml') if File.exists?('./tmp/import/time_entry_activity.yml')
 #{% endraw %}

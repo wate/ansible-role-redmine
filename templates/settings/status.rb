@@ -16,5 +16,7 @@ end
 
 statuses = []
 statuses = YAML.load_file('./tmp/import/status.yml') if File.exists?('./tmp/import/status.yml')
+
 import_status(statuses) if statuses.present?
+File.delete('./tmp/import/status.yml') if File.exists?('./tmp/import/status.yml')
 #{% endraw %}

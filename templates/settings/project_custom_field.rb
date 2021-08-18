@@ -13,5 +13,5 @@ project_custom_fields = []
 project_custom_fields = YAML.load_file('./tmp/import/project_custom_field.yml') if File.exists?('./tmp/import/project_custom_field.yml')
 
 import_project_custom_field(project_custom_fields) if project_custom_fields.present?
+File.delete('./tmp/import/project_custom_field.yml') if File.exists?('./tmp/import/project_custom_field.yml')
 #{% endraw %}
-
