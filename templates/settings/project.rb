@@ -22,7 +22,22 @@ def import_project(projects)
     if item.key?('trackers')
       project.tracker_ids = Tracker.where(:name => item['trackers']).pluck(:id)
     end
-    project.save
+    if project.save
+      if item.key?('members')
+        project.delete_all_members
+        project_members = []
+        item['members'].each do |member|
+          user = User.find_by_login(member['login'])
+          role_ids = Role.where(:name => member['role']).pluck(:id)
+          if user && role_ids.present?
+            project_member = Member.new(:project => project, :user_id => user.id)
+            project_member.set_editable_role_ids(role_ids)
+            project_members << project_member
+          end
+        end
+        project.members = project_members if project_members.present?
+      end
+    end
   end
   # 親プロジェクトがあるプロジェクトを登録
   has_parent_projects = projects.select {|item| item['parent'].present? }
@@ -51,6 +66,20 @@ def import_project(projects)
     if project.save
       parent = Project.where("identifier = :parent OR name = :parent", {parent: item['parent']}).sorted.first
       project.set_parent! parent if parent
+      if item.key?('members')
+        project.delete_all_members
+        project_members = []
+        item['members'].each do |member|
+          user = User.find_by_login(member['login'])
+          role_ids = Role.where(:name => member['role']).pluck(:id)
+          if user && role_ids.present?
+            project_member = Member.new(:project => project, :user_id => user.id)
+            project_member.set_editable_role_ids(role_ids)
+            project_members << project_member
+          end
+        end
+        project.members = project_members if project_members.present?
+      end
     end
   end
 end
