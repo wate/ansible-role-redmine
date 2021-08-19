@@ -1244,6 +1244,61 @@ redmine_puma_extra_cfg: ""
 #       - issue_templates
 
 # --------------------
+# Redmineの設定(view customizeプラグイン)
+# --------------------
+# redmine_view_customize:
+#   - name: 名前(コメントとして登録されます)
+#     code: "{{ lookup('file', 'path/to/scropt.js') }}"
+#     ## ---------------
+#     ## オプション
+#     ## ---------------
+#     ## パスのパターン
+#     path_pattern: ""
+#     ## プロジェクトのパターン
+#     project_pattern: ""
+#     ## 挿入位置
+#     # * html_head：全ページのヘッダ(初期胃)
+#     # * issue_form：チケット入力欄の下
+#     # * issue_show：チケット詳細の下
+#     # * html_bottom：全ページの末尾
+#     insertion_position: html_head
+#     ## 種別
+#     # * javascript：JavaScript(初期胃)
+#     # * css：CSS
+#     # * html：HTML
+#     customize_type: javascript
+#     ## 有効
+#     is_enabled: true
+
+# --------------------
+# Redmineの設定(issue templatesプラグインのグルーバルチケットテンプレート)
+# --------------------
+# redmine_issue_templates:
+#     ## トラッカー
+#   - tracker: 不具合
+#     ## テンプレート名
+#     name: デフォルト
+#     ## チケット本文
+#     description: "{{ lookup('file', 'path/to/template.md') }}"
+#     ## ---------------
+#     ## オプション
+#     ## ---------------
+#     ## チケットタイトル
+#     issue_title: "(不具合の内容を端的に記載します)"
+#     ## デフォルト値
+#     is_default: true
+#     ## 有効
+#     enabled: true
+#     ## メモ
+#     note: "メモです"
+#     ## 関連リンク
+#     related_link: "https://www.google.com/"
+#     ## 関連リンクのタイトル
+#     link_title: ggks
+#     ## 表示順序
+#     position: 1
+
+# --------------------
 # 2回目以降の再インポート判定
 # --------------------
 redmine_reimport: false
