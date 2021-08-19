@@ -1282,3 +1282,5 @@ redmine_reimport_group: false
 redmine_reimport_project: false
 ## view customize
 redmine_reimport_view_customize: false
+## チケットテンプレート
+redmine_reimport_issue_templates: false
