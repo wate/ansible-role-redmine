@@ -82,6 +82,19 @@ def import_user(users)
     if item.key?('textarea_font') && allow_textarea_font_values.include?(item['textarea_font'])
       user.pref.textarea_font = item['textarea_font']
     end
+    # カスタムフィールド
+    if item.key?('custom_fields')
+      custom_field_values = {}
+      item['custom_fields'].each do |custom_field|
+        if custom_field['id'].present?
+          cf = UserCustomField.find_by_id(custom_field['id'])
+        else
+          cf = UserCustomField.find_by_name(custom_field['name'])
+        end
+        custom_field_values[cf.id] = custom_field['value'] if cf
+      end
+      user.custom_field_values = custom_field_values
+    end
     if item.key?('locked')
       user.status = item['locked'] ? User::STATUS_LOCKED : User::STATUS_ACTIVE
     end
