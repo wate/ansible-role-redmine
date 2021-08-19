@@ -1280,3 +1280,5 @@ redmine_reimport_user: false
 redmine_reimport_group: false
 ## プロジェクト
 redmine_reimport_project: false
+## view customize
+redmine_reimport_view_customize: false
