@@ -147,41 +147,6 @@ redmine_plugins: []
 redmine_lang: ja
 
 # --------------------
-# 2回目以降の再インポート判定
-# --------------------
-redmine_reimport: false
-## システム管理者
-redmine_reimport_admin: false
-## チケットのステータス
-redmine_reimport_issue_status: true
-## トラッカー
-redmine_reimport_tracker: true
-## 設定
-redmine_reimport_setting: true
-## ロール
-redmine_reimport_role: true
-## カスタムフィールド(チケット)
-redmine_reimport_issue_custom_field: true
-## カスタムフィールド(プロジェクト)
-redmine_reimport_project_custom_field: true
-## カスタムフィールド(ユーザー)
-redmine_reimport_user_custom_field: true
-## チケットの優先順位
-redmine_reimport_priority: true
-## 文書カテゴリ
-redmine_reimport_document_category: true
-## 作業分類
-redmine_reimport_time_entry_activity: true
-## ワークフロー
-redmine_reimport_workflow: true
-## ユーザー
-redmine_reimport_user: false
-## グループ
-redmine_reimport_group: true
-## プロジェクト
-redmine_reimport_project: false
-
-# --------------------
 # Redmineの設定(管理)
 # --------------------
 redmine_settings:
@@ -1224,6 +1189,7 @@ redmine_puma_extra_cfg: ""
 #       - user2_login
 #       - user3_login
 #       - user4_login
+
 # --------------------
 # Redmineの設定(プロジェクト)
 # --------------------
@@ -1276,3 +1242,40 @@ redmine_puma_extra_cfg: ""
 #       - boards
 #       # チケットテンプレート
 #       - issue_templates
+
+# --------------------
+# 2回目以降の再インポート判定
+# --------------------
+redmine_reimport: false
+## 全データ
+redmine_reimport_all: true
+## システム管理者
+redmine_reimport_admin: false
+## チケットのステータス
+redmine_reimport_issue_status: false
+## トラッカー
+redmine_reimport_tracker: false
+## 設定
+redmine_reimport_setting: false
+## ロール
+redmine_reimport_role: false
+## カスタムフィールド(チケット)
+redmine_reimport_issue_custom_field: false
+## カスタムフィールド(プロジェクト)
+redmine_reimport_project_custom_field: false
+## カスタムフィールド(ユーザー)
+redmine_reimport_user_custom_field: false
+## チケットの優先順位
+redmine_reimport_priority: false
+## 文書カテゴリ
+redmine_reimport_document_category: false
+## 作業分類
+redmine_reimport_time_entry_activity: false
+## ワークフロー
+redmine_reimport_workflow: false
+## ユーザー
+redmine_reimport_user: false
+## グループ
+redmine_reimport_group: false
+## プロジェクト
+redmine_reimport_project: false
