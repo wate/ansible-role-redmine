@@ -1247,10 +1247,11 @@ redmine_puma_extra_cfg: ""
 # 2回目以降の再インポート判定
 # --------------------
 redmine_reimport: false
-## 全データ
-redmine_reimport_all: true
 ## システム管理者
 redmine_reimport_admin: false
+
+## 全データ(対象はシステム管理者以外の全て)
+redmine_reimport_all: true
 ## チケットのステータス
 redmine_reimport_issue_status: false
 ## トラッカー

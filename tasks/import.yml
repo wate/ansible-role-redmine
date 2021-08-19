@@ -8,8 +8,6 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
-    or
     redmine_reimport_admin
 - name: create import issue status stting files
   template:
