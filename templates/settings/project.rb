@@ -22,6 +22,19 @@ def import_project(projects)
     if item.key?('trackers')
       project.tracker_ids = Tracker.where(:name => item['trackers']).pluck(:id)
     end
+    # カスタムフィールド
+    if item.key?('custom_fields')
+      custom_field_values = {}
+      item['custom_fields'].each do |custom_field|
+        if custom_field['id'].present?
+          cf = ProjectCustomField.find_by_id(custom_field['id'])
+        else
+          cf = ProjectCustomField.find_by_name(custom_field['name'])
+        end
+        custom_field_values[cf.id] = custom_field['value'] if cf
+      end
+      project.custom_field_values = custom_field_values
+    end
     if project.save
       if item.key?('members')
         project.delete_all_members
@@ -62,6 +75,19 @@ def import_project(projects)
     # トラッカー
     if item.key?('trackers')
       project.tracker_ids = Tracker.where(:name => item['trackers']).pluck(:id)
+    end
+    # カスタムフィールド
+    if item.key?('custom_fields')
+      custom_field_values = {}
+      item['custom_fields'].each do |custom_field|
+        if custom_field['id'].present?
+          cf = ProjectCustomField.find_by_id(custom_field['id'])
+        else
+          cf = ProjectCustomField.find_by_name(custom_field['name'])
+        end
+        custom_field_values[cf.id] = custom_field['value'] if cf
+      end
+      project.custom_field_values = custom_field_values
     end
     if project.save
       parent = Project.where("identifier = :parent OR name = :parent", {parent: item['parent']}).sorted.first
