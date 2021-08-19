@@ -14,7 +14,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/status.yml"
   vars:
-    redmine_import_data: "{{ redmine_issue_statuses | default({}) }}"
+    redmine_import_data: "{{ redmine_issue_statuses | default([]) }}"
   when: |
     generate_token_result is changed
     or
@@ -26,7 +26,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/tracker.yml"
   vars:
-    redmine_import_data: "{{ redmine_trackers | default({}) }}"
+    redmine_import_data: "{{ redmine_trackers | default([]) }}"
   when: |
     generate_token_result is changed
     or
@@ -50,7 +50,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/role.yml"
   vars:
-    redmine_import_data: "{{ redmine_roles | default({}) }}"
+    redmine_import_data: "{{ redmine_roles | default([]) }}"
   when: |
     generate_token_result is changed
     or
@@ -62,7 +62,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/issue_custom_field.yml"
   vars:
-    redmine_import_data: "{{ redmine_issue_custom_fields | default({}) }}"
+    redmine_import_data: "{{ redmine_issue_custom_fields | default([]) }}"
   when: |
     generate_token_result is changed
     or
@@ -74,7 +74,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/project_custom_field.yml"
   vars:
-    redmine_import_data: "{{ redmine_project_custom_fields | default({}) }}"
+    redmine_import_data: "{{ redmine_project_custom_fields | default([]) }}"
   when: |
     generate_token_result is changed
     or
@@ -86,7 +86,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/user_custom_field.yml"
   vars:
-    redmine_import_data: "{{ redmine_user_custom_fields | default({}) }}"
+    redmine_import_data: "{{ redmine_user_custom_fields | default([]) }}"
   when: |
     generate_token_result is changed
     or
@@ -98,7 +98,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/priority.yml"
   vars:
-    redmine_import_data: "{{ redmine_priorities | default({}) }}"
+    redmine_import_data: "{{ redmine_priorities | default([]) }}"
   when: |
     generate_token_result is changed
     or
@@ -110,7 +110,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/document_category.yml"
   vars:
-    redmine_import_data: "{{ redmine_document_categories | default({}) }}"
+    redmine_import_data: "{{ redmine_document_categories | default([]) }}"
   when: |
     generate_token_result is changed
     or
@@ -122,7 +122,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/time_entry_activity.yml"
   vars:
-    redmine_import_data: "{{ redmine_time_entry_activities | default({}) }}"
+    redmine_import_data: "{{ redmine_time_entry_activities | default([]) }}"
   when: |
     generate_token_result is changed
     or
@@ -134,7 +134,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/workflow.yml"
   vars:
-    redmine_import_data: "{{ redmine_workflows | default({}) }}"
+    redmine_import_data: "{{ redmine_workflows | default([]) }}"
   when: |
     generate_token_result is changed
     or
@@ -146,7 +146,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/user.yml"
   vars:
-    redmine_import_data: "{{ redmine_users | default({}) }}"
+    redmine_import_data: "{{ redmine_users | default([]) }}"
   when: |
     generate_token_result is changed
     or
@@ -158,7 +158,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/group.yml"
   vars:
-    redmine_import_data: "{{ redmine_groups | default({}) }}"
+    redmine_import_data: "{{ redmine_groups | default([]) }}"
   when: |
     generate_token_result is changed
     or
@@ -170,7 +170,7 @@
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/project.yml"
   vars:
-    redmine_import_data: "{{ redmine_projects | default({}) }}"
+    redmine_import_data: "{{ redmine_projects | default([]) }}"
   when: |
     generate_token_result is changed
     or
