@@ -441,6 +441,149 @@ redmine_puma_extra_cfg: ""
 #   - name: ドキュメント
 
 # --------------------
+# Redmineの設定(カスタムクエリ)
+# --------------------
+# --
+# 検索条件の指定文字列
+# --
+# "="   => 等しい
+# "!"   => 等しくない
+# "o"   => 未完了
+# "c"   => 完了
+# "!*"  => なし
+# "*"   => すべて
+# ">="  => 以上
+# "<="  => 以下
+# "><"  => 次の範囲内
+# "<t+" => N日後以前
+# ">t+" => N日後以降
+# "><t+"=> 今後N日
+# "t+"  => N日後
+# "nd"  => 明日
+# "t"   => 今日
+# "ld"  => 昨日
+# "nw"  => 来週
+# "w"   => 今週
+# "lw"  => 先週
+# "l2w" => 直近2週間
+# "nm"  => 来月
+# "m"   => 今月
+# "lm"  => 先月
+# "y"   => 今年
+# ">t-" => N日前以降
+# "<t-" => N日前以前
+# "><t-"=> 過去N日
+# "t-"  => N日前
+# "~"   => 含む
+# "!~"  => 含まない
+# "^"   => 前方一致
+# "$"   => 後方一致
+# "=p"  => 次のプロジェクト内のチケット
+# "=!p" => 次のプロジェクト外のチケット
+# "!p"  => 次のプロジェクト内のチケットを除く
+# "*o"  => 未完了のチケット
+# "!o"  => なし または完了したチケット
+# --
+# redmine_custom_queries:
+#     ## カスタムケリ名
+#   - name: 先月度実績
+#     ## フィルター
+#     filters:
+#       ## フィルタ項目
+#       status:
+#         ## 検索条件
+#         operator: "="
+#         ## 検索値
+#         values: 終了
+#       tracker:
+#         operator: "="
+#         values:
+#           - 不具合
+#           - 機能
+#           - 運用保守
+#       assigned_to:
+#         operator: "="
+#         values: me
+#       closed_on:
+#         operator: "lm"
+#     ## --------------
+#     ## オプション
+#     ## --------------
+#     ## 表示項目
+#     columns:
+#       # トラッカー
+#       - tracker
+#       # 題名
+#       - subject
+#       # 優先度
+#       - priority
+#       # 担当者
+#       - assigned_to
+#       # 予定時間
+#       - estimated_hours
+#       # 作業時間
+#       - spent_hours
+#       # 終了日
+#       - closed_on
+#     ## 並び順
+#     sort:
+#       # 終了日/昇順
+#       - field: closed_on
+#         order: asc
+#       # チケットNo/昇順
+#       - field: id
+#         order: asc
+#     ## 合計
+#     total:
+#       # 予定時間
+#       - estimated_hours
+#       # 作業時間
+#       - spent_hours
+#   - name: 今月度度実績
+#     filters:
+#       status:
+#         operator: "="
+#         values: 終了
+#       tracker:
+#         operator: "="
+#         values:
+#           - タスク
+#           - 不具合
+#           - 運用保守
+#       assigned_to:
+#         operator: "="
+#         values: me
+#       closed_on:
+#         operator: "m"
+#     columns:
+#       # トラッカー
+#       - tracker
+#       # 題名
+#       - subject
+#       # 優先度
+#       - priority
+#       # 担当者
+#       - assigned_to
+#       # 予定時間
+#       - estimated_hours
+#       # 作業時間
+#       - spent_hours
+#       # 終了日
+#       - closed_on
+#     sort:
+#       # 終了日/昇順
+#       - field: closed_on
+#         order: asc
+#       # チケットNo/昇順
+#       - field: id
+#         order: asc
+#     total:
+#       # 予定時間
+#       - estimated_hours
+#       # 作業時間
+#       - spent_hours
+
+# --------------------
 # Redmineの設定(ワークフロー)
 # --------------------
 # redmine_workflows:
