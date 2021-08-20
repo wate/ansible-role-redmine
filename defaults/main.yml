@@ -147,39 +147,6 @@ redmine_plugins: []
 redmine_lang: ja
 
 # --------------------
-# 2回目以降の再インポート判定
-# --------------------
-redmine_reimport: false
-## システム管理者
-redmine_reimport_admin: false
-## チケットのステータス
-redmine_reimport_issue_status: true
-## トラッカー
-redmine_reimport_tracker: true
-## 設定
-redmine_reimport_setting: true
-## ロール
-redmine_reimport_role: true
-## カスタムフィールド(チケット)
-redmine_reimport_issue_custom_field: true
-## カスタムフィールド(プロジェクト)
-redmine_reimport_project_custom_field: true
-## カスタムフィールド(ユーザー)
-redmine_reimport_user_custom_field: true
-## チケットの優先順位
-redmine_reimport_priority: true
-## 文書カテゴリ
-redmine_reimport_document_category: true
-## 作業分類
-redmine_reimport_time_entry_activity: true
-## ワークフロー
-redmine_reimport_workflow: true
-## ユーザー
-redmine_reimport_user: false
-## プロジェクト
-redmine_reimport_project: false
-
-# --------------------
 # Redmineの設定(管理)
 # --------------------
 redmine_settings:
@@ -472,6 +439,149 @@ redmine_puma_extra_cfg: ""
 #     id: 9
 #   - name: テスト
 #   - name: ドキュメント
+
+# --------------------
+# Redmineの設定(カスタムクエリ)
+# --------------------
+# --
+# 検索条件の指定文字列
+# --
+# "="   => 等しい
+# "!"   => 等しくない
+# "o"   => 未完了
+# "c"   => 完了
+# "!*"  => なし
+# "*"   => すべて
+# ">="  => 以上
+# "<="  => 以下
+# "><"  => 次の範囲内
+# "<t+" => N日後以前
+# ">t+" => N日後以降
+# "><t+"=> 今後N日
+# "t+"  => N日後
+# "nd"  => 明日
+# "t"   => 今日
+# "ld"  => 昨日
+# "nw"  => 来週
+# "w"   => 今週
+# "lw"  => 先週
+# "l2w" => 直近2週間
+# "nm"  => 来月
+# "m"   => 今月
+# "lm"  => 先月
+# "y"   => 今年
+# ">t-" => N日前以降
+# "<t-" => N日前以前
+# "><t-"=> 過去N日
+# "t-"  => N日前
+# "~"   => 含む
+# "!~"  => 含まない
+# "^"   => 前方一致
+# "$"   => 後方一致
+# "=p"  => 次のプロジェクト内のチケット
+# "=!p" => 次のプロジェクト外のチケット
+# "!p"  => 次のプロジェクト内のチケットを除く
+# "*o"  => 未完了のチケット
+# "!o"  => なし または完了したチケット
+# --
+# redmine_custom_queries:
+#     ## カスタムケリ名
+#   - name: 先月度実績
+#     ## フィルター
+#     filters:
+#       ## フィルタ項目
+#       status:
+#         ## 検索条件
+#         operator: "="
+#         ## 検索値
+#         values: 終了
+#       tracker:
+#         operator: "="
+#         values:
+#           - 不具合
+#           - 機能
+#           - 運用保守
+#       assigned_to:
+#         operator: "="
+#         values: me
+#       closed_on:
+#         operator: "lm"
+#     ## --------------
+#     ## オプション
+#     ## --------------
+#     ## 表示項目
+#     columns:
+#       # トラッカー
+#       - tracker
+#       # 題名
+#       - subject
+#       # 優先度
+#       - priority
+#       # 担当者
+#       - assigned_to
+#       # 予定時間
+#       - estimated_hours
+#       # 作業時間
+#       - spent_hours
+#       # 終了日
+#       - closed_on
+#     ## 並び順
+#     sort:
+#       # 終了日/昇順
+#       - field: closed_on
+#         order: asc
+#       # チケットNo/昇順
+#       - field: id
+#         order: asc
+#     ## 合計
+#     total:
+#       # 予定時間
+#       - estimated_hours
+#       # 作業時間
+#       - spent_hours
+#   - name: 今月度度実績
+#     filters:
+#       status:
+#         operator: "="
+#         values: 終了
+#       tracker:
+#         operator: "="
+#         values:
+#           - タスク
+#           - 不具合
+#           - 運用保守
+#       assigned_to:
+#         operator: "="
+#         values: me
+#       closed_on:
+#         operator: "m"
+#     columns:
+#       # トラッカー
+#       - tracker
+#       # 題名
+#       - subject
+#       # 優先度
+#       - priority
+#       # 担当者
+#       - assigned_to
+#       # 予定時間
+#       - estimated_hours
+#       # 作業時間
+#       - spent_hours
+#       # 終了日
+#       - closed_on
+#     sort:
+#       # 終了日/昇順
+#       - field: closed_on
+#         order: asc
+#       # チケットNo/昇順
+#       - field: id
+#         order: asc
+#     total:
+#       # 予定時間
+#       - estimated_hours
+#       # 作業時間
+#       - spent_hours
 
 # --------------------
 # Redmineの設定(ワークフロー)
@@ -1213,6 +1323,17 @@ redmine_puma_extra_cfg: ""
 #     # locked: true
 
 # --------------------
+# Redmineの設定(グループ)
+# --------------------
+# redmine_groups:
+#   - name: グループ名
+#     users:
+#       - user1_login
+#       - user2_login
+#       - user3_login
+#       - user4_login
+
+# --------------------
 # Redmineの設定(プロジェクト)
 # --------------------
 # redmine_projects:
@@ -1264,3 +1385,104 @@ redmine_puma_extra_cfg: ""
 #       - boards
 #       # チケットテンプレート
 #       - issue_templates
+
+# --------------------
+# Redmineの設定(view customizeプラグイン)
+# --------------------
+# redmine_view_customize:
+#   - name: 名前(コメントとして登録されます)
+#     code: "{{ lookup('file', 'path/to/scropt.js') }}"
+#     ## ---------------
+#     ## オプション
+#     ## ---------------
+#     ## パスのパターン
+#     path_pattern: ""
+#     ## プロジェクトのパターン
+#     project_pattern: ""
+#     ## 挿入位置
+#     # * html_head：全ページのヘッダ(初期胃)
+#     # * issue_form：チケット入力欄の下
+#     # * issue_show：チケット詳細の下
+#     # * html_bottom：全ページの末尾
+#     insertion_position: html_head
+#     ## 種別
+#     # * javascript：JavaScript(初期胃)
+#     # * css：CSS
+#     # * html：HTML
+#     customize_type: javascript
+#     ## 有効
+#     is_enabled: true
+
+# --------------------
+# Redmineの設定(issue templatesプラグインのグルーバルチケットテンプレート)
+# --------------------
+# redmine_issue_templates:
+#     ## トラッカー
+#   - tracker: 不具合
+#     ## テンプレート名
+#     name: デフォルト
+#     ## チケット本文
+#     description: "{{ lookup('file', 'path/to/template.md') }}"
+#     ## ---------------
+#     ## オプション
+#     ## ---------------
+#     ## チケットタイトル
+#     issue_title: "(不具合の内容を端的に記載します)"
+#     ## デフォルト値
+#     is_default: true
+#     ## 有効
+#     enabled: true
+#     ## メモ
+#     note: "メモです"
+#     ## 関連リンク
+#     related_link: "https://www.google.com/"
+#     ## 関連リンクのタイトル
+#     link_title: ggks
+#     ## 表示順序
+#     position: 1
+
+# --------------------
+# 2回目以降の再インポート判定
+# --------------------
+redmine_reimport: false
+## システム管理者
+redmine_reimport_admin: false
+
+## 全データ(対象はシステム管理者以外の全て)
+redmine_reimport_all: true
+## チケットのステータス
+redmine_reimport_issue_status: false
+## トラッカー
+redmine_reimport_tracker: false
+## 設定
+redmine_reimport_setting: false
+## ロール
+redmine_reimport_role: false
+## カスタムフィールド(チケット)
+redmine_reimport_issue_custom_field: false
+## カスタムフィールド(プロジェクト)
+redmine_reimport_project_custom_field: false
+## カスタムフィールド(ユーザー)
+redmine_reimport_user_custom_field: false
+## チケットの優先順位
+redmine_reimport_priority: false
+## 文書カテゴリ
+redmine_reimport_document_category: false
+## 作業分類
+redmine_reimport_time_entry_activity: false
+## カスタムクエリ
+redmine_reimport_custom_query: false
+## ワークフロー
+redmine_reimport_workflow: false
+## ユーザー
+redmine_reimport_user: false
+## グループ
+redmine_reimport_group: false
+## プロジェクト
+redmine_reimport_project: false
+## view customize
+redmine_reimport_view_customize: false
+## チケットテンプレート
+redmine_reimport_issue_templates: false
+## コメント用テンプレート
+redmine_reimport_issue_templates_note: false

@@ -1,102 +1,231 @@
 ---
-- name: create import admin stting files
+- name: create import admin setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/admin.yml"
   vars:
     redmine_import_data: "{{ redmine_admin | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_admin
-- name: create import issue status stting files
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_admin
+- name: create import issue status setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/status.yml"
   vars:
-    redmine_import_data: "{{ redmine_issue_statuses | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_issue_status
-- name: create import tracker stting files
+    redmine_import_data: "{{ redmine_issue_statuses | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_issue_status
+- name: create import tracker setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/tracker.yml"
   vars:
-    redmine_import_data: "{{ redmine_trackers | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_tracker
-- name: create import redmine stting files
+    redmine_import_data: "{{ redmine_trackers | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_tracker
+- name: create import redmine setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/setting.yml"
   vars:
     redmine_import_data: "{{ redmine_settings | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_setting
-- name: create import role stting files
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_setting
+- name: create import role setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/role.yml"
   vars:
-    redmine_import_data: "{{ redmine_roles | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_role
-- name: create import issue custom field stting files
+    redmine_import_data: "{{ redmine_roles | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_role
+- name: create import issue custom field setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/issue_custom_field.yml"
   vars:
-    redmine_import_data: "{{ redmine_issue_custom_fields | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_issue_custom_field
-- name: create import project custom field stting files
+    redmine_import_data: "{{ redmine_issue_custom_fields | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_issue_custom_field
+- name: create import project custom field setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/project_custom_field.yml"
   vars:
-    redmine_import_data: "{{ redmine_project_custom_fields | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_project_custom_field
-- name: create import user custom field stting files
+    redmine_import_data: "{{ redmine_project_custom_fields | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_project_custom_field
+- name: create import user custom field setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/user_custom_field.yml"
   vars:
-    redmine_import_data: "{{ redmine_user_custom_fields | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_user_custom_field
-- name: create import priority stting files
+    redmine_import_data: "{{ redmine_user_custom_fields | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_user_custom_field
+- name: create import priority setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/priority.yml"
   vars:
-    redmine_import_data: "{{ redmine_priorities | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_priority
-- name: create import document category stting files
+    redmine_import_data: "{{ redmine_priorities | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_priority
+- name: create import document category setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/document_category.yml"
   vars:
-    redmine_import_data: "{{ redmine_document_categories | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_document_category
-- name: create import time entry activity stting files
+    redmine_import_data: "{{ redmine_document_categories | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_document_category
+- name: create import time entry activity setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/time_entry_activity.yml"
   vars:
-    redmine_import_data: "{{ redmine_time_entry_activities | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_time_entry_activity
-- name: create import workflow stting files
+    redmine_import_data: "{{ redmine_time_entry_activities | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_time_entry_activity
+- name: create import custom query setting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/custom_query.yml"
+  vars:
+    redmine_import_data: "{{ redmine_custom_queries | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_custom_query
+
+- name: create import workflow setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/workflow.yml"
   vars:
-    redmine_import_data: "{{ redmine_workflows | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_workflow
-- name: create import user stting files
+    redmine_import_data: "{{ redmine_workflows | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_workflow
+- name: create import user setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/user.yml"
   vars:
-    redmine_import_data: "{{ redmine_users | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_user
-- name: create import project stting files
+    redmine_import_data: "{{ redmine_users | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_user
+- name: create import group setting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/group.yml"
+  vars:
+    redmine_import_data: "{{ redmine_groups | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_group
+- name: create import project setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/project.yml"
   vars:
-    redmine_import_data: "{{ redmine_projects | default({}) }}"
-  when: generate_token_result is changed or redmine_reimport_project
+    redmine_import_data: "{{ redmine_projects | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_project
+- name: create import view customize setting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/view_customize.yml"
+  vars:
+    redmine_import_data: "{{ redmine_view_customize | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_view_customize
+- name: create import issue templates setting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/issue_template.yml"
+  vars:
+    redmine_import_data: "{{ redmine_issue_templates | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_issue_templates
+- name: create import note templates setting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/note_template.yml"
+  vars:
+    redmine_import_data: "{{ redmine_note_templates | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_issue_templates_note
 - name: update redmine settings
   shell: "bundle exec rails r {{ redmine_home }}/tmp/import.rb"
   args:
