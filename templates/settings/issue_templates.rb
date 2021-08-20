@@ -29,6 +29,7 @@ def import_issue_templates(settings)
       template.link_title = item['link_title'] if item.key?('link_title')
       ## 表示順序
       template.position = item['position'] if item.key?('position')
+      template.author = User.current if template.new_record?
       template.save
     end
   end

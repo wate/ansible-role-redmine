@@ -1339,3 +1339,5 @@ redmine_reimport_project: false
 redmine_reimport_view_customize: false
 ## チケットテンプレート
 redmine_reimport_issue_templates: false
+## コメント用テンプレート
+redmine_reimport_issue_templates_note: false
