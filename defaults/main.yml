@@ -1327,6 +1327,8 @@ redmine_reimport_priority: false
 redmine_reimport_document_category: false
 ## 作業分類
 redmine_reimport_time_entry_activity: false
+## カスタムクエリ
+redmine_reimport_custom_query: false
 ## ワークフロー
 redmine_reimport_workflow: false
 ## ユーザー

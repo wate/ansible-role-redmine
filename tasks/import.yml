@@ -1,5 +1,5 @@
 ---
-- name: create import admin stting files
+- name: create import admin setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/admin.yml"
@@ -9,7 +9,7 @@
     generate_token_result is changed
     or
     redmine_reimport_admin
-- name: create import issue status stting files
+- name: create import issue status setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/status.yml"
@@ -21,7 +21,7 @@
     redmine_reimport_all
     or
     redmine_reimport_issue_status
-- name: create import tracker stting files
+- name: create import tracker setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/tracker.yml"
@@ -33,7 +33,7 @@
     redmine_reimport_all
     or
     redmine_reimport_tracker
-- name: create import redmine stting files
+- name: create import redmine setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/setting.yml"
@@ -45,7 +45,7 @@
     redmine_reimport_all
     or
     redmine_reimport_setting
-- name: create import role stting files
+- name: create import role setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/role.yml"
@@ -57,7 +57,7 @@
     redmine_reimport_all
     or
     redmine_reimport_role
-- name: create import issue custom field stting files
+- name: create import issue custom field setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/issue_custom_field.yml"
@@ -69,7 +69,7 @@
     redmine_reimport_all
     or
     redmine_reimport_issue_custom_field
-- name: create import project custom field stting files
+- name: create import project custom field setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/project_custom_field.yml"
@@ -81,7 +81,7 @@
     redmine_reimport_all
     or
     redmine_reimport_project_custom_field
-- name: create import user custom field stting files
+- name: create import user custom field setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/user_custom_field.yml"
@@ -93,7 +93,7 @@
     redmine_reimport_all
     or
     redmine_reimport_user_custom_field
-- name: create import priority stting files
+- name: create import priority setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/priority.yml"
@@ -105,7 +105,7 @@
     redmine_reimport_all
     or
     redmine_reimport_priority
-- name: create import document category stting files
+- name: create import document category setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/document_category.yml"
@@ -117,7 +117,7 @@
     redmine_reimport_all
     or
     redmine_reimport_document_category
-- name: create import time entry activity stting files
+- name: create import time entry activity setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/time_entry_activity.yml"
@@ -129,7 +129,20 @@
     redmine_reimport_all
     or
     redmine_reimport_time_entry_activity
-- name: create import workflow stting files
+- name: create import custom query setting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/custom_query.yml"
+  vars:
+    redmine_import_data: "{{ redmine_custom_queries | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_custom_query
+
+- name: create import workflow setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/workflow.yml"
@@ -141,7 +154,7 @@
     redmine_reimport_all
     or
     redmine_reimport_workflow
-- name: create import user stting files
+- name: create import user setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/user.yml"
@@ -153,7 +166,7 @@
     redmine_reimport_all
     or
     redmine_reimport_user
-- name: create import group stting files
+- name: create import group setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/group.yml"
@@ -165,7 +178,7 @@
     redmine_reimport_all
     or
     redmine_reimport_group
-- name: create import project stting files
+- name: create import project setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/project.yml"
@@ -177,7 +190,7 @@
     redmine_reimport_all
     or
     redmine_reimport_project
-- name: create import view customize stting files
+- name: create import view customize setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/view_customize.yml"
@@ -189,7 +202,7 @@
     redmine_reimport_all
     or
     redmine_reimport_view_customize
-- name: create import issue templates stting files
+- name: create import issue templates setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/issue_template.yml"
@@ -201,7 +214,7 @@
     redmine_reimport_all
     or
     redmine_reimport_issue_templates
-- name: create import note templates stting files
+- name: create import note templates setting files
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_home }}/tmp/import/note_template.yml"
