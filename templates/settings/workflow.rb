@@ -2,7 +2,6 @@
 def import_workflow(workflows)
   all_statuses = IssueStatus.all
   workflows.each do |item|
-    # puts '---------------------------'
     roles = Role.where(:name =>  item['roles']).to_a
     trackers = Tracker.where(:name =>  item['trackers']).to_a
 
@@ -15,7 +14,6 @@ def import_workflow(workflows)
         transitions[status_id][status.id.to_s] = {'always' => false, 'author' => false, 'assignee' => false}
       end
     end
-    # puts YAML.dump(transitions)
     item['transitions'].each do |transition|
       from_status_id = '0'
       if transition['from']
@@ -25,11 +23,9 @@ def import_workflow(workflows)
       to_statuses = IssueStatus.where(:name => transition['to'])
       to_statuses.each do |to_status|
         to_status_id = to_status.id.to_s
-        # puts transition['from'].to_s + '(' + from_status_id + ') => ' + to_status.name + '(' + to_status_id + ')'
         transitions[from_status_id][to_status_id]['always'] = true
       end
     end
-    # puts YAML.dump(transitions)
     WorkflowTransition.replace_transitions(trackers, roles, transitions)
   end
 end
