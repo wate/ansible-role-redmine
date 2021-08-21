@@ -632,6 +632,54 @@ redmine_puma_extra_cfg: ""
 #         to: [確認待ち, 終了]
 
 # --------------------
+# Redmineの設定(ワークフロー：フィールドの権限)
+# --------------------
+## -----
+## フィールドの指定
+## -----
+# project：プロジェクト
+# tracker：トラッカー
+# subject：題名
+# description：説明
+# priority：優先度
+# assigned_to：担当者
+# category：カテゴリ
+# fixed_version：対象バージョン
+# parent_issue：親チケット
+# start_date：開始日
+# due_date：期日
+# estimated_hours：予定時間
+# done_ratio：進捗率
+# is_private：プライベート
+#
+# ※上記以外は「カスタムフィールド」として認識されます
+#
+## -----
+## アクセス権の　設定値
+## -----
+# nil：未指定
+# readonly：読み取り専用
+# required：必須
+##
+# redmine_workflow_permissions:
+#   - roles: [管理者, 開発者, 報告者]
+#     trackers: [不具合, 機能, 運用保守, その他]
+#     permissions:
+#       # 以下のステータスの場合は「担当者」を必須化
+#       - statuses: [対応中, 対応済み, 確認待ち, フィードバック, 終了]
+#         fields: assigned_to
+#         permission: required
+#       # ステータスが「破棄」以外の場合は、カスタムフィールド「破棄理由」を非表示にする
+#       - statuses: [未対応, 対応中, 対応済み, 確認待ち, フィードバック, 終了]
+#         fields: 破棄理由
+#         permission: readonly
+#       # ステータスが「破棄」の場合、カスタムフィールド「破棄理由」を必須化
+#       - statuses: 破棄
+#         fields: 破棄理由
+#         permission: required
+
+
+# --------------------
 # Redmineの設定(ロールと権限)
 # --------------------
 # redmine_roles:
