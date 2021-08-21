@@ -29,6 +29,12 @@ def import_role(roles)
     end
     # 権限
     role.permissions = item['permissions'] if item.key?('permissions')
+    # 権限(追加)
+    if item.key?('append_permissions')
+      role_permissions = role.permissions
+      role_permissions.concat item['append_permissions']
+      role.permissions = role_permissions
+    end
     # メンバーの管理
     role.all_roles_managed = '1'
     role.managed_role_ids = []
@@ -81,7 +87,6 @@ def import_role(roles)
     end
     role.permissions_all_trackers = permissions_all_trackers
     role.permissions_tracker_ids = permissions_tracker_ids
-
     # 並び順
     role.position = item['position'] if item.key?('position')
     role.save
@@ -97,5 +102,5 @@ roles = [];
 roles = YAML.load_file('./tmp/import/role.yml') if File.exists?('./tmp/import/role.yml')
 
 import_role(roles) if roles.present?
-File.delete('./tmp/import/role.yml') if File.exists?('./tmp/import/role.yml')
+# File.delete('./tmp/import/role.yml') if File.exists?('./tmp/import/role.yml')
 #{% endraw %}
