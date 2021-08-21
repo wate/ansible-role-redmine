@@ -1474,6 +1474,8 @@ redmine_reimport_time_entry_activity: false
 redmine_reimport_custom_query: false
 ## ワークフロー
 redmine_reimport_workflow: false
+## ワークフロー(フィールド)
+redmine_reimport_workflow_permission: false
 ## ユーザー
 redmine_reimport_user: false
 ## グループ

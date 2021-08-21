@@ -141,7 +141,6 @@
     redmine_reimport_all
     or
     redmine_reimport_custom_query
-
 - name: create import workflow setting files
   template:
     src: import_setting.yml.j2
@@ -154,6 +153,18 @@
     redmine_reimport_all
     or
     redmine_reimport_workflow
+- name: create import workflow permission setting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/workflow_permission.yml"
+  vars:
+    redmine_import_data: "{{ redmine_workflow_permissions | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_workflow_permission
 - name: create import user setting files
   template:
     src: import_setting.yml.j2
