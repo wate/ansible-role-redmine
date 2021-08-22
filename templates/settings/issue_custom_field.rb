@@ -14,4 +14,3 @@ issue_custom_fileds = YAML.load_file('./tmp/import/issue_custom_field.yml') if F
 import_issue_custom_filed(issue_custom_fileds) if issue_custom_fileds.present?
 File.delete('./tmp/import/issue_custom_field.yml') if File.exists?('./tmp/import/issue_custom_field.yml')
 #{% endraw %}
-

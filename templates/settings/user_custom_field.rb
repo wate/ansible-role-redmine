@@ -15,4 +15,3 @@ user_custom_fields = YAML.load_file('./tmp/import/user_custom_field.yml') if Fil
 import_user_custom_field(user_custom_fields) if user_custom_fields.present?
 File.delete('./tmp/import/user_custom_field.yml') if File.exists?('./tmp/import/user_custom_field.yml')
 #{% endraw %}
-

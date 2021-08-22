@@ -116,4 +116,3 @@ def import_custom_filed(cf, setting)
   cf.save
 end
 #{% endraw %}
-

@@ -102,5 +102,5 @@ roles = [];
 roles = YAML.load_file('./tmp/import/role.yml') if File.exists?('./tmp/import/role.yml')
 
 import_role(roles) if roles.present?
-# File.delete('./tmp/import/role.yml') if File.exists?('./tmp/import/role.yml')
+File.delete('./tmp/import/role.yml') if File.exists?('./tmp/import/role.yml')
 #{% endraw %}

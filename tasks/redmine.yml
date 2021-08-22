@@ -125,11 +125,12 @@
       notify: restart redmine
       register: plugin_install_from_file_result
     - name: install plugin dependency packages
-      apt:
+      yum:
         name: "{{ item.1 }}"
+        state: installed
       loop: "{{ redmine_plugins | subelements('required_packages', {'skip_missing': True}) }}"
       loop_control:
-        label: "{{ item.name }}"
+        label: "{{ item.1 }}"
       notify: restart redmine
       become: true
       become_user: root
