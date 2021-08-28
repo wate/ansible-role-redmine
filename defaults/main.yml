@@ -1435,6 +1435,55 @@ redmine_puma_extra_cfg: ""
 #       - issue_templates
 
 # --------------------
+# Redmineの設定(message customizeプラグイン)
+# --------------------
+# redmine_message_customize:
+#   ja:
+#     # トラッカー => チケット種別
+#     error_no_tracker_in_project: 'このプロジェクトにはチケット種別が登録されていません。プロジェクト設定を確認してください。'
+#     error_workflow_copy_source: 'コピー元となるチケット種別またはロールを選択してください'
+#     error_workflow_copy_target: 'コピー先となるチケット種別とロールを選択してください'
+#     error_can_not_delete_tracker: 'このチケット種別は使用中です。削除できません。'
+#     field_tracker: チケット種別
+#     setting_default_projects_tracker_ids: 新規プロジェクトにおいてデフォルトで有効になるチケット種別
+#     label_tracker: チケット種別
+#     label_tracker_plural: チケット種別
+#     label_tracker_new: 新しいチケット種別
+#     label_display_used_statuses_only: このチケット種別で使用中のステータスのみ表示
+#     text_workflow_edit: ワークフローを編集するロールとチケットを選んでください
+#     text_tracker_no_workflow: このチケット種別にワークフローが定義されていません
+#     text_no_configuration_data: "ロール、チケット種別、チケットのステータス、ワークフローがまだ設定されていません。\nデフォルト設定のロードを強くお勧めします。ロードした後、それを修正することができます。"
+#     error_no_tracker_allowed_for_new_issue_in_project: このプロジェクトにはチケットの追加が許可されているチケット種別がありません
+#     label_tracker_all: すべてのチケット種別
+#     text_status_no_workflow: このステータスはどのチケット種別のワークフローでも使われていません
+#     label_trackers_description: チケット種別の説明
+#     label_open_trackers_description: すべてのチケット種別の説明を表示
+#     text_select_apply_tracker: このチケット種別を適用
+#     # 文書 => ドキュメント
+#     project_module_documents: ドキュメント
+#     label_document: ドキュメント
+#     label_document_new: 新しいドキュメント
+#     label_document_plural: ドキュメント
+#     label_document_added: ドキュメントの追加
+#     enumeration_doc_categories: ドキュメントカテゴリ
+#     permission_view_documents: ドキュメントの閲覧
+#     permission_add_documents: ドキュメントの追加
+#     permission_edit_documents: ドキュメントの編集
+#     permission_delete_documents: ドキュメントの削除
+#     # ニュース => お知らせ
+#     permission_view_news: お知らせの閲覧
+#     permission_manage_news: お知らせの管理
+#     permission_comment_news: お知らせへのコメント
+#     project_module_news: お知らせ
+#     label_news: お知らせ
+#     label_news_new: お知らせを追加
+#     label_news_plural: お知らせ
+#     label_news_latest: 最新お知らせ
+#     label_news_view_all: すべてのお知らせを表示
+#     label_news_added: お知らせの追加
+#     label_news_comment_added: お知らせへのコメント追加
+
+# --------------------
 # Redmineの設定(view customizeプラグイン)
 # --------------------
 # redmine_view_customize:
@@ -1530,7 +1579,9 @@ redmine_reimport_user: false
 redmine_reimport_group: false
 ## プロジェクト
 redmine_reimport_project: false
-## view customize
+## メッセージカスタマイズ
+redmine_reimport_message_customize: false
+## ビューカスタマイズ
 redmine_reimport_view_customize: false
 ## チケットテンプレート
 redmine_reimport_issue_templates: false

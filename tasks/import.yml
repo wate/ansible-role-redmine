@@ -201,6 +201,18 @@
     redmine_reimport_all
     or
     redmine_reimport_project
+- name: create import message customize setting files
+  template:
+    src: import_setting.yml.j2
+    dest: "{{ redmine_home }}/tmp/import/message_customize.yml"
+  vars:
+    redmine_import_data: "{{ redmine_message_customize | default({}) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_message_customize
 - name: create import view customize setting files
   template:
     src: import_setting.yml.j2
