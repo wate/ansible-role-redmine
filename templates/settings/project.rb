@@ -50,6 +50,10 @@ def import_project(projects)
         end
         project.members = project_members if project_members.present?
       end
+      if item.key?('wiki_start_page')
+        project.wiki.start_page = item['wiki_start_page']
+        project.wiki.save
+      end
     end
   end
   # 親プロジェクトがあるプロジェクトを登録
@@ -105,6 +109,10 @@ def import_project(projects)
           end
         end
         project.members = project_members if project_members.present?
+      end
+      if item.key?('wiki_start_page')
+        project.wiki.start_page = item['wiki_start_page']
+        project.wiki.save
       end
     end
   end
