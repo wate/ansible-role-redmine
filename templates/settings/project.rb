@@ -54,6 +54,9 @@ def import_project(projects)
         project.wiki.start_page = item['wiki_start_page']
         project.wiki.save
       end
+      if item.key?('wiki_pages')
+        import_project_wiki_pages project, item['wiki_pages']
+      end
     end
   end
   # 親プロジェクトがあるプロジェクトを登録
@@ -114,7 +117,27 @@ def import_project(projects)
         project.wiki.start_page = item['wiki_start_page']
         project.wiki.save
       end
+      if item.key?('wiki_pages')
+        import_project_wiki_pages project, item['wiki_pages']
+      end
     end
+  end
+end
+
+def import_project_wiki_pages(project, wiki_pages)
+  wiki_pages.each do |wiki_page|
+    page = project.wiki.find_or_new_page wiki_page['name']
+    content = page.content || WikiContent.new(:page => page)
+    content.text = wiki_page['content']
+    content.author = User.current
+    page.save_with_content(content)
+  end
+
+  has_parent_wiki_pages = wiki_pages.select {|item| item['parent'].present? }
+  has_parent_wiki_pages.each do |wiki_page|
+    page = project.wiki.find_or_new_page wiki_page['name']
+    page.parent_title = wiki_page['parent']
+    page.save
   end
 end
 
