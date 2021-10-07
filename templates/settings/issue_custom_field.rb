@@ -9,8 +9,9 @@ def import_issue_custom_filed(custom_fileds)
 end
 
 issue_custom_fileds = []
-issue_custom_fileds = YAML.load_file('./tmp/import/issue_custom_field.yml') if File.exists?('./tmp/import/issue_custom_field.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'issue_custom_field.yml')
+issue_custom_fileds = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_issue_custom_filed(issue_custom_fileds) if issue_custom_fileds.present?
-File.delete('./tmp/import/issue_custom_field.yml') if File.exists?('./tmp/import/issue_custom_field.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

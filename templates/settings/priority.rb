@@ -18,8 +18,9 @@ def import_priority(priorities)
   end
 end
 priorities = []
-priorities = YAML.load_file('./tmp/import/priority.yml') if File.exists?('./tmp/import/priority.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'priority.yml')
+priorities = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_priority(priorities) if priorities.present?
-File.delete('./tmp/import/priority.yml') if File.exists?('./tmp/import/priority.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

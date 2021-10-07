@@ -8,8 +8,9 @@ def import_setting(setting)
 end
 
 setting = {};
-setting = YAML.load_file('./tmp/import/setting.yml') if File.exists?('./tmp/import/setting.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'setting.yml')
+setting = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_setting(setting) if setting.present?
-File.delete('./tmp/import/setting.yml') if File.exists?('./tmp/import/setting.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

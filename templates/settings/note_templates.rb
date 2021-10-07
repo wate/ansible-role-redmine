@@ -34,8 +34,9 @@ def import_note_templates(settings)
   end
 end
 settings = []
-settings = YAML.load_file('./tmp/import/note_template.yml') if File.exists?('./tmp/import/note_template.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'note_template.yml')
+settings = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_note_templates(settings) if settings.present?
-File.delete('./tmp/import/note_template.yml') if File.exists?('./tmp/import/note_template.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

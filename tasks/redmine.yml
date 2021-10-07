@@ -160,11 +160,6 @@
         dest: "{{ redmine_home }}/config/puma.rb"
         mode: "0644"
       notify: restart redmine
-    - name: create setting import script
-      template:
-        src: import.rb.j2
-        dest: "{{ redmine_home }}/tmp/import.rb"
-        mode: "0640"
     - name: create setting file directory
       file:
         path: "{{ redmine_home }}/tmp/import"

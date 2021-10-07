@@ -6,10 +6,9 @@ def import_message_customize(setting)
   end
 end
 setting = ''
-setting = File.read('./tmp/import/message_customize.yml') if File.exists?('./tmp/import/message_customize.yml')
-
-puts setting
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'message_customize.yml')
+setting = File.read(import_setting_file) if File.exists?(import_setting_file)
 
 import_message_customize(setting) if setting != '{}'
-File.delete('./tmp/import/message_customize.yml') if File.exists?('./tmp/import/message_customize.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

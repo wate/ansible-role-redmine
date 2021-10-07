@@ -18,8 +18,9 @@ def import_time_entry_activity(time_entry_activities)
   end
 end
 time_entry_activities = []
-time_entry_activities = YAML.load_file('./tmp/import/time_entry_activity.yml') if File.exists?('./tmp/import/time_entry_activity.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'time_entry_activity.yml')
+time_entry_activities = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_time_entry_activity(time_entry_activities) if time_entry_activities.present?
-File.delete('./tmp/import/time_entry_activity.yml') if File.exists?('./tmp/import/time_entry_activity.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

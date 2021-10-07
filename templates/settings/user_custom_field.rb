@@ -10,8 +10,9 @@ def import_user_custom_field(custom_fileds)
 end
 
 user_custom_fields = []
-user_custom_fields = YAML.load_file('./tmp/import/user_custom_field.yml') if File.exists?('./tmp/import/user_custom_field.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'user_custom_field.yml')
+user_custom_fields = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_user_custom_field(user_custom_fields) if user_custom_fields.present?
-File.delete('./tmp/import/user_custom_field.yml') if File.exists?('./tmp/import/user_custom_field.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

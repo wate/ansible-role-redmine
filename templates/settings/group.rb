@@ -19,8 +19,9 @@ def import_group(groups)
 end
 
 groups = []
-groups = YAML.load_file('./tmp/import/group.yml') if File.exists?('./tmp/import/group.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'group.yml')
+groups = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_group(groups) if groups.present?
-File.delete('./tmp/import/group.yml') if File.exists?('./tmp/import/group.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

@@ -14,9 +14,11 @@ def import_admin(admin)
   end
   default_admin.save
 end
+
 admin = {};
-admin = YAML.load_file('./tmp/import/admin.yml') if File.exists?('./tmp/import/admin.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'admin.yml')
+admin = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_admin(admin) if admin.present?
-File.delete('./tmp/import/admin.yml') if File.exists?('./tmp/import/admin.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

@@ -1,4 +1,14 @@
 ---
+- name: create scrpt directory
+  file:
+    path: "{{ redmine_home }}/scripts"
+    state: directory
+    mode: "0755"
+- name: create setting import script
+  template:
+    src: import.rb.j2
+    dest: "{{ redmine_home }}/scripts/import.rb"
+    mode: "0640"
 - name: create import admin setting files
   template:
     src: import_setting.yml.j2
@@ -250,7 +260,7 @@
     or
     redmine_reimport_issue_templates_note
 - name: update redmine settings
-  shell: "bundle exec rails r {{ redmine_home }}/tmp/import.rb"
+  shell: "bundle exec rails r {{ redmine_home }}/scripts/import.rb"
   args:
     chdir: "{{ redmine_home }}"
 

@@ -142,8 +142,9 @@ def import_project_wiki_pages(project, wiki_pages)
 end
 
 projects = []
-projects = YAML.load_file('./tmp/import/project.yml') if File.exists?('./tmp/import/project.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'project.yml')
+projects = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_project(projects) if projects.present?
-File.delete('./tmp/import/project.yml') if File.exists?('./tmp/import/project.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

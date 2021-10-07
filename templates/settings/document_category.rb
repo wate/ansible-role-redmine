@@ -18,8 +18,9 @@ def import_document_category(document_categories)
   end
 end
 document_categories = []
-document_categories = YAML.load_file('./tmp/import/document_category.yml') if File.exists?('./tmp/import/document_category.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'document_category.yml')
+document_categories = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_document_category(document_categories) if document_categories.present?
-File.delete('./tmp/import/document_category.yml') if File.exists?('./tmp/import/document_category.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

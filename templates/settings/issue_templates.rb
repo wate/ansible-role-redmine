@@ -35,8 +35,9 @@ def import_issue_templates(settings)
   end
 end
 settings = []
-settings = YAML.load_file('./tmp/import/issue_template.yml') if File.exists?('./tmp/import/issue_template.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'issue_template.yml')
+settings = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_issue_templates(settings) if settings.present?
-File.delete('./tmp/import/issue_template.yml') if File.exists?('./tmp/import/issue_template.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

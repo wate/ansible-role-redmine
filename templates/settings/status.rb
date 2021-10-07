@@ -15,8 +15,9 @@ def import_status(statuses)
 end
 
 statuses = []
-statuses = YAML.load_file('./tmp/import/status.yml') if File.exists?('./tmp/import/status.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'status.yml')
+statuses = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_status(statuses) if statuses.present?
-File.delete('./tmp/import/status.yml') if File.exists?('./tmp/import/status.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

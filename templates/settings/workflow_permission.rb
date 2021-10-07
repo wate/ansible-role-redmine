@@ -96,8 +96,9 @@ def import_workflow_permission(workflow_permissions)
 end
 
 workflow_permissions = [];
-workflow_permissions = YAML.load_file('./tmp/import/workflow_permission.yml') if File.exists?('./tmp/import/workflow_permission.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'workflow_permission.yml')
+workflow_permissions = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_workflow_permission(workflow_permissions) if workflow_permissions.present?
-File.delete('./tmp/import/workflow_permission.yml') if File.exists?('./tmp/import/workflow_permission.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

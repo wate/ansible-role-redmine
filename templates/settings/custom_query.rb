@@ -71,8 +71,9 @@ def import_custom_query(queryies)
   end
 end
 queryies = []
-queryies = YAML.load_file('./tmp/import/custom_query.yml') if File.exists?('./tmp/import/custom_query.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'custom_query.yml')
+queryies = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_custom_query(queryies) if queryies.present?
-File.delete('./tmp/import/custom_query.yml') if File.exists?('./tmp/import/custom_query.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

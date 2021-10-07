@@ -73,8 +73,9 @@ def import_tracker(trackers)
   end
 end
 trackers = [];
-trackers = YAML.load_file('./tmp/import/tracker.yml') if File.exists?('./tmp/import/tracker.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'tracker.yml')
+trackers = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_tracker(trackers) if trackers.present?
-File.delete('./tmp/import/tracker.yml') if File.exists?('./tmp/import/tracker.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

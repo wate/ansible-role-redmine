@@ -24,8 +24,9 @@ def import_view_customize(settings)
   end
 end
 settings = []
-settings = YAML.load_file('./tmp/import/view_customize.yml') if File.exists?('./tmp/import/view_customize.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'view_customize.yml')
+settings = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_view_customize(settings) if settings.present?
-File.delete('./tmp/import/view_customize.yml') if File.exists?('./tmp/import/view_customize.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

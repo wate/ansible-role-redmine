@@ -99,8 +99,9 @@ def import_role(roles)
 end
 
 roles = [];
-roles = YAML.load_file('./tmp/import/role.yml') if File.exists?('./tmp/import/role.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'role.yml')
+roles = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_role(roles) if roles.present?
-File.delete('./tmp/import/role.yml') if File.exists?('./tmp/import/role.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}

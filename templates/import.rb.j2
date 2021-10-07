@@ -1,5 +1,10 @@
 require 'yaml'
 
+REDMINE_HOME = '{{ redmine_home }}'
+REDMINE_TMP_DIR = File.join(REDMINE_HOME, 'tmp')
+REDMINE_IMPORT_FILE_DIR = File.join(REDMINE_TMP_DIR, 'import')
+REDMINE_SCRIPT_DIR = File.join(REDMINE_HOME, 'scripts')
+
 User.current = User.find_by_id(1)
 
 {% include "settings/admin.rb" %}

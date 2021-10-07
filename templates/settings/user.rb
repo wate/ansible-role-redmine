@@ -103,8 +103,9 @@ def import_user(users)
 end
 
 users = []
-users = YAML.load_file('./tmp/import/user.yml') if File.exists?('./tmp/import/user.yml')
+import_setting_file = File.join(REDMINE_IMPORT_FILE_DIR, 'user.yml')
+users = YAML.load_file(import_setting_file) if File.exists?(import_setting_file)
 
 import_user(users) if users.present?
-File.delete('./tmp/import/user.yml') if File.exists?('./tmp/import/user.yml')
+File.delete(import_setting_file) if File.exists?(import_setting_file)
 #{% endraw %}
