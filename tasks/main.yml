@@ -8,3 +8,5 @@
   import_tasks: database.yml
 - name: setup redmine
   import_tasks: redmine.yml
+- name: setup cron jobs
+  import_tasks: cron.yml

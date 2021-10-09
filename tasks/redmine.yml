@@ -172,19 +172,6 @@
   environment:
     RAILS_ENV: "{{ redmine_mode }}"
     REDMINE_LANG: "{{ redmine_lang }}"
-- name: set cron variable
-  cronvar:
-    name: RAILS_ENV
-    value: "{{ redmine_mode }}"
-    user: "{{ redmine_user }}"
-- name: set/unset issue reminder mail cron job
-  import_tasks: cron/send_reminders.yml
-- name: set/unset issue receive mail(imap)  cron job
-  import_tasks: cron/receive_imap.yml
-- name: set/unset issue receive mail(pop3) cron job
-  import_tasks: cron/receive_pop3.yml
-- name: set/unset plugins cron job
-  import_tasks: cron/plugin.yml
 - name: create redmine systemd unit file
   template:
     src: redmine.service.j2

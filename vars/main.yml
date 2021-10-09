@@ -15,7 +15,9 @@ redmine_dependency_packages:
 
 redmine_user: redmine
 redmine_home: /opt/redmine
+redmine_tmp_dir: "{{ redmine_home }}/tmp"
 redmine_theme_dir: "{{ redmine_home }}/public/themes"
 redmine_plugin_dir: "{{ redmine_home }}/plugins"
+redmine_script_dir: "{{ redmine_home }}/scripts"
 
 redmine_mode: production

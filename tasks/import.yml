@@ -1,13 +1,13 @@
 ---
 - name: create scrpt directory
   file:
-    path: "{{ redmine_home }}/scripts"
+    path: "{{ redmine_script_dir }}"
     state: directory
-    mode: "0755"
+    mode: "0750"
 - name: create setting import script
   template:
     src: import.rb.j2
-    dest: "{{ redmine_home }}/scripts/import.rb"
+    dest: "{{ redmine_script_dir }}/import.rb"
     mode: "0640"
 - name: create import admin setting files
   template:

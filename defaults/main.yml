@@ -297,37 +297,44 @@ redmine_settings:
   # enabled_scm:
   #   - Git
 
-redmine_send_reminders_cron_job:
-  enabled: false
-  params:
-    - 'days=7'
-    # - 'tracker=1'
-    # - 'users="1,23,45"'
-  hour: 9
-  minute: 0
-
-redmine_receive_imap_cron_job:
-  enabled: false
-  params:
-    - "username=imap_acount"
-    - "password=imap_password"
-    # - host=127.0.0.1
-    # - port=143
-    # - ssl=false
-    # - folder=INBOX
-  # hour: "*"
-  # minute: "*/5"
-
-redmine_receive_pop3_cron_job:
-  enabled: false
-  params:
-    - "username=pop3_acount"
-    - "password=pop3_password"
-    # - host=127.0.0.1
-    # - port=110
-    # - ssl=false
-  # hour: "*"
-  # minute: "*/5"
+# --------------------
+# Redmineの定期実行処理
+# --------------------
+redmine_cron_jobs:
+  - name: attachments prune
+    command: rake redmine:attachments:prune
+    hour: 1
+    minute: 0
+  - name: send reminders
+    disabled: true
+    command: rake redmine:send_reminders
+    params:
+      - 'days=7'
+      # - 'tracker=1'
+      # - 'users="1,23,45"'
+    hour: 5
+    minute: 0
+  - name: receive mail pop3
+    disabled: false
+    command: rake redmine:email:receive_pop3
+    params:
+      - "username=pop3_acount"
+      - "password=pop3_password"
+      # - host=127.0.0.1
+      # - port=110
+      # - ssl=false
+    minute: "*/10"
+  - name: receive mail imap
+    disabled: true
+    command: rake redmine:email:receive_imap
+    params:
+      - "username=imap_acount"
+      - "password=imap_password"
+      # - host=127.0.0.1
+      # - port=143
+      # - ssl=false
+      # - folder=INBOX
+    minute: "*/10"
 
 redmine_puma_extra_cfg: ""
   # bind "unix:#{app_root}/tmp/redmine.socket"

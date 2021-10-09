@@ -1,0 +1,31 @@
+- name: set cron variable
+  cronvar:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    user: "{{ redmine_user }}"
+  loop:
+    - name: RAILS_ENV
+      value: "{{ redmine_mode }}"
+    - name: REDMINE_HOME
+      value: "{{ redmine_home }}"
+    - name: REDMINE_TMP_DIR
+      value: "{{ redmine_tmp_dir }}"
+    - name: REDMINE_THEME_DIR
+      value: "{{ redmine_theme_dir }}"
+    - name: REDMINE_PLUGIN_DIR
+      value: "{{ redmine_plugin_dir }}"
+    - name: REDMINE_SCRIPT_DIR
+      value: "{{ redmine_script_dir }}"
+- name: set redmine cron job
+  cron:
+    name: "{{ item.name | default(omit) }}"
+    job: cd {{ redmine_home }} && bundle exec {{ item.command }} {{ item.params | default([]) | join(' ') }}
+    hour: "{{ item.hour | default('*') | string }}"
+    minute: "{{ item.minute | default('*') | string }}"
+    day: "{{ item.day | default('*') | string }}"
+    month: "{{ item.month | default('*') | string }}"
+    weekday: "{{ item.weekday | default('*') | string }}"
+    disabled: "{{ item.disabled | default(false) | bool }}"
+    state: "{{ 'absent' if item.removed | default(false) else 'present' }}"
+    user: "{{ redmine_user }}"
+  loop: "{{ redmine_cron_jobs | default([]) }}"
