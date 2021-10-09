@@ -345,9 +345,9 @@ redmine_puma_extra_cfg: ""
 # --------------------
 # redmine_admin:
 #   login: admin
-#   firstname: 太郎
-#   lastname: 山田
-#   mail: taro@example.net
+#   firstname: 管理者
+#   lastname: システム
+#   mail: sysadmin@example.net
 #   language: ja
 #   password: password
 #   must_change_passwd: false
