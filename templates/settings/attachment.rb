@@ -11,10 +11,12 @@ def import_attachment(attachments)
         container = wiki
       end
       attachment = Attachment.new(:container => container, :author => User.current)
-      attachment.file = item['remote_file']
+      attach_file = File.open(item['remote_file'])
+      attachment.file = attach_file
       attachment.filename = item['base_file_name']
       attachment.filename = item['file_name'] if item.key?('file_name')
       attachment.description = item['description'] if item.key?('description')
+      attachment.save
     end
   end
 end
