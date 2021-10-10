@@ -315,7 +315,7 @@ redmine_cron_jobs:
     hour: 5
     minute: 0
   - name: receive mail pop3
-    disabled: false
+    disabled: true
     command: rake redmine:email:receive_pop3
     params:
       - "username=pop3_acount"
@@ -1704,6 +1704,8 @@ redmine_reimport_user: false
 redmine_reimport_group: false
 ## プロジェクト
 redmine_reimport_project: false
+## 添付ファイル
+redmine_reimport_attachment: false
 ## メッセージカスタマイズ
 redmine_reimport_message_customize: false
 ## ビューカスタマイズ

@@ -211,6 +211,23 @@
     redmine_reimport_all
     or
     redmine_reimport_project
+- name: create import attachment setting files
+  block:
+    - name: upload attachment files
+      include_tasks: attachment_at.yml
+      loop: "{{ redmine_attachments | default([]) }}"
+    - name: create import attachment setting files
+      template:
+        src: import_setting.yml.j2
+        dest: "{{ redmine_home }}/tmp/import/attachment.yml"
+      vars:
+        redmine_import_data: "{{ tmp_uploaded_attachments | default([]) }}"
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_all
+    or
+    redmine_reimport_attachment
 - name: create import message customize setting files
   template:
     src: import_setting.yml.j2
