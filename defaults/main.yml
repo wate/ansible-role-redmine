@@ -1560,6 +1560,20 @@ redmine_puma_extra_cfg: ""
 #       - issue_templates
 
 # --------------------
+# Redmineの設定(添付ファイル)
+# --------------------
+# redmine_attachments:
+#   ## attach project(file)
+#   - project: sample
+#     upload_file: path/to/issue-import.xltx
+#     description: チケット一括登録用Excelテンプレート
+#   ## attach Wiki page
+#   - project: sample
+#     wiki: Wiki
+#     upload_file: /path/to/work_flow.png
+#     description: ステータス遷移図
+
+# --------------------
 # Redmineの設定(message customizeプラグイン)
 # --------------------
 # redmine_message_customize:
