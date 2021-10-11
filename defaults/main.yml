@@ -1571,7 +1571,7 @@ redmine_puma_extra_cfg: ""
 #   - project: sample
 #     wiki: Wiki
 #     upload_file: /path/to/work_flow.png
-#     description: ステータス遷移図
+#     description: ワーフフロー
 
 # --------------------
 # Redmineの設定(message customizeプラグイン)
