@@ -1728,3 +1728,14 @@ redmine_reimport_view_customize: false
 redmine_reimport_issue_templates: false
 ## コメント用テンプレート
 redmine_reimport_issue_templates_note: false
+
+# --------------------
+# カスタムスクリプトアップロード設定
+# --------------------
+# redmine_custom_scripts:
+#   - file: path/to/custom_script.rb
+#   - file: path/to/nitify.rb
+#     remote_name: reminder.rb
+#   - file: path/to/removed_custom_script.rb
+#     remote_name: update_issue.rb
+#     removed: true
