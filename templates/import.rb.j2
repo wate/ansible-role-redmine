@@ -7,7 +7,7 @@ REDMINE_TMP_DIR = '{{ redmine_tmp_dir }}'
 REDMINE_SCRIPT_DIR = '{{ redmine_script_dir }}'
 REDMINE_IMPORT_FILE_DIR = File.join(REDMINE_TMP_DIR, 'import')
 
-User.current = User.find_by_id(1)
+User.current = User.find(1)
 
 {% include "settings/admin.rb" %}
 {% include "settings/status.rb" %}
