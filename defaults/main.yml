@@ -349,16 +349,16 @@ redmine_cron_jobs:
 # カスタムスクリプトのアップロード設定
 # --------------------
 # redmine_custom_scripts:
-#   - file: path/to/custom_script.rb
-#   - file: path/to/notify.rb
+#   - file: path/to/custom_script.sh
+#   - file: path/to/custom_script.rb.j2
+#     remote_name: custom_script.rb
+#   - file: path/to/notify.rb.j2
 #     remote_name: reminder.rb
-#   - file: path/to/script.sh
+#   - file: path/to/script.sh.j2
+#     remote_name: script.sh
 #     mode: '0700'
-#   - file: path/to/script2.sh.j2
-#     template: true
-#     mode: '0700'
-#   - file: path/to/removed_custom_script.rb
-#     remote_name: update_issue.rb
+#   - file: path/to/removed_custom_script.rb.j2
+#     remote_name: custom_script.rb
 #     removed: true
 
 redmine_puma_extra_cfg: ""

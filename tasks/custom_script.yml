@@ -1,24 +1,11 @@
-- name: set upload file list variables
-  set_fact:
-    redmine_upload_raw_scripts: "{{ redmine_custom_scripts | default([]) | selectattr('removed', 'undefined') | selectattr('template', 'undefined') | list }}"
-    redmine_upload_template_scripts: "{{ redmine_custom_scripts | default([]) | selectattr('removed', 'undefined') | selectattr('template', 'defined')  | list }}"
-    redmine_upload_remove_scripts: "{{ redmine_custom_scripts | default([]) | selectattr('removed', 'defined') | list }}"
-- name: upload custom script(copy nodule)
-  copy:
-    src: "{{ item.file }}"
-    dest: "{{ redmine_script_dir }}/{{ item.remote_name | default( item.file | basename ) }}"
-    owner: "{{ redmine_user }}"
-    group: "{{ redmine_user }}"
-    mode: "{{ item.mode | default( '0700' ) }}"
-  loop: "{{ redmine_upload_raw_scripts }}"
-- name: upload custom script(template module)
+- name: create custom script
   template:
     src: "{{ item.file }}"
     dest: "{{ redmine_script_dir }}/{{ item.remote_name | default( item.file | basename ) }}"
     owner: "{{ redmine_user }}"
     group: "{{ redmine_user }}"
     mode: "{{ item.mode | default( '0700' ) }}"
-  loop: "{{ redmine_upload_template_scripts }}"
+  loop: "{{ redmine_custom_scripts | default([]) | selectattr('removed', 'undefined') | list }}"
 - name: remove custom script
   file:
     path: "{{ redmine_script_dir }}/{{ item.remote_name | default( item.file | basename ) }}"
