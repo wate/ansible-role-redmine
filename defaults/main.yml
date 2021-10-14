@@ -298,16 +298,25 @@ redmine_settings:
   #   - Git
 
 # --------------------
-# Redmineの定期実行処理
+# Redmineのcron用変数設定
+# --------------------
+# redmine_cron_vars:
+#   - name: VAR_NAME
+#     value: var_value
+#   - name: REMOVED_VAR
+#     removed: true
+
+# --------------------
+# Redmineのcron設定
 # --------------------
 redmine_cron_jobs:
-  - name: attachments prune
-    command: rake redmine:attachments:prune
+  - name: attachment prune
+    command: cd {{ redmine_home }} && bundle exec rake redmine:attachments:prune
     hour: 1
     minute: 0
   - name: send reminders
     disabled: true
-    command: rake redmine:send_reminders
+    command: cd {{ redmine_home }} && rake redmine:send_reminders
     params:
       - 'days=7'
       # - 'tracker=1'
@@ -316,7 +325,7 @@ redmine_cron_jobs:
     minute: 0
   - name: receive mail pop3
     disabled: true
-    command: rake redmine:email:receive_pop3
+    command: cd {{ redmine_home }} && bundle exec rake redmine:email:receive_pop3
     params:
       - "username=pop3_acount"
       - "password=pop3_password"
@@ -326,7 +335,7 @@ redmine_cron_jobs:
     minute: "*/10"
   - name: receive mail imap
     disabled: true
-    command: rake redmine:email:receive_imap
+    command: cd {{ redmine_home }} && bundle exec rake redmine:email:receive_imap
     params:
       - "username=imap_acount"
       - "password=imap_password"
@@ -335,6 +344,22 @@ redmine_cron_jobs:
       # - ssl=false
       # - folder=INBOX
     minute: "*/10"
+
+# --------------------
+# カスタムスクリプトのアップロード設定
+# --------------------
+# redmine_custom_scripts:
+#   - file: path/to/custom_script.rb
+#   - file: path/to/notify.rb
+#     remote_name: reminder.rb
+#   - file: path/to/script.sh
+#     mode: '0700'
+#   - file: path/to/script2.sh.j2
+#     template: true
+#     mode: '0700'
+#   - file: path/to/removed_custom_script.rb
+#     remote_name: update_issue.rb
+#     removed: true
 
 redmine_puma_extra_cfg: ""
   # bind "unix:#{app_root}/tmp/redmine.socket"
@@ -1729,13 +1754,3 @@ redmine_reimport_issue_templates: false
 ## コメント用テンプレート
 redmine_reimport_issue_templates_note: false
 
-# --------------------
-# カスタムスクリプトアップロード設定
-# --------------------
-# redmine_custom_scripts:
-#   - file: path/to/custom_script.rb
-#   - file: path/to/nitify.rb
-#     remote_name: reminder.rb
-#   - file: path/to/removed_custom_script.rb
-#     remote_name: update_issue.rb
-#     removed: true
