@@ -10,4 +10,4 @@
   file:
     path: "{{ redmine_script_dir }}/{{ item.remote_name | default( item.file | basename ) }}"
     state: absent
-  loop: "{{ redmine_upload_remove_scripts }}"
+  loop: "{{ redmine_custom_scripts | default([]) | selectattr('removed', 'defined') | list }}"
