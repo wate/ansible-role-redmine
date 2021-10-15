@@ -1708,8 +1708,10 @@ redmine_puma_extra_cfg: ""
 redmine_reimport: false
 ## システム管理者
 redmine_reimport_admin: false
+## 添付ファイル
+redmine_reimport_attachment: false
 
-## 全データ(対象はシステム管理者以外の全て)
+## 全データ(対象はシステム管理者および添付ファイル以外の全て)
 redmine_reimport_all: true
 ## チケットのステータス
 redmine_reimport_issue_status: false
@@ -1743,8 +1745,6 @@ redmine_reimport_user: false
 redmine_reimport_group: false
 ## プロジェクト
 redmine_reimport_project: false
-## 添付ファイル
-redmine_reimport_attachment: false
 ## メッセージカスタマイズ
 redmine_reimport_message_customize: false
 ## ビューカスタマイズ

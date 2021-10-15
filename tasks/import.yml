@@ -225,8 +225,6 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
-    or
     redmine_reimport_attachment
 - name: create import message customize setting files
   template:
