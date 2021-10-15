@@ -25,6 +25,8 @@
     user: "{{ redmine_user }}"
     state: "{{ 'absent' if item.removed | default(false) else 'present' }}"
   loop: "{{ redmine_cron_vars | default([]) }}"
+  loop_control:
+    label: "{{ item.name }}"
 - name: set redmine cron job
   cron:
     name: "{{ item.name | default(omit) }}"
@@ -38,3 +40,5 @@
     state: "{{ 'absent' if item.removed | default(false) else 'present' }}"
     user: "{{ redmine_user }}"
   loop: "{{ redmine_cron_jobs | default([]) }}"
+  loop_control:
+    label: "{{ item.name | default(item.command) }}"
