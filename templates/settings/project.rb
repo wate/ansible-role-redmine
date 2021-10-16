@@ -44,11 +44,10 @@ def import_project(projects)
           role_ids = Role.where(:name => member['role']).pluck(:id)
           if user && role_ids.present?
             project_member = Member.new(:project => project, :user_id => user.id)
-            project_member.set_editable_role_ids(role_ids)
-            project_members << project_member
+            project_member.role_ids = role_ids
+            project_member.save
           end
         end
-        project.members = project_members if project_members.present?
       end
       if item.key?('wiki_start_page')
         project.wiki.start_page = item['wiki_start_page']
@@ -107,11 +106,10 @@ def import_project(projects)
           role_ids = Role.where(:name => member['role']).pluck(:id)
           if user && role_ids.present?
             project_member = Member.new(:project => project, :user_id => user.id)
-            project_member.set_editable_role_ids(role_ids)
-            project_members << project_member
+            project_member.role_ids = role_ids
+            project_member.save
           end
         end
-        project.members = project_members if project_members.present?
       end
       if item.key?('wiki_start_page')
         project.wiki.start_page = item['wiki_start_page']
