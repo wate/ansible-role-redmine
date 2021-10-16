@@ -11,7 +11,9 @@ def import_setting(setting)
   plugin_settings = setting.select {|key, value| key.start_with?('plugin_') }
   if plugin_settings.present?
     plugin_settings.each do |plugin_name, plugin_setting|
-      Setting.send plugin_name + '=', plugin_setting.with_indifferent_access
+      if Redmine::Plugin.installed? plugin_name.sub('plugin_', '').to_s
+        Setting.send plugin_name + '=', plugin_setting.with_indifferent_access
+      end
     end
   end
 end
