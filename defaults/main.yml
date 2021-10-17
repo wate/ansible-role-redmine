@@ -348,7 +348,7 @@ redmine_cron_jobs:
 # --------------------
 # カスタムスクリプトのアップロード設定
 # --------------------
-# redmine_custom_scripts:
+# redmine_custom_script_files:
 #   - file: path/to/custom_script.sh
 #   - file: path/to/custom_script.rb.j2
 #     remote_name: custom_script.rb

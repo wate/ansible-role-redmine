@@ -12,6 +12,8 @@
       value: "{{ redmine_root }}"
     - name: REDMINE_TMP_DIR
       value: "{{ redmine_tmp_dir }}"
+    - name: REDMINE_CONFIG_DIR
+      value: "{{ redmine_config_dir }}"
     - name: REDMINE_THEME_DIR
       value: "{{ redmine_theme_dir }}"
     - name: REDMINE_PLUGIN_DIR

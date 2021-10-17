@@ -5,9 +5,9 @@
     owner: "{{ redmine_user }}"
     group: "{{ redmine_user }}"
     mode: "{{ item.mode | default( '0700' ) }}"
-  loop: "{{ redmine_custom_scripts | default([]) | selectattr('removed', 'undefined') | list }}"
+  loop: "{{ redmine_custom_script_files | default([]) | selectattr('removed', 'undefined') | list }}"
 - name: remove custom script
   file:
     path: "{{ redmine_script_dir }}/{{ item.remote_name | default( item.file | basename ) }}"
     state: absent
-  loop: "{{ redmine_custom_scripts | default([]) | selectattr('removed', 'defined') | list }}"
+  loop: "{{ redmine_custom_script_files | default([]) | selectattr('removed', 'defined') | list }}"
