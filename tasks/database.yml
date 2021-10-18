@@ -1,10 +1,11 @@
 ---
-- name: install database adapter
+- name: install database adapter(MySQL)
   yum:
     name:
       - mariadb
       - mariadb-devel
       - python2-PyMySQL
+  when: redmine_db_cfg.production.adapter == 'mysql2'
 - name: localhost database setting
   block:
     - name: create database
