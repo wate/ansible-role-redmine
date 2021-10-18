@@ -5,8 +5,6 @@ redmine_gemfile_local_content: |
   gem "puma"
   gem "rmagick"
 
-redmine_mode: production
-
 redmine_db_cfg:
   production:
     adapter: mysql2
