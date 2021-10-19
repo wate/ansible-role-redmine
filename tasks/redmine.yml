@@ -77,8 +77,20 @@
         creates: "{{ redmine_home }}/config/initializers/secret_token.rb"
       register: generate_token_result
     - name: restore redmine data
-      import_tasks: restore.yml
-      when: redmine_restore_files is defined
+      block:
+        - name: upload restore file(files archive)
+          copy:
+            src: "{{ redmine_upload_restore_files_archive_file }}"
+            dest: "{{ redmine_restore_files_archive_file }}"
+          when: redmine_upload_restore_files_archive_file is defined
+        - name: upload restore file(database dump)
+          copy:
+            src: "{{ redmine_upload_restore_database_dump_file }}"
+            dest: "{{ redmine_restore_database_dump_file }}"
+          when: redmine_upload_restore_files_archive_file is defined
+        - name: restore redmine data
+          import_tasks: restore.yml
+      when: generate_token_result is changed or redmine_restore
     - name: migrate database
       command: bundle exec rake db:migrate
       args:
@@ -185,7 +197,7 @@
       command: bundle exec rake tmp:cache:clear
       args:
         chdir: "{{ redmine_home }}"
-      when: redmine_restore_files is defined
+      when: redmine_cache_clear | default(false)
     - name: create setting file directory
       file:
         path: "{{ redmine_home }}/tmp/import"

@@ -124,15 +124,6 @@ redmine_puma_extra_cfg: ""
 redmine_lang: ja
 
 # --------------------
-# Redmineのリストア設定(移行またはアップグレード時にのみ)
-# --------------------
-# redmine_restore_files:
-#   files_archive_file: path/to/local/backup/file.tar.gz
-#   # archive_extra_opts:
-#   #   - --strip-components 1
-#   database_dump_file: path/to/local/backup/file.sql.gz
-
-# --------------------
 # Redmineにインストールするテーマの設定
 # --------------------
 redmine_themes: []
@@ -1785,3 +1776,23 @@ redmine_reimport_issue_templates: false
 ## コメント用テンプレート
 redmine_reimport_issue_templates_note: false
 
+# --------------------
+# Redmineのリストア設定
+# ※新規設置時または変数「redmine_restore」にtrueが設定されている場合にのみ実行されます。
+# ※変数「redmine_restore_files_archive_file」と「redmine_restore_database_dump_file」に設定されたパスに
+# ファイルが存在しない場合は実行されません。
+# --------------------
+redmine_restore: false
+### 「filed」ディレクトリ内のファイルをまとめたアーカイブファイル
+## 「filed」ディレクトリのリストアファイルをサーバにアップロードする場合は以下の変数にコントロールノード側のファイルパスを設定します
+## ※変数「redmine_restore_files_archive_file」のパスにアップロードされます。
+# redmine_upload_restore_files_archive_file: path/to/local/redmine/files_archive/file.tar.gz
+## アーカイブファイル展開時のコマンドラインオプションを指定素隊場合は、以下の変数にコマンドラインオプションを設定します。
+# redmine_restore_files_archive_extra_opts:
+#   - "--strip-components 1"
+redmine_restore_files_archive_file: "{{ redmine_home }}/tmp/redmine_files_archive.tar.gz"
+### データベースのダンプファイル
+# データベースのガンプファイルをサーバにアップロードする場合は以下の変数にコントロールノード側のファイルパスを設定する
+# ※変数「redmine_restore_database_dump_file」のパスにアップロードされます。
+# redmine_upload_restore_database_dump_file: path/to/local/redmine/database_dump.tar.gz
+redmine_restore_database_dump_file: "{{ redmine_home }}/tmp/redmine_database_dump.tar.gz"
