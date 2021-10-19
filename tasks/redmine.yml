@@ -3,6 +3,22 @@
   user:
     name: "{{ redmine_user }}"
     system: true
+- name: create mysql connection file
+  ini_file:
+    path: /home/{{ redmine_user }}/.my.cnf
+    create: true
+    section: client
+    option: "{{ item.key | replace('_', '-') }}"
+    value: "{{ item.value | string }}"
+    owner: "{{ redmine_user }}"
+    group: "{{ redmine_user }}"
+  with_dict:
+    host: "{{ redmine_db_cfg.production.host }}"
+    database: "{{ redmine_db_cfg.production.database }}"
+    user: "{{ redmine_db_cfg.production.username }}"
+    password: "{{ redmine_db_cfg.production.password }}"
+    default_character_set: "{{ redmine_db_cfg.production.encoding | default('utf8') }}"
+  when: redmine_db_cfg.production.adapter == 'mysql2'
 - name: create install directory
   file:
     path: "{{ redmine_home }}"
@@ -60,6 +76,9 @@
         chdir: "{{ redmine_home }}"
         creates: "{{ redmine_home }}/config/initializers/secret_token.rb"
       register: generate_token_result
+    - name: restore redmine data
+      import_tasks: restore.yml
+      when: redmine_restore_files is defined
     - name: migrate database
       command: bundle exec rake db:migrate
       args:
@@ -70,7 +89,9 @@
       command: bundle exec rake redmine:load_default_data
       args:
         chdir: "{{ redmine_home }}"
-      when: generate_token_result is changed
+      when:
+        - generate_token_result is changed
+        - redmine_restore_files is undefined
     - name: install themes from git
       git:
         repo: "{{ item.repo }}"
@@ -160,6 +181,11 @@
         dest: "{{ redmine_home }}/config/puma.rb"
         mode: "0644"
       notify: restart redmine
+    - name: clear cache
+      command: bundle exec rake tmp:cache:clear
+      args:
+        chdir: "{{ redmine_home }}"
+      when: redmine_restore_files is defined
     - name: create setting file directory
       file:
         path: "{{ redmine_home }}/tmp/import"

@@ -1,0 +1,36 @@
+- name: upload restore_files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ redmine_home }}/tmp/{{ item | basename }}"
+  loop:
+    - "{{ redmine_restore_files.files_archive_file }}"
+    - "{{ redmine_restore_files.database_dump_file }}"
+- name: restore files archive
+  unarchive:
+    src: "{{ redmine_home }}/tmp/{{ redmine_restore_files.files_archive_file | basename }}"
+    dest: "{{ redmine_home }}/files"
+    extra_opts: "{{ redmine_restore_files.archive_extra_opts | default(omit) }}"
+    remote_src: true
+- name: change file owner
+  file:
+    path: "{{ redmine_home }}/files"
+    owner: "{{ redmine_user }}"
+    group: "{{ redmine_user }}"
+    recurse: true
+  become: true
+- name: restore redmine database dump data
+  block:
+    - name: restore redmine data
+      mysql_db:
+        name: "{{ redmine_db_cfg.production.database }}"
+        state: import
+        target: "{{ redmine_home }}/tmp/{{ redmine_restore_files.database_dump_file | basename }}"
+  when:
+    - redmine_db_cfg.production.adapter == 'mysql2'
+- name: remove restore files
+  file:
+    path: "{{ redmine_home }}/tmp/{{ item | basename }}"
+    state: absent
+  loop:
+    - "{{ redmine_restore_files.files_archive_file }}"
+    - "{{ redmine_restore_files.database_dump_file }}"

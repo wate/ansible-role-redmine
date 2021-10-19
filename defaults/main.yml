@@ -1,10 +1,19 @@
 ---
+# --------------------
+# 設置するRedmineのバージョン
+# --------------------
 redmine_version: "4.2-stable"
 
+# --------------------
+# 追加でインストールするgemパッケージ
+# --------------------
 redmine_gemfile_local_content: |
   gem "puma"
   gem "rmagick"
 
+# --------------------
+# Redmineのデータベース設定(config/database.yml)
+# --------------------
 redmine_db_cfg:
   production:
     adapter: mysql2
@@ -35,6 +44,9 @@ redmine_db_cfg:
     # username: redmine_user
     # password: redmine_password
 
+# --------------------
+# Redmineの設定(config/configuration.yml)
+# --------------------
 redmine_cfg:
   default:
     email_delivery:
@@ -99,6 +111,30 @@ redmine_cfg:
     # max_concurrent_ajax_uploads: 2
     # openid_authentication_store: :memory
 
+# --------------------
+# Rumaの追加背亭
+# --------------------
+redmine_puma_extra_cfg: ""
+  # bind "unix:#{app_root}/tmp/redmine.socket"
+  # activate_control_app
+
+# --------------------
+# Redmineの標準の言語設定
+# --------------------
+redmine_lang: ja
+
+# --------------------
+# Redmineのリストア設定(移行またはアップグレード時にのみ)
+# --------------------
+# redmine_restore_files:
+#   files_archive_file: path/to/local/backup/file.tar.gz
+#   # archive_extra_opts:
+#   #   - --strip-components 1
+#   database_dump_file: path/to/local/backup/file.sql.gz
+
+# --------------------
+# Redmineにインストールするテーマの設定
+# --------------------
 redmine_themes: []
   # - name: farend_fancy
   #   repo: "https://github.com/farend/redmine_theme_farend_fancy.git"
@@ -109,6 +145,9 @@ redmine_themes: []
   # - name: gitmike
   #   repo: "https://github.com/makotokw/redmine-theme-gitmike.git"
 
+# --------------------
+# Redmineにインストールするプラグインの設定
+# --------------------
 redmine_plugins: []
   # - name: view_customize
   #   repo: "https://github.com/onozaty/redmine-view-customize.git"
@@ -141,8 +180,6 @@ redmine_plugins: []
   #   directory: plantuml
   #   required_packages:
   #     - plantuml
-
-redmine_lang: ja
 
 # --------------------
 # Redmineの設定(管理)
@@ -358,10 +395,6 @@ redmine_cron_jobs:
 #   - file: path/to/removed_custom_script.rb.j2
 #     remote_name: custom_script.rb
 #     removed: true
-
-redmine_puma_extra_cfg: ""
-  # bind "unix:#{app_root}/tmp/redmine.socket"
-  # activate_control_app
 
 # --------------------
 # Redmineの設定(システム管理者)
