@@ -297,7 +297,8 @@
     or
     redmine_reimport_issue_templates_note
 - name: update redmine settings
-  shell: "bundle exec rails runner {{ redmine_home }}/scripts/import.rb"
+  command: "bundle exec rails runner {{ redmine_home }}/scripts/import.rb"
   args:
     chdir: "{{ redmine_home }}"
-
+  tags:
+    - skip_ansible_lint
