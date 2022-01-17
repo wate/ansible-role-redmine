@@ -1,4 +1,10 @@
 ---
+- name: install dependency packages
+  apt:
+    name:
+      - git
+      - acl
+      - pkg-config
 - name: add redmine user
   user:
     name: "{{ redmine_user }}"
@@ -12,6 +18,7 @@
     value: "{{ item.value | string }}"
     owner: "{{ redmine_user }}"
     group: "{{ redmine_user }}"
+    mode: "0640"
   with_dict:
     host: "{{ redmine_db_cfg.production.host }}"
     database: "{{ redmine_db_cfg.production.database }}"
@@ -89,7 +96,7 @@
             dest: "{{ redmine_restore_database_dump_file }}"
           when: redmine_upload_restore_files_archive_file is defined
         - name: restore redmine data
-          import_tasks: restore.yml
+          import_tasks: redmine/restore.yml
       when: generate_token_result is changed or redmine_restore
     - name: migrate database
       command: bundle exec rake db:migrate
@@ -158,7 +165,7 @@
       notify: restart redmine
       register: plugin_install_from_file_result
     - name: install plugin dependency packages
-      yum:
+      apt:
         name: "{{ item.1 }}"
         state: installed
       loop: "{{ redmine_plugins | subelements('required_packages', {'skip_missing': True}) }}"
@@ -202,9 +209,10 @@
       file:
         path: "{{ redmine_home }}/tmp/import"
         state: directory
+        mode: "0755"
     - name: import Redmine setting
       import_tasks: import.yml
-      when:  generate_token_result is changed or redmine_reimport
+      when: generate_token_result is changed or redmine_reimport
   become: true
   become_user: "{{ redmine_user }}"
   environment:

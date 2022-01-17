@@ -1,18 +1,4 @@
 ---
-redmine_ruby_package: rh-ruby26
-
-redmine_dependency_packages:
-  - git
-  - unzip
-  - ImageMagick
-  - ImageMagick-devel
-  - zlib-devel
-  - ipa-gothic-fonts
-  - ipa-mincho-fonts
-  - ipa-pgothic-fonts
-  - ipa-pmincho-fonts
-  - google-noto-sans-cjk-fonts
-
 redmine_user: redmine
 redmine_home: /opt/redmine
 redmine_root: "{{ redmine_home }}"

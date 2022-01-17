@@ -13,6 +13,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/admin.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_admin | default({}) }}"
   when: |
@@ -23,6 +24,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/status.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_issue_statuses | default([]) }}"
   when: |
@@ -35,6 +37,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/tracker.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_trackers | default([]) }}"
   when: |
@@ -47,6 +50,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/setting.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_settings | default({}) }}"
   when: |
@@ -59,6 +63,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/role.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_roles | default([]) }}"
   when: |
@@ -71,6 +76,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/issue_custom_field.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_issue_custom_fields | default([]) }}"
   when: |
@@ -83,6 +89,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/project_custom_field.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_project_custom_fields | default([]) }}"
   when: |
@@ -95,6 +102,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/user_custom_field.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_user_custom_fields | default([]) }}"
   when: |
@@ -107,6 +115,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/priority.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_priorities | default([]) }}"
   when: |
@@ -119,6 +128,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/document_category.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_document_categories | default([]) }}"
   when: |
@@ -131,6 +141,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/time_entry_activity.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_time_entry_activities | default([]) }}"
   when: |
@@ -143,6 +154,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/custom_query.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_custom_queries | default([]) }}"
   when: |
@@ -155,6 +167,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/workflow.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_workflows | default([]) }}"
   when: |
@@ -167,6 +180,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/workflow_permission.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_workflow_permissions | default([]) }}"
   when: |
@@ -179,6 +193,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/user.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_users | default([]) }}"
   when: |
@@ -191,6 +206,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/group.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_groups | default([]) }}"
   when: |
@@ -203,6 +219,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/project.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_projects | default([]) }}"
   when: |
@@ -214,12 +231,13 @@
 - name: create import attachment setting files
   block:
     - name: upload attachment files
-      include_tasks: attachment_at.yml
+      include_tasks: import/attachment_at.yml
       loop: "{{ redmine_attachments | default([]) }}"
     - name: create import attachment setting files
       template:
         src: import_setting.yml.j2
         dest: "{{ redmine_tmp_dir }}/attachment.yml"
+        mode: "0640"
       vars:
         redmine_import_data: "{{ tmp_uploaded_attachments | default([]) }}"
   when: |
@@ -230,6 +248,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/message_customize.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_message_customize | default({}) }}"
   when: |
@@ -242,6 +261,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/view_customize.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_view_customize | default([]) }}"
   when: |
@@ -254,6 +274,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/issue_template.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_issue_templates | default([]) }}"
   when: |
@@ -266,6 +287,7 @@
   template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/note_template.yml"
+    mode: "0640"
   vars:
     redmine_import_data: "{{ redmine_note_templates | default([]) }}"
   when: |

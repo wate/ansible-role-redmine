@@ -3,12 +3,12 @@ galaxy_info:
   author: yoshiaki tanaka
   description: setup redmine
   license: MIT
-  min_ansible_version: 2.9
+  namespace: wate
+  role_name: redmine
+  min_ansible_version: 2.11
   platforms:
-    - name: EL
+    - name: Debian
       versions:
-        - "7"
-  galaxy_tags: []
-
-dependencies:
-  - repo-scl
+        - bullseye
+        - buster
+dependencies: []

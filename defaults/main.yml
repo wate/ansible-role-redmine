@@ -9,7 +9,7 @@ redmine_version: "4.2-stable"
 # --------------------
 redmine_gemfile_local_content: |
   gem "puma"
-  gem "rmagick"
+  # gem "rmagick"
 
 # --------------------
 # Redmineのデータベース設定(config/database.yml)
@@ -107,7 +107,7 @@ redmine_cfg:
     # sudo_mode: true
     # sudo_mode_timeout: 15
     # imagemagick_convert_command:
-    rmagick_font_path: /usr/share/fonts/ipa-gothic/ipag.ttf
+    rmagick_font_path: /usr/share/fonts/opentype/ipaexfont-gothic/ipaexg.ttf
     # max_concurrent_ajax_uploads: 2
     # openid_authentication_store: :memory
 
