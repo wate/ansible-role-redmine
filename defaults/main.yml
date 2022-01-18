@@ -9,7 +9,7 @@ redmine_version: "4.2-stable"
 # --------------------
 redmine_gemfile_local_content: |
   gem "puma"
-  # gem "rmagick"
+  gem "rmagick"
 
 # --------------------
 # Redmineのデータベース設定(config/database.yml)

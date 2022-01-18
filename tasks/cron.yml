@@ -25,7 +25,7 @@
     name: "{{ item.name }}"
     value: "{{ item.value | default(omit) }}"
     user: "{{ redmine_user }}"
-    state: "{{ 'absent' if item.removed | default(false) else 'present' }}"
+    state: "{{ item.removed | default(false) | ternary('absent', 'present') }}"
   loop: "{{ redmine_cron_vars | default([]) }}"
   loop_control:
     label: "{{ item.name }}"
@@ -39,7 +39,7 @@
     month: "{{ item.month | default('*') | string }}"
     weekday: "{{ item.weekday | default('*') | string }}"
     disabled: "{{ item.disabled | default(false) | bool }}"
-    state: "{{ 'absent' if item.removed | default(false) else 'present' }}"
+    state: "{{ item.removed | default(false) | ternary('absent', 'present') }}"
     user: "{{ redmine_user }}"
   loop: "{{ redmine_cron_jobs | default([]) }}"
   loop_control:
