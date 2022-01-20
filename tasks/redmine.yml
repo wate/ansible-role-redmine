@@ -167,7 +167,7 @@
     - name: install plugin dependency packages
       apt:
         name: "{{ item.1 }}"
-        state: installed
+        state: present
       loop: "{{ redmine_plugins | subelements('required_packages', {'skip_missing': True}) }}"
       loop_control:
         label: "{{ item.1 }}"
