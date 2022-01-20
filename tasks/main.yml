@@ -5,7 +5,7 @@
   import_tasks: database.yml
 - name: setup redmine
   import_tasks: redmine.yml
-# - name: upload custom script
-#   import_tasks: custom_script.yml
-# - name: setup cron jobs
-#   import_tasks: cron.yml
+- name: upload custom script
+  import_tasks: custom_script.yml
+- name: setup cron jobs
+  import_tasks: cron.yml
