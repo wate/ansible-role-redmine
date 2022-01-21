@@ -112,11 +112,10 @@ redmine_cfg:
     # openid_authentication_store: :memory
 
 # --------------------
-# Rumaの追加背亭
+# Rumaの追加設定
 # --------------------
-redmine_puma_extra_cfg: ""
-  # bind "unix:#{app_root}/tmp/redmine.socket"
-  # activate_control_app
+redmine_puma_extra_cfg: |
+  bind "unix://#{app_root}/tmp/redmine.sock"
 
 # --------------------
 # Redmineの標準の言語設定
