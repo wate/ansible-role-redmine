@@ -36,7 +36,7 @@
 - block:
     - name: checkout Redmine
       git:
-        repo: "https://github.com/redmine/redmine.git"
+        repo: "{{ redmine_repo }}"
         dest: "{{ redmine_home }}"
         version: "{{ redmine_version }}"
       register: git_result

@@ -2,7 +2,11 @@
 # --------------------
 # 設置するRedmineのバージョン
 # --------------------
+redmine_repo: https://github.com/redmine/redmine.git
 redmine_version: "4.2-stable"
+## RedMica
+# redmine_repo: https://github.com/redmica/redmica.git
+# redmine_version: "stable-2.0"
 
 # --------------------
 # 追加でインストールするgemパッケージ
@@ -54,6 +58,9 @@ redmine_cfg:
       # send mail by Sendmail command
       # ---------
       delivery_method: :sendmail
+      # sendmail_settings:
+      #   location: /usr/sbin/sendmail
+      #   arguments: "-i"
       # ---------
       # send mail by SMTP Server
       # ---------

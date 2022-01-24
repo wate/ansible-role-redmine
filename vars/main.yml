@@ -9,3 +9,4 @@ redmine_plugin_dir: "{{ redmine_home }}/plugins"
 redmine_script_dir: "{{ redmine_home }}/scripts"
 
 redmine_mode: production
+
