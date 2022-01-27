@@ -1,4 +1,3 @@
+---
 skip_list:
-  - '106'
-warn_list:
-  - experimental
+  - no-handler

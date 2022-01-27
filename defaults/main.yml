@@ -2,7 +2,11 @@
 # --------------------
 # 設置するRedmineのバージョン
 # --------------------
+redmine_repo: https://github.com/redmine/redmine.git
 redmine_version: "4.2-stable"
+## RedMica
+# redmine_repo: https://github.com/redmica/redmica.git
+# redmine_version: "stable-2.0"
 
 # --------------------
 # 追加でインストールするgemパッケージ
@@ -21,7 +25,7 @@ redmine_db_cfg:
     host: localhost
     username: redmine_user
     password: redmine_password
-    encoding: utf8
+    encoding: utf8mb4
     # # ---------
     # # PostgreSQL setting example
     # # ---------
@@ -54,6 +58,9 @@ redmine_cfg:
       # send mail by Sendmail command
       # ---------
       delivery_method: :sendmail
+      # sendmail_settings:
+      #   location: /usr/sbin/sendmail
+      #   arguments: "-i"
       # ---------
       # send mail by SMTP Server
       # ---------
@@ -107,16 +114,15 @@ redmine_cfg:
     # sudo_mode: true
     # sudo_mode_timeout: 15
     # imagemagick_convert_command:
-    rmagick_font_path: /usr/share/fonts/ipa-gothic/ipag.ttf
+    rmagick_font_path: /usr/share/fonts/opentype/ipaexfont-gothic/ipaexg.ttf
     # max_concurrent_ajax_uploads: 2
     # openid_authentication_store: :memory
 
 # --------------------
-# Rumaの追加背亭
+# Rumaの追加設定
 # --------------------
-redmine_puma_extra_cfg: ""
-  # bind "unix:#{app_root}/tmp/redmine.socket"
-  # activate_control_app
+redmine_puma_extra_cfg: |
+  bind "unix://#{app_root}/tmp/redmine.sock"
 
 # --------------------
 # Redmineの標準の言語設定

@@ -8,6 +8,7 @@
     src: "{{ item.upload_file }}"
     dest: "{{ upload_dest }}"
     owner: "{{ redmine_user }}"
+    mode: "0644"
 - name: append list upload attachment file
   set_fact:
     tmp_uploaded_attachments: "{{ tmp_uploaded_attachments | default([]) + [item | combine({'remote_file': upload_dest, 'base_file_name': base_file_name})] }}"
