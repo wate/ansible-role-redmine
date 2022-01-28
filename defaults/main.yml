@@ -121,8 +121,8 @@ redmine_cfg:
 # --------------------
 # Rumaの追加設定
 # --------------------
-redmine_puma_extra_cfg: ""
-  # bind "unix://#{app_root}/tmp/redmine.sock"
+redmine_puma_extra_cfg: |
+  bind "unix://#{app_root}/tmp/redmine.sock"
 
 # --------------------
 # Redmineの標準の言語設定
