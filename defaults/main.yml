@@ -13,7 +13,6 @@ redmine_version: "4.2-stable"
 # --------------------
 redmine_gemfile_local_content: |
   gem 'puma'
-  gem 'mini_magick', '~> 4.11.0'
 
 # --------------------
 # Redmineのデータベース設定(config/database.yml)
