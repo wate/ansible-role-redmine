@@ -3,7 +3,7 @@ def import_issue_templates(settings)
   if Redmine::Plugin.installed? :redmine_issue_templates
     settings.each do |item|
       tracker = Tracker.find_by_name(item['tracker'])
-      if item['id'] && item['id'].present?
+      if item['id'].present?
         template = GlobalIssueTemplate.find_by_id(item['id'])
       else
         template = GlobalIssueTemplate.find_by_tracker_id_and_title(tracker.id, item['name'])
