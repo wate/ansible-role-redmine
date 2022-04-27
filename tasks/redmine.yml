@@ -193,6 +193,8 @@
             chdir: "{{ redmine_home }}"
             warn: false
           loop: "{{ redmine_plugins | selectattr('post_install_action', 'defined') | list }}"
+          loop_control:
+            label: "{{ item.name }}"
       when: plugin_install_from_git_result is changed or plugin_install_from_url_result is changed or plugin_install_from_file_result is changed
     - name: create puma config file
       template:
