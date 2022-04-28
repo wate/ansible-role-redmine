@@ -12,6 +12,7 @@ redmine_version: "4.2-stable"
 # 追加でインストールするgemパッケージ
 # --------------------
 redmine_gemfile_local_content: |
+  source 'https://rubygems.org'
   gem 'puma'
 
 # --------------------
