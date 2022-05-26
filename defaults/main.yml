@@ -1771,6 +1771,11 @@ redmine_cron_jobs:
 #     position: 1
 
 # --------------------
+# Redmineインストール時にデフォルトデータのロードをスキップする
+# --------------------
+redmine_skip_load_default_data: false
+
+# --------------------
 # 2回目以降の再インポート判定
 # --------------------
 redmine_reimport: false
