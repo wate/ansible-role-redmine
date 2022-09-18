@@ -201,8 +201,8 @@ Redmineインストール時にデフォルトデータのロードをスキッ�
 
 ### `redmine_restore`
 
-Redmineのリストア設定
-※新規設置時または変数「redmine_restore」にtrueが設定されている場合にのみ実行されます。
+Redmineのリストア設定  
+※新規設置時または変数「redmine_restore」にtrueが設定されている場合にのみ実行されます。  
 ※変数「redmine_restore_files_archive_file」と「redmine_restore_database_dump_file」に設定されたパスにファイルが存在しない場合は実行されません。
 
 Example Playbook
