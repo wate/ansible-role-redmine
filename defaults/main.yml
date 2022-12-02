@@ -1847,7 +1847,7 @@ redmine_restore: false
 # redmine_upload_restore_files_archive_file: path/to/local/redmine/files_archive/file.tar.gz
 # 「files」ディレクトリのリストアファイルをサーバにアップロードする場合は以下の変数にコントロールノード側のファイルパスを設定します
 # ※変数「redmine_restore_files_archive_file」のパスにアップロードされます。
-redmine_restore_files_archive_file: "{{ redmine_home }}/tmp/redmine_files_archive.tar.gz"
+# redmine_restore_files_archive_file: "{{ redmine_home }}/tmp/redmine_files_archive.tar.gz"
 
 # アーカイブファイル展開時のコマンドラインオプションを設定します。
 # redmine_restore_files_archive_extra_opts:
@@ -1857,7 +1857,7 @@ redmine_restore_files_archive_file: "{{ redmine_home }}/tmp/redmine_files_archiv
 # データベースのガンプファイルをサーバにアップロードする場合は以下の変数にコントロールノード側のファイルパスを設定する
 # ※変数「redmine_restore_database_dump_file」のパスにアップロードされます。
 # redmine_upload_restore_database_dump_file: path/to/local/redmine/database_dump.tar.gz
-redmine_restore_database_dump_file: "{{ redmine_home }}/tmp/redmine_database_dump.sql.gz"
+# redmine_restore_database_dump_file: "{{ redmine_home }}/tmp/redmine_database_dump.sql.gz"
 
 ### データベースダンプファイルリストア時の接続情報
 # redmine_restore_database_host:
