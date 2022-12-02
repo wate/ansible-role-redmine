@@ -1,15 +1,15 @@
 ---
-- name: create scrpt directory
+- name: Create script directory
   ansible.builtin.file:
     path: "{{ redmine_script_dir }}"
     state: directory
     mode: "0750"
-- name: create setting import script
+- name: Create setting import script
   ansible.builtin.template:
     src: import.rb.j2
     dest: "{{ redmine_script_dir }}/import.rb"
     mode: "0640"
-- name: create import admin setting files
+- name: Create import admin setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/admin.yml"
@@ -19,10 +19,8 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_admin
-  tags:
-    - skip_ansible_lint
-- name: create import issue status setting files
+    redmine_reimport_admin | default(false)
+- name: Create import issue status setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/status.yml"
@@ -32,10 +30,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_issue_status
-- name: create import tracker setting files
+    redmine_reimport_issue_status | default(false)
+- name: Create import tracker setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/tracker.yml"
@@ -45,10 +43,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_tracker
-- name: create import redmine setting files
+    redmine_reimport_tracker | default(false)
+- name: Create import redmine setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/setting.yml"
@@ -58,10 +56,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_setting
-- name: create import role setting files
+    redmine_reimport_setting | default(false)
+- name: Create import role setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/role.yml"
@@ -71,10 +69,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_role
-- name: create import issue custom field setting files
+    redmine_reimport_role | default(false)
+- name: Create import issue custom field setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/issue_custom_field.yml"
@@ -84,10 +82,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_issue_custom_field
-- name: create import project custom field setting files
+    redmine_reimport_issue_custom_field | default(false)
+- name: Create import project custom field setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/project_custom_field.yml"
@@ -97,10 +95,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_project_custom_field
-- name: create import user custom field setting files
+    redmine_reimport_project_custom_field | default(false)
+- name: Create import user custom field setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/user_custom_field.yml"
@@ -110,10 +108,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_user_custom_field
-- name: create import priority setting files
+    redmine_reimport_user_custom_field | default(false)
+- name: Create import priority setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/priority.yml"
@@ -123,10 +121,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_priority
-- name: create import document category setting files
+    redmine_reimport_priority | default(false)
+- name: Create import document category setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/document_category.yml"
@@ -136,10 +134,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_document_category
-- name: create import time entry activity setting files
+    redmine_reimport_document_category | default(false)
+- name: Create import time entry activity setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/time_entry_activity.yml"
@@ -149,10 +147,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_time_entry_activity
-- name: create import custom query setting files
+    redmine_reimport_time_entry_activity | default(false)
+- name: Create import custom query setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/custom_query.yml"
@@ -162,10 +160,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_custom_query
-- name: create import workflow setting files
+    redmine_reimport_custom_query | default(false)
+- name: Create import workflow setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/workflow.yml"
@@ -175,10 +173,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_workflow
-- name: create import workflow permission setting files
+    redmine_reimport_workflow | default(false)
+- name: Create import workflow permission setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/workflow_permission.yml"
@@ -188,10 +186,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_workflow_permission
-- name: create import user setting files
+    redmine_reimport_workflow_permission | default(false)
+- name: Create import user setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/user.yml"
@@ -201,10 +199,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_user
-- name: create import group setting files
+    redmine_reimport_user | default(false)
+- name: Create import group setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/group.yml"
@@ -214,10 +212,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_group
-- name: create import project setting files
+    redmine_reimport_group | default(false)
+- name: Create import project setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/project.yml"
@@ -227,15 +225,15 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_project
-- name: create import attachment setting files
+    redmine_reimport_project | default(false)
+- name: Create import attachment setting files
   block:
     - name: upload attachment files
       ansible.builtin.include_tasks: import/attachment_at.yml
       loop: "{{ redmine_attachments | default([]) }}"
-    - name: create import attachment setting files
+    - name: Create import attachment setting files
       ansible.builtin.template:
         src: import_setting.yml.j2
         dest: "{{ redmine_tmp_dir }}/attachment.yml"
@@ -245,10 +243,8 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_attachment
-  tags:
-    - skip_ansible_lint
-- name: create import message customize setting files
+    redmine_reimport_attachment | default(false)
+- name: Create import message customize setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/message_customize.yml"
@@ -258,10 +254,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_message_customize
-- name: create import view customize setting files
+    redmine_reimport_message_customize | default(false)
+- name: Create import view customize setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/view_customize.yml"
@@ -271,10 +267,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_view_customize
-- name: create import issue templates setting files
+    redmine_reimport_view_customize | default(false)
+- name: Create import issue templates setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/issue_template.yml"
@@ -284,10 +280,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_issue_templates
-- name: create import note templates setting files
+    redmine_reimport_issue_templates | default(false)
+- name: Create import note templates setting files
   ansible.builtin.template:
     src: import_setting.yml.j2
     dest: "{{ redmine_tmp_dir }}/note_template.yml"
@@ -297,12 +293,10 @@
   when: |
     generate_token_result is changed
     or
-    redmine_reimport_all
+    redmine_reimport_all | default(true)
     or
-    redmine_reimport_issue_templates_note
-- name: update redmine settings
+    redmine_reimport_issue_templates_note | default(false)
+- name: Update redmine settings
   ansible.builtin.command:
     cmd: bundle exec rails runner {{ redmine_home }}/scripts/import.rb
     chdir: "{{ redmine_home }}"
-  tags:
-    - skip_ansible_lint

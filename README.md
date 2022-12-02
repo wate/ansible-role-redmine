@@ -149,61 +149,13 @@ issue templatesプラグインのグルーバルチケットテンプレート
 
 Redmineインストール時にデフォルトデータのロードをスキップする
 
-### `redmine_reimport`
-
-2回目以降の再インポート判定
-
-### `redmine_reimport_admin`
-
-### `redmine_reimport_attachment`
-
-### `redmine_reimport_all`
-
-### `redmine_reimport_issue_status`
-
-### `redmine_reimport_tracker`
-
-### `redmine_reimport_setting`
-
-### `redmine_reimport_role`
-
-### `redmine_reimport_issue_custom_field`
-
-### `redmine_reimport_project_custom_field`
-
-### `redmine_reimport_user_custom_field`
-
-### `redmine_reimport_priority`
-
-### `redmine_reimport_document_category`
-
-### `redmine_reimport_time_entry_activity`
-
-### `redmine_reimport_custom_query`
-
-### `redmine_reimport_workflow`
-
-### `redmine_reimport_workflow_permission`
-
-### `redmine_reimport_user`
-
-### `redmine_reimport_group`
-
-### `redmine_reimport_project`
-
-### `redmine_reimport_message_customize`
-
-### `redmine_reimport_view_customize`
-
-### `redmine_reimport_issue_templates`
-
-### `redmine_reimport_issue_templates_note`
-
 ### `redmine_restore`
 
-Redmineのリストア設定  
-※新規設置時または変数「redmine_restore」にtrueが設定されている場合にのみ実行されます。  
-※変数「redmine_restore_files_archive_file」と「redmine_restore_database_dump_file」に設定されたパスにファイルが存在しない場合は実行されません。
+Redmineのバックアップデータのリストア  
+新規設置時または変数「redmine_restore」にtrueが設定されており、  
+変数「redmine_restore_files_archive_file」または「redmine_restore_database_dump_file」に  
+リストアデータのパスが設定されている場合のみ実行されます。  
+※変数のパスにファイルが存在しない場合、リストア処理はスキップされます。
 
 Example Playbook
 --------------

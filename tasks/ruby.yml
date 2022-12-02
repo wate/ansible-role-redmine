@@ -1,5 +1,5 @@
 ---
-- name: install ruby packages
+- name: Install ruby packages
   ansible.builtin.apt:
     name:
       - ruby

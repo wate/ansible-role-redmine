@@ -1775,59 +1775,63 @@ redmine_skip_load_default_data: false
 ## --------------------
 ## 2回目以降の再インポート判定
 ## --------------------
-redmine_reimport: false
-## システム管理者
-redmine_reimport_admin: false
-## 添付ファイル
-redmine_reimport_attachment: false
+# redmine_reimport: false
+# ## システム管理者
+# redmine_reimport_admin: false
+# ## 添付ファイル
+# redmine_reimport_attachment: false
 
-## 全データ(対象はシステム管理者および添付ファイル以外の全て)
-redmine_reimport_all: true
-## チケットのステータス
-redmine_reimport_issue_status: false
-## トラッカー
-redmine_reimport_tracker: false
-## 設定
-redmine_reimport_setting: false
-## ロール
-redmine_reimport_role: false
-## カスタムフィールド(チケット)
-redmine_reimport_issue_custom_field: false
-## カスタムフィールド(プロジェクト)
-redmine_reimport_project_custom_field: false
-## カスタムフィールド(ユーザー)
-redmine_reimport_user_custom_field: false
-## チケットの優先順位
-redmine_reimport_priority: false
-## 文書カテゴリ
-redmine_reimport_document_category: false
-## 作業分類
-redmine_reimport_time_entry_activity: false
-## カスタムクエリ
-redmine_reimport_custom_query: false
-## ワークフロー
-redmine_reimport_workflow: false
-## ワークフロー(フィールド)
-redmine_reimport_workflow_permission: false
-## ユーザー
-redmine_reimport_user: false
-## グループ
-redmine_reimport_group: false
-## プロジェクト
-redmine_reimport_project: false
-## メッセージカスタマイズ
-redmine_reimport_message_customize: false
-## ビューカスタマイズ
-redmine_reimport_view_customize: false
-## チケットテンプレート
-redmine_reimport_issue_templates: false
-## コメント用テンプレート
-redmine_reimport_issue_templates_note: false
+# ## 全データ(対象はシステム管理者および添付ファイル以外の全て)
+# redmine_reimport_all: true
+# ## チケットのステータス
+# redmine_reimport_issue_status: false
+# ## トラッカー
+# redmine_reimport_tracker: false
+# ## 設定
+# redmine_reimport_setting: false
+# ## ロール
+# redmine_reimport_role: false
+# ## カスタムフィールド(チケット)
+# redmine_reimport_issue_custom_field: false
+# ## カスタムフィールド(プロジェクト)
+# redmine_reimport_project_custom_field: false
+# ## カスタムフィールド(ユーザー)
+# redmine_reimport_user_custom_field: false
+# ## チケットの優先順位
+# redmine_reimport_priority: false
+# ## 文書カテゴリ
+# redmine_reimport_document_category: false
+# ## 作業分類
+# redmine_reimport_time_entry_activity: false
+# ## カスタムクエリ
+# redmine_reimport_custom_query: false
+# ## ワークフロー
+# redmine_reimport_workflow: false
+# ## ワークフロー(フィールド)
+# redmine_reimport_workflow_permission: false
+# ## ユーザー
+# redmine_reimport_user: false
+# ## グループ
+# redmine_reimport_group: false
+# ## プロジェクト
+# redmine_reimport_project: false
+# ## メッセージカスタマイズ
+# redmine_reimport_message_customize: false
+# ## ビューカスタマイズ
+# redmine_reimport_view_customize: false
+# ## チケットテンプレート
+# redmine_reimport_issue_templates: false
+# ## コメント用テンプレート
+# redmine_reimport_issue_templates_note: false
 
 ## --------------------
-## Redmineのリストア設定
-## ※新規設置時または変数「redmine_restore」にtrueが設定されている場合にのみ実行されます。
-## ※変数「redmine_restore_files_archive_file」と「redmine_restore_database_dump_file」に設定されたパスにファイルが存在しない場合は実行されません。
+## Redmineのバックアップデータのリストア
+##
+## 新規設置時または変数「redmine_restore」にtrueが設定されており、
+## 変数「redmine_restore_files_archive_file」または「redmine_restore_database_dump_file」に
+## リストアデータのパスが設定されている場合のみ実行されます。
+##
+## ※変数のパスにファイルが存在しない場合、リストア処理はスキップされます。
 ## --------------------
 redmine_restore: false
 
@@ -1843,7 +1847,7 @@ redmine_restore: false
 # redmine_upload_restore_files_archive_file: path/to/local/redmine/files_archive/file.tar.gz
 # 「files」ディレクトリのリストアファイルをサーバにアップロードする場合は以下の変数にコントロールノード側のファイルパスを設定します
 # ※変数「redmine_restore_files_archive_file」のパスにアップロードされます。
-# redmine_restore_files_archive_file: "{{ redmine_home }}/tmp/redmine_files_archive.tar.gz"
+redmine_restore_files_archive_file: "{{ redmine_home }}/tmp/redmine_files_archive.tar.gz"
 
 # アーカイブファイル展開時のコマンドラインオプションを設定します。
 # redmine_restore_files_archive_extra_opts:
@@ -1853,7 +1857,7 @@ redmine_restore: false
 # データベースのガンプファイルをサーバにアップロードする場合は以下の変数にコントロールノード側のファイルパスを設定する
 # ※変数「redmine_restore_database_dump_file」のパスにアップロードされます。
 # redmine_upload_restore_database_dump_file: path/to/local/redmine/database_dump.tar.gz
-# redmine_restore_database_dump_file: "{{ redmine_home }}/tmp/redmine_database_dump.sql.gz"
+redmine_restore_database_dump_file: "{{ redmine_home }}/tmp/redmine_database_dump.sql.gz"
 
 ### データベースダンプファイルリストア時の接続情報
 # redmine_restore_database_host:
