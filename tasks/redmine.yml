@@ -229,7 +229,10 @@
         mode: "0755"
     - name: Import Redmine setting
       ansible.builtin.import_tasks: import.yml
-      when: generate_token_result is changed or redmine_reimport
+      when: |
+        generate_token_result is changed
+        or
+        redmine_reimport | default(false)
   become: true
   become_user: "{{ redmine_user }}"
   environment:
