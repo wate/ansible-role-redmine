@@ -31,11 +31,11 @@ Redmineのデータベース設定(config/database.yml)
 
 ### `redmine_cfg`
 
-Redmineの設定(config/configuration.yml)
+config/configuration.ymlの設定
 
 ### `redmine_puma_extra_cfg`
 
-Rumaの追加設定
+Pumaの追加設定
 
 ### `redmine_lang`
 
@@ -43,19 +43,19 @@ Redmineの標準の言語設定
 
 ### `redmine_themes`
 
-Redmineにインストールするテーマの設定
+Redmineにインストールするテーマ
 
 ### `redmine_plugins`
 
-Redmineにインストールするプラグインの設定
+Redmineにインストールするプラグイン
 
 ### `redmine_settings`
 
-Redmineの設定(管理)
+Redmineの全体設定
 
 ### `redmine_cron_vars`
 
-Redmineのcron用変数設定
+Redmineのcron用変数
 
 ### `redmine_cron_jobs`
 
@@ -67,83 +67,83 @@ Redmineのcron設定
 
 ### `redmine_admin`
 
-Redmineの設定(システム管理者)
+デフォルトのシステム管理者設定
 
 ### `redmine_issue_statuses`
 
-Redmineの設定(チケットのステータス)
+チケットのステータス
 
 ### `redmine_trackers`
 
-Redmineの設定(トラッカー)
+トラッカー
 
 ### `redmine_priorities`
 
-Redmineの設定(チケットの優先度)
+チケットの優先度
 
 ### `redmine_document_categories`
 
-Redmineの設定(文書カテゴリ)
+文書カテゴリ
 
 ### `redmine_time_entry_activities`
 
-Redmineの設定(作業分類)
+作業分類
 
 ### `redmine_custom_queries`
 
-Redmineの設定(カスタムクエリ)
+カスタムクエリ
 
 ### `redmine_workflows`
 
-Redmineの設定(ワークフロー)
+ワークフロー
 
 ### `redmine_workflow_permissions`
 
-Redmineの設定(ワークフロー：フィールドの権限)
+フィールドの権限
 
 ### `redmine_roles`
 
-Redmineの設定(ロールと権限)
+ロールと権限
 
 ### `redmine_project_custom_fields`
 
-Redmineの設定(カスタムフィールド[プロジェクト])
+カスタムフィールド(プロジェクト)
 
 ### `redmine_user_custom_fields`
 
-Redmineの設定(カスタムフィールド[ユーザー])
+カスタムフィールド(ユーザー)
 
 ### `redmine_issue_custom_fields`
 
-Redmineの設定(カスタムフィールド[チケット])
+カスタムフィールド(チケット)
 
 ### `redmine_users`
 
-Redmineの設定(ユーザー)
+ユーザー
 
 ### `redmine_groups`
 
-Redmineの設定(グループ)
+グループ
 
 ### `redmine_projects`
 
-Redmineの設定(プロジェクト)
+プロジェクト
 
 ### `redmine_attachments`
 
-Redmineの設定(添付ファイル)
+添付ファイル
 
 ### `redmine_message_customize`
 
-Redmineの設定(message customizeプラグイン)
+message customizeプラグイン
 
 ### `redmine_view_customize`
 
-Redmineの設定(view customizeプラグイン)
+view customizeプラグイン
 
 ### `redmine_issue_templates`
 
-Redmineの設定(issue templatesプラグインのグルーバルチケットテンプレート)
+issue templatesプラグインのグルーバルチケットテンプレート
 
 ### `redmine_skip_load_default_data`
 
