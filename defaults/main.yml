@@ -50,7 +50,7 @@ redmine_db_cfg:
     # password: redmine_password
 
 ## --------------------
-## Redmineの設定(config/configuration.yml)
+## config/configuration.ymlの設定
 ## --------------------
 redmine_cfg:
   # default configuration options for all environments
@@ -338,7 +338,7 @@ redmine_plugins: []
   #     - plantuml
 
 ## --------------------
-## Redmineの設定(管理)
+## Redmineの全体設定
 ## --------------------
 redmine_settings:
   ## -------------
@@ -802,9 +802,9 @@ redmine_custom_queries: []
 #       # 作業時間
 #       - spent_hours
 
-# --------------------
-# ワークフロー
-# --------------------
+## --------------------
+## ワークフロー
+## --------------------
 redmine_workflows: []
 #   - roles: [管理者]
 #     trackers: [不具合, 機能 ,運用保守, その他]
@@ -1743,9 +1743,9 @@ redmine_view_customize: []
 #     ## 有効
 #     is_enabled: true
 
-# --------------------
-# Redmineの設定(issue templatesプラグインのグルーバルチケットテンプレート)
-# --------------------
+## --------------------
+## issue templatesプラグインのグルーバルチケットテンプレート
+## --------------------
 redmine_issue_templates: []
 #     ## トラッカー
 #   - tracker: 不具合

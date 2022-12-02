@@ -73,7 +73,7 @@ def parse_var_file():
                             else:
                                 doc_block_start = True
                         else:
-                            doc_block_match = re.search(r'^#\s+(.+)', line)
+                            doc_block_match = re.search(r'^##\s+(.+)', line)
                             if doc_block_match and doc_block_start and not doc_block_end:
                                 doc_block_lines.append(doc_block_match.group(1).strip())
 
