@@ -1,3 +1,4 @@
+---
 - name: check restor file exists
   ansible.builtin.stat:
     path: "{{ redmine_restore_files_archive_file }}"

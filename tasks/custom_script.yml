@@ -1,3 +1,4 @@
+---
 - name: custom script setting
   block:
     - name: create custom script directory

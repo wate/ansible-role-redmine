@@ -1,7 +1,7 @@
 ---
 - name: add attachment varriables
   ansible.builtin.set_fact:
-    upload_dest: "/tmp/{{ item.upload_file | hash('sha1') }}"
+    upload_dest: /tmp/{{ item.upload_file | hash('sha1') }}
     base_file_name: "{{ item.upload_file | basename }}"
 - name: upload attachment files
   ansible.builtin.copy:

@@ -1,3 +1,4 @@
+---
 - name: set cron variable
   cronvar:
     name: "{{ item.name }}"

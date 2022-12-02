@@ -6,7 +6,7 @@ redmine_repo: https://github.com/redmine/redmine.git
 ## --------------------
 ## Redmineのバージョン(ブランチ名)
 ## --------------------
-redmine_version: "5.0-stable"
+redmine_version: 5.0-stable
 ## RedMica
 ## redmine_repo: https://github.com/redmica/redmica.git
 ## redmine_version: "stable-2.0"
@@ -275,8 +275,6 @@ redmine_cfg:
   # that overrides the default ones
   development:
   #
-
-
 ## --------------------
 ## Pumaの追加設定
 ## --------------------
@@ -292,50 +290,50 @@ redmine_lang: ja
 ## Redmineにインストールするテーマ
 ## --------------------
 redmine_themes: []
-  # - name: farend_fancy
-  #   repo: "https://github.com/farend/redmine_theme_farend_fancy.git"
-  # - name: farend_basic
-  #   repo: "https://github.com/farend/redmine_theme_farend_basic.git"
-  # - name: PurpleMine2
-  #   repo: "https://github.com/mrliptontea/PurpleMine2.git"
-  # - name: gitmike
-  #   repo: "https://github.com/makotokw/redmine-theme-gitmike.git"
+# - name: farend_fancy
+#   repo: "https://github.com/farend/redmine_theme_farend_fancy.git"
+# - name: farend_basic
+#   repo: "https://github.com/farend/redmine_theme_farend_basic.git"
+# - name: PurpleMine2
+#   repo: "https://github.com/mrliptontea/PurpleMine2.git"
+# - name: gitmike
+#   repo: "https://github.com/makotokw/redmine-theme-gitmike.git"
 
 ## --------------------
 ## Redmineにインストールするプラグイン
 ## --------------------
 redmine_plugins: []
-  # - name: view_customize
-  #   repo: "https://github.com/onozaty/redmine-view-customize.git"
-  #   directory: view_customize
-  # - name: message_customize
-  #   repo: "https://github.com/ishikawa999/redmine_message_customize.git"
-  #   post_install_action: |
-  #     ln -sf {{ redmine_home }}/plugins/redmine_message_customize/35_change_load_order_locales.rb {{ redmine_home }}/config/initializers/35_change_load_order_locales.rb
-  # - name: issue_templates
-  #   repo: "https://github.com/agileware-jp/redmine_issue_templates.git"
-  # - name: vividtone_my_page_blocks
-  #   repo: "https://github.com/vividtone/redmine_vividtone_my_page_blocks.git"
-  # - name: wiki_page_tree
-  #   repo: "https://github.com/ledsun/redmine_wiki_page_tree.git"
-  # - name: slack
-  #   repo: "https://github.com/cat-in-136/redmine-slack.git"
-  #   version: evolved
-  # - name: drawio
-  #   repo: "https://github.com/mikitex70/redmine_drawio.git"
-  # - name: chatwork
-  #   repo: "https://github.com/wate/redmine_chatwork.git"
-  # - name: easy_gantt
-  #   url: "http://www.easyredmine.com/packages/EasyGanttFree.zip"
-  # - name: agile
-  #   file: path/to/redmine_agile-light.zip
-  # - name: checklists
-  #   file: path/to/redmine_checklists-light.zip
-  # - name: plantuml
-  #   repo: "https://github.com/dkd/plantuml.git"
-  #   directory: plantuml
-  #   required_packages:
-  #     - plantuml
+# - name: view_customize
+#   repo: "https://github.com/onozaty/redmine-view-customize.git"
+#   directory: view_customize
+# - name: message_customize
+#   repo: "https://github.com/ishikawa999/redmine_message_customize.git"
+#   post_install_action: |
+#     ln -sf {{ redmine_home }}/plugins/redmine_message_customize/35_change_load_order_locales.rb {{ redmine_home }}/config/initializers/35_change_load_order_locales.rb
+# - name: issue_templates
+#   repo: "https://github.com/agileware-jp/redmine_issue_templates.git"
+# - name: vividtone_my_page_blocks
+#   repo: "https://github.com/vividtone/redmine_vividtone_my_page_blocks.git"
+# - name: wiki_page_tree
+#   repo: "https://github.com/ledsun/redmine_wiki_page_tree.git"
+# - name: slack
+#   repo: "https://github.com/cat-in-136/redmine-slack.git"
+#   version: evolved
+# - name: drawio
+#   repo: "https://github.com/mikitex70/redmine_drawio.git"
+# - name: chatwork
+#   repo: "https://github.com/wate/redmine_chatwork.git"
+# - name: easy_gantt
+#   url: "http://www.easyredmine.com/packages/EasyGanttFree.zip"
+# - name: agile
+#   file: path/to/redmine_agile-light.zip
+# - name: checklists
+#   file: path/to/redmine_checklists-light.zip
+# - name: plantuml
+#   repo: "https://github.com/dkd/plantuml.git"
+#   directory: plantuml
+#   required_packages:
+#     - plantuml
 
 ## --------------------
 ## Redmineの全体設定
@@ -509,7 +507,7 @@ redmine_cron_jobs:
     disabled: true
     command: cd {{ redmine_home }} && rake redmine:send_reminders
     params:
-      - 'days=7'
+      - days=7
       # - 'tracker=1'
       # - 'users="1,23,45"'
     hour: 5
@@ -518,8 +516,8 @@ redmine_cron_jobs:
     disabled: true
     command: cd {{ redmine_home }} && bundle exec rake redmine:email:receive_pop3
     params:
-      - "username=pop3_acount"
-      - "password=pop3_password"
+      - username=pop3_acount
+      - password=pop3_password
       # - host=127.0.0.1
       # - port=110
       # - ssl=false
@@ -528,8 +526,8 @@ redmine_cron_jobs:
     disabled: true
     command: cd {{ redmine_home }} && bundle exec rake redmine:email:receive_imap
     params:
-      - "username=imap_acount"
-      - "password=imap_password"
+      - username=imap_acount
+      - password=imap_password
       # - host=127.0.0.1
       # - port=143
       # - ssl=false
@@ -896,8 +894,6 @@ redmine_workflow_permissions: []
 #       - statuses: 破棄
 #         fields: 破棄理由
 #         permission: required
-
-
 ## --------------------
 ## ロールと権限
 ## --------------------
