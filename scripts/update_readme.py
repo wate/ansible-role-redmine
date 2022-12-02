@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ensurepip import version
 import os
 import re
 import yaml
@@ -67,7 +66,7 @@ def parse_var_file():
                     if var_name_match:
                         var_name = var_name_match.group(1)
                     else:
-                        doc_block_sep_match = re.search(r'^#\s+-{3,}', line)
+                        doc_block_sep_match = re.search(r'^##\s+-{3,}', line)
                         if doc_block_sep_match:
                             if doc_block_start:
                                 doc_block_end = True

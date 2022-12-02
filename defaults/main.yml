@@ -1,26 +1,24 @@
 ---
-# --------------------
-# Redmineのリポジトリ
-# --------------------
+## --------------------
+## Redmineのリポジトリ
+## --------------------
 redmine_repo: https://github.com/redmine/redmine.git
-# --------------------
-# Redmineのバージョン(ブランチ名)
-# --------------------
+## --------------------
+## Redmineのバージョン(ブランチ名)
+## --------------------
 redmine_version: "5.0-stable"
 ## RedMica
-# redmine_repo: https://github.com/redmica/redmica.git
-# redmine_version: "stable-2.0"
+## redmine_repo: https://github.com/redmica/redmica.git
+## redmine_version: "stable-2.0"
 
-# --------------------
-# 追加でインストールするgemパッケージ
-# --------------------
-redmine_gemfile_local_content: |
-  source 'https://rubygems.org'
-  gem 'puma'
+## --------------------
+## 追加でインストールするgemパッケージ
+## --------------------
+redmine_gemfile_local_content: ""
 
-# --------------------
-# Redmineのデータベース設定(config/database.yml)
-# --------------------
+## --------------------
+## Redmineのデータベース設定(config/database.yml)
+## --------------------
 redmine_db_cfg:
   production:
     adapter: mysql2
@@ -51,9 +49,9 @@ redmine_db_cfg:
     # username: redmine_user
     # password: redmine_password
 
-# --------------------
-# Redmineの設定(config/configuration.yml)
-# --------------------
+## --------------------
+## Redmineの設定(config/configuration.yml)
+## --------------------
 redmine_cfg:
   # default configuration options for all environments
   default:
@@ -279,20 +277,20 @@ redmine_cfg:
   #
 
 
-# --------------------
-# Rumaの追加設定
-# --------------------
+## --------------------
+## Pumaの追加設定
+## --------------------
 redmine_puma_extra_cfg: |
   bind "unix://#{app_root}/tmp/redmine.sock"
 
-# --------------------
-# Redmineの標準の言語設定
-# --------------------
+## --------------------
+## Redmineの標準の言語設定
+## --------------------
 redmine_lang: ja
 
-# --------------------
-# Redmineにインストールするテーマの設定
-# --------------------
+## --------------------
+## Redmineにインストールするテーマ
+## --------------------
 redmine_themes: []
   # - name: farend_fancy
   #   repo: "https://github.com/farend/redmine_theme_farend_fancy.git"
@@ -303,9 +301,9 @@ redmine_themes: []
   # - name: gitmike
   #   repo: "https://github.com/makotokw/redmine-theme-gitmike.git"
 
-# --------------------
-# Redmineにインストールするプラグインの設定
-# --------------------
+## --------------------
+## Redmineにインストールするプラグイン
+## --------------------
 redmine_plugins: []
   # - name: view_customize
   #   repo: "https://github.com/onozaty/redmine-view-customize.git"
@@ -339,9 +337,9 @@ redmine_plugins: []
   #   required_packages:
   #     - plantuml
 
-# --------------------
-# Redmineの設定(管理)
-# --------------------
+## --------------------
+## Redmineの設定(管理)
+## --------------------
 redmine_settings:
   ## -------------
   ## 全般
@@ -490,18 +488,18 @@ redmine_settings:
   # enabled_scm:
   #   - Git
 
-# --------------------
-# Redmineのcron用変数設定
-# --------------------
+## --------------------
+## Redmineのcron用変数
+## --------------------
 redmine_cron_vars: []
 #   - name: VAR_NAME
 #     value: var_value
 #   - name: REMOVED_VAR
 #     removed: true
 
-# --------------------
-# Redmineのcron設定
-# --------------------
+## --------------------
+## Redmineのcron設定
+## --------------------
 redmine_cron_jobs:
   - name: attachment prune
     command: cd {{ redmine_home }} && bundle exec rake redmine:attachments:prune
@@ -538,9 +536,9 @@ redmine_cron_jobs:
       # - folder=INBOX
     minute: "*/10"
 
-# --------------------
-# カスタムスクリプトのアップロード設定
-# --------------------
+## --------------------
+## カスタムスクリプトのアップロード設定
+## --------------------
 redmine_custom_script_files: []
 #   - file: path/to/custom_script.sh
 #   - file: path/to/custom_script.rb.j2
@@ -554,9 +552,9 @@ redmine_custom_script_files: []
 #     remote_name: custom_script.rb
 #     removed: true
 
-# --------------------
-# Redmineの設定(システム管理者)
-# --------------------
+## --------------------
+## デフォルトのシステム管理者設定
+## --------------------
 redmine_admin: {}
 #   login: admin
 #   firstname: 管理者
@@ -566,9 +564,9 @@ redmine_admin: {}
 #   password: password
 #   must_change_passwd: false
 
-# --------------------
-# Redmineの設定(チケットのステータス)
-# --------------------
+## --------------------
+## チケットのステータス
+## --------------------
 redmine_issue_statuses: []
 #   - name: 未対応
 #     is_closed: false
@@ -591,9 +589,9 @@ redmine_issue_statuses: []
 #     is_closed: true
 #     position: 8
 
-# --------------------
-# Redmineの設定(トラッカー)
-# --------------------
+## --------------------
+## トラッカー
+## --------------------
 redmine_trackers: []
 #   - name: 不具合
 #     position: 1
@@ -624,9 +622,9 @@ redmine_trackers: []
 #       - description
 #     copy_workflow_from: 機能
 
-# --------------------
-# Redmineの設定(チケットの優先度)
-# --------------------
+## --------------------
+## チケットの優先度
+## --------------------
 redmine_priorities: []
 #   - name: 低い
 #     id: 1
@@ -640,9 +638,9 @@ redmine_priorities: []
 #   - name: 緊急
 #     id: 5
 
-# --------------------
-# Redmineの設定(文書カテゴリ)
-# --------------------
+## --------------------
+## 文書カテゴリ
+## --------------------
 redmine_document_categories: []
 #   - name: ユーザーマニュアル
 #     id: 6
@@ -650,9 +648,9 @@ redmine_document_categories: []
 #     id: 7
 #   - name: インフラドキュメント
 
-# --------------------
-# Redmineの設定(作業分類)
-# --------------------
+## --------------------
+## 作業分類
+## --------------------
 redmine_time_entry_activities: []
 #   - name: 設計
 #     id: 8
@@ -661,50 +659,50 @@ redmine_time_entry_activities: []
 #   - name: テスト
 #   - name: ドキュメント
 
-# --------------------
-# Redmineの設定(カスタムクエリ)
-# --------------------
-## --
-## 検索条件の指定文字列
-## --
-## "="   => 等しい
-## "!"   => 等しくない
-## "o"   => 未完了
-## "c"   => 完了
-## "!*"  => なし
-## "*"   => すべて
-## ">="  => 以上
-## "<="  => 以下
-## "><"  => 次の範囲内
-## "<t+" => N日後以前
-## ">t+" => N日後以降
-## "><t+"=> 今後N日
-## "t+"  => N日後
-## "nd"  => 明日
-## "t"   => 今日
-## "ld"  => 昨日
-## "nw"  => 来週
-## "w"   => 今週
-## "lw"  => 先週
-## "l2w" => 直近2週間
-## "nm"  => 来月
-## "m"   => 今月
-## "lm"  => 先月
-## "y"   => 今年
-## ">t-" => N日前以降
-## "<t-" => N日前以前
-## "><t-"=> 過去N日
-## "t-"  => N日前
-## "~"   => 含む
-## "!~"  => 含まない
-## "^"   => 前方一致
-## "$"   => 後方一致
-## "=p"  => 次のプロジェクト内のチケット
-## "=!p" => 次のプロジェクト外のチケット
-## "!p"  => 次のプロジェクト内のチケットを除く
-## "*o"  => 未完了のチケット
-## "!o"  => なし または完了したチケット
-## --
+## --------------------
+## カスタムクエリ
+## --------------------
+# --
+# 検索条件の指定文字列
+# --
+# "="   => 等しい
+# "!"   => 等しくない
+# "o"   => 未完了
+# "c"   => 完了
+# "!*"  => なし
+# "*"   => すべて
+# ">="  => 以上
+# "<="  => 以下
+# "><"  => 次の範囲内
+# "<t+" => N日後以前
+# ">t+" => N日後以降
+# "><t+"=> 今後N日
+# "t+"  => N日後
+# "nd"  => 明日
+# "t"   => 今日
+# "ld"  => 昨日
+# "nw"  => 来週
+# "w"   => 今週
+# "lw"  => 先週
+# "l2w" => 直近2週間
+# "nm"  => 来月
+# "m"   => 今月
+# "lm"  => 先月
+# "y"   => 今年
+# ">t-" => N日前以降
+# "<t-" => N日前以前
+# "><t-"=> 過去N日
+# "t-"  => N日前
+# "~"   => 含む
+# "!~"  => 含まない
+# "^"   => 前方一致
+# "$"   => 後方一致
+# "=p"  => 次のプロジェクト内のチケット
+# "=!p" => 次のプロジェクト外のチケット
+# "!p"  => 次のプロジェクト内のチケットを除く
+# "*o"  => 未完了のチケット
+# "!o"  => なし または完了したチケット
+# --
 redmine_custom_queries: []
 #     ## カスタムクエリ名
 #   - name: 先月度実績
@@ -805,7 +803,7 @@ redmine_custom_queries: []
 #       - spent_hours
 
 # --------------------
-# Redmineの設定(ワークフロー)
+# ワークフロー
 # --------------------
 redmine_workflows: []
 #   - roles: [管理者]
@@ -852,36 +850,36 @@ redmine_workflows: []
 #       - from: フィードバック
 #         to: [確認待ち, 終了]
 
-# --------------------
-# Redmineの設定(ワークフロー：フィールドの権限)
-# --------------------
-## -----
-## フィールドの指定
-## -----
-## project：プロジェクト
-## tracker：トラッカー
-## subject：題名
-## description：説明
-## priority：優先度
-## assigned_to：担当者
-## category：カテゴリ
-## fixed_version：対象バージョン
-## parent_issue：親チケット
-## start_date：開始日
-## due_date：期日
-## estimated_hours：予定時間
-## done_ratio：進捗率
-## is_private：プライベート
-##
-## ※上記以外は「カスタムフィールド」として認識されます
-##
-## -----
-## アクセス権の設定値
-## -----
-## nil：未指定
-## readonly：読み取り専用
-## required：必須
-##
+## --------------------
+## フィールドの権限
+## --------------------
+# -----
+# フィールドの指定
+# -----
+# project：プロジェクト
+# tracker：トラッカー
+# subject：題名
+# description：説明
+# priority：優先度
+# assigned_to：担当者
+# category：カテゴリ
+# fixed_version：対象バージョン
+# parent_issue：親チケット
+# start_date：開始日
+# due_date：期日
+# estimated_hours：予定時間
+# done_ratio：進捗率
+# is_private：プライベート
+#
+# ※上記以外は「カスタムフィールド」として認識されます
+#
+# -----
+# アクセス権の設定値
+# -----
+# nil：未指定
+# readonly：読み取り専用
+# required：必須
+#
 redmine_workflow_permissions: []
 #   - roles: [管理者, 開発者, 報告者]
 #     trackers: [不具合, 機能, 運用保守, その他]
@@ -900,9 +898,9 @@ redmine_workflow_permissions: []
 #         permission: required
 
 
-# --------------------
-# Redmineの設定(ロールと権限)
-# --------------------
+## --------------------
+## ロールと権限
+## --------------------
 redmine_roles: []
 #     ## 名称
 #   - name: 管理者
@@ -1141,9 +1139,9 @@ redmine_roles: []
 #       - view_wiki_pages
 #       - view_wiki_edits
 
-# --------------------
-# Redmineの設定(カスタムフィールド[プロジェクト])
-# --------------------
+## --------------------
+## カスタムフィールド(プロジェクト)
+## --------------------
 redmine_project_custom_fields: []
 #     ## 名称
 #   - name: テキスト
@@ -1272,9 +1270,9 @@ redmine_project_custom_fields: []
 #   - name: キー・バリュー リスト
 #     field_format: enumeration
 
-# --------------------
-# Redmineの設定(カスタムフィールド[ユーザー])
-# --------------------
+## --------------------
+## カスタムフィールド(ユーザー)
+## --------------------
 redmine_user_custom_fields: []
 #     ## 名称
 #   - name: テキスト
@@ -1403,9 +1401,9 @@ redmine_user_custom_fields: []
 #   - name: キー・バリュー リスト
 #     field_format: enumeration
 
-# --------------------
-# Redmineの設定(カスタムフィールド[チケット])
-# --------------------
+## --------------------
+## カスタムフィールド(チケット)
+## --------------------
 redmine_issue_custom_fields: []
 #     ## 名称
 #   - name: テキスト
@@ -1547,9 +1545,9 @@ redmine_issue_custom_fields: []
 #   - name: キー・バリュー リスト
 #     field_format: enumeration
 
-# --------------------
-# Redmineの設定(ユーザー)
-# --------------------
+## --------------------
+## ユーザー
+## --------------------
 redmine_users: []
 #     ## ログインID (最大:60Byte/文字種:半角英数および@_-.)
 #   - login: taro
@@ -1591,9 +1589,9 @@ redmine_users: []
 #     ## ロック
 #     # locked: true
 
-# --------------------
-# Redmineの設定(グループ)
-# --------------------
+## --------------------
+## グループ
+## --------------------
 redmine_groups: []
 #   - name: グループ名
 #     users:
@@ -1602,9 +1600,9 @@ redmine_groups: []
 #       - user3_login
 #       - user4_login
 
-# --------------------
-# Redmineの設定(プロジェクト)
-# --------------------
+## --------------------
+## プロジェクト
+## --------------------
 redmine_projects: []
 #     # 識別子
 #   - identifier: shinared
@@ -1655,9 +1653,9 @@ redmine_projects: []
 #       # チケットテンプレート
 #       - issue_templates
 
-# --------------------
-# Redmineの設定(添付ファイル)
-# --------------------
+## --------------------
+## 添付ファイル
+## --------------------
 redmine_attachments: []
 #   ## attach project(file)
 #   - project: sample
@@ -1669,9 +1667,9 @@ redmine_attachments: []
 #     upload_file: /path/to/work_flow.png
 #     description: ワーフフロー
 
-# --------------------
-# Redmineの設定(message customizeプラグイン)
-# --------------------
+## --------------------
+## message customizeプラグイン
+## --------------------
 redmine_message_customize: []
 #   ja:
 #     # トラッカー => チケット種別
@@ -1718,9 +1716,9 @@ redmine_message_customize: []
 #     label_news_added: お知らせの追加
 #     label_news_comment_added: お知らせへのコメント追加
 
-# --------------------
-# Redmineの設定(view customizeプラグイン)
-# --------------------
+## --------------------
+## view customizeプラグイン
+## --------------------
 redmine_view_customize: []
 #   - name: 名前(コメントとして登録されます)
 #     code: "{{ lookup('file', 'path/to/scropt.js') }}"
@@ -1773,14 +1771,14 @@ redmine_issue_templates: []
 #     ## 表示順序
 #     position: 1
 
-# --------------------
-# Redmineインストール時にデフォルトデータのロードをスキップする
-# --------------------
+## --------------------
+## Redmineインストール時にデフォルトデータのロードをスキップする
+## --------------------
 redmine_skip_load_default_data: false
 
-# --------------------
-# 2回目以降の再インポート判定
-# --------------------
+## --------------------
+## 2回目以降の再インポート判定
+## --------------------
 redmine_reimport: false
 ## システム管理者
 redmine_reimport_admin: false
@@ -1830,11 +1828,11 @@ redmine_reimport_issue_templates: false
 ## コメント用テンプレート
 redmine_reimport_issue_templates_note: false
 
-# --------------------
-# Redmineのリストア設定
-# ※新規設置時または変数「redmine_restore」にtrueが設定されている場合にのみ実行されます。
-# ※変数「redmine_restore_files_archive_file」と「redmine_restore_database_dump_file」に設定されたパスにファイルが存在しない場合は実行されません。
-# --------------------
+## --------------------
+## Redmineのリストア設定
+## ※新規設置時または変数「redmine_restore」にtrueが設定されている場合にのみ実行されます。
+## ※変数「redmine_restore_files_archive_file」と「redmine_restore_database_dump_file」に設定されたパスにファイルが存在しない場合は実行されません。
+## --------------------
 redmine_restore: false
 
 ### バックアップファイルのアップロード
