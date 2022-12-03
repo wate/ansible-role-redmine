@@ -10,7 +10,7 @@
     name: "{{ redmine_user }}"
     system: true
 - name: Create mysql connection file
-  ini_file:
+  community.general.ini_file:
     path: /home/{{ redmine_user }}/.my.cnf
     create: true
     section: client
@@ -37,6 +37,11 @@
     state: directory
     mode: "0755"
 - name: Setup redmine
+  become: true
+  become_user: "{{ redmine_user }}"
+  environment:
+    RAILS_ENV: "{{ redmine_mode }}"
+    REDMINE_LANG: "{{ redmine_lang }}"
   block:
     - name: Checkout Redmine
       ansible.builtin.git:
@@ -83,6 +88,9 @@
         creates: "{{ redmine_home }}/config/initializers/secret_token.rb"
       register: generate_token_result
     - name: Restore redmine data
+      when: |
+        - (generate_token_result is changed or redmine_restore)
+        - (redmine_restore_files_archive_file is defined or redmine_restore_database_dump_file is defined)
       block:
         - name: Upload restore file(files archive)
           ansible.builtin.copy:
@@ -98,9 +106,6 @@
           when: redmine_upload_restore_files_archive_file is defined
         - name: Restore redmine data
           ansible.builtin.import_tasks: redmine/restore.yml
-      when: |
-        - (generate_token_result is changed or redmine_restore)
-        - (redmine_restore_files_archive_file is defined or redmine_restore_database_dump_file is defined)
     - name: Migrate database
       ansible.builtin.command:
         cmd: bundle exec rake db:migrate
@@ -188,7 +193,13 @@
       loop: "{{ redmine_plugins | selectattr('custom_setting_name', 'defined') | list }}"
       loop_control:
         label: "{{ item.name }}"
-    - name: Plugin setup
+    - name: Setup plugin
+      when: |
+        plugin_install_from_git_result is changed
+        or
+        plugin_install_from_url_result is changed
+        or
+        plugin_install_from_file_result is changed
       block:
         - name: Execute bundle install
           ansible.builtin.command:
@@ -206,11 +217,9 @@
           ansible.builtin.command:
             cmd: "{{ item.post_install_action }}"
             chdir: "{{ redmine_home }}"
-            warn: false
           loop: "{{ redmine_plugins | selectattr('post_install_action', 'defined') | list }}"
           loop_control:
             label: "{{ item.name }}"
-      when: plugin_install_from_git_result is changed or plugin_install_from_url_result is changed or plugin_install_from_file_result is changed
     - name: Create puma config file
       ansible.builtin.template:
         src: puma.rb.j2
@@ -233,11 +242,6 @@
         generate_token_result is changed
         or
         redmine_reimport | default(false)
-  become: true
-  become_user: "{{ redmine_user }}"
-  environment:
-    RAILS_ENV: "{{ redmine_mode }}"
-    REDMINE_LANG: "{{ redmine_lang }}"
 - name: Create redmine systemd unit file
   ansible.builtin.template:
     src: redmine.service.j2

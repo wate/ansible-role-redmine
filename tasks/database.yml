@@ -7,6 +7,9 @@
       - python{{ ansible_facts.distribution_major_version is version('11', '>=') | ternary('3', '') }}-pymysql
   when: redmine_db_cfg.production.adapter == 'mysql2'
 - name: Setup localhost database
+  when:
+    - redmine_db_cfg.production.adapter == 'mysql2'
+    - redmine_db_cfg.production.host | default('localhost') in ['localhost', '127.0.0.1']
   block:
     - name: Create database
       community.mysql.mysql_db:
@@ -14,7 +17,7 @@
         encoding: "{{ redmine_db_cfg.production.encoding }}"
         login_unix_socket: "{{ mariadb_unix_socket_path | default('/run/mysqld/mysqld.sock') }}"
     - name: Create database user
-      ansible.builtin.mysql_user:
+      community.mysql.mysql_user:
         name: "{{ redmine_db_cfg.production.username }}"
         password: "{{ redmine_db_cfg.production.password }}"
         host: "{{ item }}"
@@ -24,6 +27,3 @@
         - localhost
         - 127.0.0.1
       no_log: true
-  when:
-    - redmine_db_cfg.production.adapter == 'mysql2'
-    - redmine_db_cfg.production.host | default('localhost') in ['localhost', '127.0.0.1']

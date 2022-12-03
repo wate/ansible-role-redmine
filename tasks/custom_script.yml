@@ -1,5 +1,7 @@
 ---
 - name: Custom script setting
+  become: true
+  become_user: "{{ redmine_user }}"
   block:
     - name: Create custom script directory
       ansible.builtin.file:
@@ -19,5 +21,3 @@
         path: "{{ redmine_script_dir }}/{{ item.remote_name | default(item.file | basename) }}"
         state: absent
       loop: "{{ redmine_custom_script_files | default([]) | selectattr('removed', 'defined') | list }}"
-  become_user: "{{ redmine_user }}"
-  become: true
