@@ -4,6 +4,9 @@
     path: "{{ redmine_restore_database_dump_file }}"
   register: redmine_restor_file_result
 - name: Restore redmine database dump data
+  when:
+    - redmine_restor_file_result.stat.exists
+    - redmine_db_cfg.production.adapter == 'mysql2'
   block:
     - name: Restore redmine database dump data
       community.mysql.mysql_db:
@@ -18,6 +21,3 @@
     - name: Set execute cache clear variable
       ansible.builtin.set_fact:
         redmine_cache_clear: true
-  when:
-    - redmine_restor_file_result.stat.exists
-    - redmine_db_cfg.production.adapter == 'mysql2'

@@ -229,6 +229,10 @@
     or
     redmine_reimport_project | default(false)
 - name: Create import attachment setting files
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport_attachment | default(false)
   block:
     - name: upload attachment files
       ansible.builtin.include_tasks: import/attachment_at.yml
@@ -240,10 +244,6 @@
         mode: "0640"
       vars:
         redmine_import_data: "{{ tmp_uploaded_attachments | default([]) }}"
-  when: |
-    generate_token_result is changed
-    or
-    redmine_reimport_attachment | default(false)
 - name: Create import message customize setting files
   ansible.builtin.template:
     src: import_setting.yml.j2

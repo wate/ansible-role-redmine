@@ -4,6 +4,7 @@
     path: "{{ redmine_restore_files_archive_file }}"
   register: redmine_restor_file_result
 - name: Restore attachment files
+  when: redmine_restor_file_result.stat.exists
   block:
     - name: Restore files archive
       ansible.builtin.unarchive:
@@ -18,4 +19,3 @@
         group: "{{ redmine_user }}"
         recurse: true
       become: true
-  when: redmine_restor_file_result.stat.exists
