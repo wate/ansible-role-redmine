@@ -2,9 +2,7 @@
 use_default_rules: true
 skip_list:
   - name[casing]
-  - skip-ansible-lint
 warn_list:
-  - no-handler
   - no-changed-when
-  - command-instead-of-shell
+  - no-handler
   - experimental
