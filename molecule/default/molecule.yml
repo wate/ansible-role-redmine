@@ -10,7 +10,7 @@ platforms:
     children:
       - debian
     # driver:docker
-    image: "geerlingguy/docker-debian11-ansible:latest"
+    image: geerlingguy/docker-debian11-ansible:latest
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -25,31 +25,32 @@ lint: |
 provisioner:
   name: ansible
   env:
-    ANSIBLE_ROLES_PATH: "../../../roles"
+    ANSIBLE_ROLES_PATH: ../../../roles
   options:
     diff: true
   config_options:
     defaults:
       hash_behaviour: merge
+      stdout_callback: yaml
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
 # verifier:
 #   name: ansible
-# scenario:
-#   test_sequence:
-#     - dependency
-#     - lint
-#     - cleanup
-#     - destroy
-#     - syntax
-#     - create
-#     - prepare
-#     - converge
-#     - idempotence
-#     - side_effect
-#     - verify
-#     - cleanup
-#     - destroy
+scenario:
+  test_sequence:
+    - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    # - idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
 #   create_sequence:
 #     - dependency
 #     - create

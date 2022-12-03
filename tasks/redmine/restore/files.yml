@@ -1,0 +1,21 @@
+---
+- name: Check restore file exists
+  ansible.builtin.stat:
+    path: "{{ redmine_restore_files_archive_file }}"
+  register: redmine_restor_file_result
+- name: Restore attachment files
+  block:
+    - name: Restore files archive
+      ansible.builtin.unarchive:
+        src: "{{ redmine_restore_files_archive_file }}"
+        dest: "{{ redmine_home }}/files"
+        extra_opts: "{{ redmine_restore_files_archive_extra_opts | default(omit) }}"
+        remote_src: true
+    - name: Change file owner
+      ansible.builtin.file:
+        path: "{{ redmine_home }}/files"
+        owner: "{{ redmine_user }}"
+        group: "{{ redmine_user }}"
+        recurse: true
+      become: true
+  when: redmine_restor_file_result.stat.exists

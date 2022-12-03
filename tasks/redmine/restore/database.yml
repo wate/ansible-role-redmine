@@ -1,0 +1,23 @@
+---
+- name: Check database restore file exists
+  ansible.builtin.stat:
+    path: "{{ redmine_restore_database_dump_file }}"
+  register: redmine_restor_file_result
+- name: Restore redmine database dump data
+  block:
+    - name: Restore redmine database dump data
+      community.mysql.mysql_db:
+        name: "{{ redmine_db_cfg.production.database }}"
+        state: import
+        target: "{{ redmine_restore_database_dump_file }}"
+        login_host: "{{ redmine_restore_database_host | default(omit) }}"
+        login_user: "{{ redmine_restore_database_user | default(omit) }}"
+        login_password: "{{ redmine_restore_database_password | default(omit) }}"
+        login_port: "{{ redmine_restore_database_port | default(omit) }}"
+        login_unix_socket: "{{ redmine_restore_database_unix_socket | default(omit) }}"
+    - name: Set execute cache clear variable
+      ansible.builtin.set_fact:
+        redmine_cache_clear: true
+  when:
+    - redmine_restor_file_result.stat.exists
+    - redmine_db_cfg.production.adapter == 'mysql2'

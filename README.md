@@ -1,33 +1,172 @@
 redmine
-=========
+=================
 
-A brief description of the role goes here.
+setup redmine
 
-Requirements
-------------
+OS Platform
+-----------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+### Debian
+
+- bullseye
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+### `redmine_repo`
 
-Dependencies
-------------
+Redmineのリポジトリ
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+### `redmine_version`
+
+Redmineのバージョン(ブランチ名)
+
+### `redmine_gemfile_local_content`
+
+追加でインストールするgemパッケージ
+
+### `redmine_db_cfg`
+
+Redmineのデータベース設定(config/database.yml)
+
+### `redmine_cfg`
+
+config/configuration.ymlの設定
+
+### `redmine_puma_extra_cfg`
+
+Pumaの追加設定
+
+### `redmine_lang`
+
+Redmineの標準の言語設定
+
+### `redmine_themes`
+
+Redmineにインストールするテーマ
+
+### `redmine_plugins`
+
+Redmineにインストールするプラグイン
+
+### `redmine_settings`
+
+Redmineの全体設定
+
+### `redmine_cron_vars`
+
+Redmineのcron用変数
+
+### `redmine_cron_jobs`
+
+Redmineのcron設定
+
+### `redmine_custom_script_files`
+
+カスタムスクリプトのアップロード設定
+
+### `redmine_admin`
+
+デフォルトのシステム管理者設定
+
+### `redmine_issue_statuses`
+
+チケットのステータス
+
+### `redmine_trackers`
+
+トラッカー
+
+### `redmine_priorities`
+
+チケットの優先度
+
+### `redmine_document_categories`
+
+文書カテゴリ
+
+### `redmine_time_entry_activities`
+
+作業分類
+
+### `redmine_custom_queries`
+
+カスタムクエリ
+
+### `redmine_workflows`
+
+ワークフロー
+
+### `redmine_workflow_permissions`
+
+フィールドの権限
+
+### `redmine_roles`
+
+ロールと権限
+
+### `redmine_project_custom_fields`
+
+カスタムフィールド(プロジェクト)
+
+### `redmine_user_custom_fields`
+
+カスタムフィールド(ユーザー)
+
+### `redmine_issue_custom_fields`
+
+カスタムフィールド(チケット)
+
+### `redmine_users`
+
+ユーザー
+
+### `redmine_groups`
+
+グループ
+
+### `redmine_projects`
+
+プロジェクト
+
+### `redmine_attachments`
+
+添付ファイル
+
+### `redmine_message_customize`
+
+message customizeプラグイン
+
+### `redmine_view_customize`
+
+view customizeプラグイン
+
+### `redmine_issue_templates`
+
+issue templatesプラグインのグルーバルチケットテンプレート
+
+### `redmine_skip_load_default_data`
+
+Redmineインストール時にデフォルトデータのロードをスキップする
+
+### `redmine_restore`
+
+Redmineのバックアップデータのリストア  
+新規設置時または変数「redmine_restore」にtrueが設定されており、  
+変数「redmine_restore_files_archive_file」または「redmine_restore_database_dump_file」に  
+リストアデータのパスが設定されている場合のみ実行されます。  
+※変数のパスにファイルが存在しない場合、リストア処理はスキップされます。
 
 Example Playbook
-----------------
+--------------
 
-```yml
+```yaml
 - hosts: servers
   roles:
     - role: redmine
 ```
 
 License
--------
+--------------
 
 Apache License 2.0
