@@ -1,0 +1,17 @@
+---
+- name: Install database dependency packages(PostgreSQL)
+  ansible.builtin.apt:
+    name: "{{ redmine_postgresql_dependency_packages }}"
+- name: Setup database
+  become: true
+  become_user: postgres
+  block:
+    - name: Create database
+      community.postgresql.postgresql_db:
+        name: "{{ redmine_db_cfg[redmine_mode]['database'] }}"
+        encoding: "{{ redmine_db_cfg[redmine_mode]['encoding'] | default('UTF8') }}"
+    - name: Create database user
+      community.postgresql.postgresql_user:
+        name: "{{ redmine_db_cfg[redmine_mode]['username'] }}"
+        password: "{{ redmine_db_cfg[redmine_mode]['password'] }}"
+        db: "{{ redmine_db_cfg[redmine_mode]['database'] }}"

@@ -48,6 +48,20 @@ redmine_db_cfg:
     # host: localhost
     # username: redmine_user
     # password: redmine_password
+  development:
+    adapter: mysql2
+    database: redmine_development
+    host: localhost
+    username: redmine_dev_user
+    password: redmine_dev_password
+    encoding: utf8mb4
+  test:
+    adapter: mysql2
+    database: redmine_test
+    host: localhost
+    username: redmine_test_user
+    password: redmine_test_password
+    encoding: utf8mb4
 
 ## --------------------
 ## config/configuration.ymlの設定
