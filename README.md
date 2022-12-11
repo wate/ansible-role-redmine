@@ -1,7 +1,7 @@
 redmine
 =================
 
-setup redmine
+Setup redmine
 
 OS Platform
 -----------------
