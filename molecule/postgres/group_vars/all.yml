@@ -1,0 +1,23 @@
+---
+redmine_db_cfg:
+  production:
+    adapter: postgresql
+    database: redmine
+    host: localhost
+    username: redmine_user
+    password: redmine_password
+    encoding: UTF8
+  development:
+    adapter: postgresql
+    database: redmine
+    host: localhost
+    username: redmine_user
+    password: redmine_password
+    encoding: UTF8
+  test:
+    adapter: postgresql
+    database: redmine
+    host: localhost
+    username: redmine_user
+    password: redmine_password
+    encoding: UTF8
