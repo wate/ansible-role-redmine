@@ -20,7 +20,7 @@ redmine_gemfile_local_content: |
 ## --------------------
 ## Redmineの動作モード
 ## --------------------
-redmine_mode: development
+redmine_mode: production
 
 ## --------------------
 ## Redmineのデータベース設定(config/database.yml)

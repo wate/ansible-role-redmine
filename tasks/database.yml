@@ -2,23 +2,3 @@
 - name: Include database setup task
   ansible.builtin.include_tasks: database/{{ redmine_db_cfg[redmine_mode].adapter }}.yml
   when: redmine_db_cfg[redmine_mode].host | default('localhost') in ['localhost', '127.0.0.1']
-- name: Create mysql connection setting file
-  community.general.ini_file:
-    path: ~/.my.cnf
-    create: true
-    section: client
-    option: "{{ item.key | replace('_', '-') }}"
-    value: "{{ item.value | string }}"
-    mode: "0640"
-  loop: "{{ redmine_database_setting | dict2items }}"
-  vars:
-    redmine_database_setting:
-      host: "{{ redmine_db_cfg[redmine_mode]['host'] }}"
-      database: "{{ redmine_db_cfg[redmine_mode]['database'] }}"
-      user: "{{ redmine_db_cfg[redmine_mode]['username'] }}"
-      password: "{{ redmine_db_cfg[redmine_mode]['password'] }}"
-      default_character_set: "{{ redmine_db_cfg[redmine_mode]['encoding'] | default('utf8mb4') }}"
-  become: true
-  become_user: "{{ redmine_user }}"
-  when: redmine_db_cfg[redmine_mode]['adapter'] == 'mysql2'
-  no_log: true

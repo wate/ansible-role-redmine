@@ -16,6 +16,7 @@
         src: import.rb.j2
         dest: "{{ redmine_script_dir }}/import.rb"
         mode: "0640"
+      no_log: true
     - name: Create import admin setting files
       ansible.builtin.template:
         src: import_setting.yml.j2
