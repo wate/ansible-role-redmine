@@ -1,7 +1,24 @@
 ---
-- name: restore files
-  ansible.builtin.import_tasks: restore/files.yml
-  when: redmine_restore_files_archive_file is defined
-- name: restore database
-  ansible.builtin.import_tasks: restore/database.yml
-  when: redmine_restore_database_dump_file is defined
+- name: Restore redmine data
+  when:
+    - (generate_token_result is changed or redmine_restore)
+    - (redmine_restore_files_archive_file is defined or redmine_restore_database_dump_file is defined)
+  block:
+    - name: Upload restore file(files archive)
+      ansible.builtin.copy:
+        src: "{{ redmine_upload_restore_files_archive_file }}"
+        dest: "{{ redmine_restore_files_archive_file }}"
+        mode: "0644"
+      when: redmine_upload_restore_files_archive_file is defined
+    - name: Upload restore file(database dump)
+      ansible.builtin.copy:
+        src: "{{ redmine_upload_restore_database_dump_file }}"
+        dest: "{{ redmine_restore_database_dump_file }}"
+        mode: "0644"
+      when: redmine_upload_restore_files_archive_file is defined
+    - name: restore files
+      ansible.builtin.import_tasks: restore/files.yml
+      when: redmine_restore_files_archive_file is defined
+    - name: restore database
+      ansible.builtin.import_tasks: restore/database.yml
+      when: redmine_restore_database_dump_file is defined

@@ -1,0 +1,21 @@
+---
+- name: Install theme
+  become: true
+  become_user: "{{ redmine_user }}"
+  block:
+    - name: Install themes from git
+      ansible.builtin.git:
+        repo: "{{ item.repo }}"
+        dest: "{{ redmine_theme_dir }}/{{ item.directory if item.directory is defined else item.name }}"
+        version: master
+      loop: "{{ redmine_themes | selectattr('repo', 'defined') | list }}"
+      loop_control:
+        label: "{{ item.name }}"
+    - name: Install themes from file
+      ansible.builtin.unarchive:
+        src: "{{ item.file }}"
+        dest: "{{ redmine_theme_dir }}"
+        mode: "0644"
+      loop: "{{ redmine_themes | selectattr('file', 'defined') | list }}"
+      loop_control:
+        label: "{{ item.name }}"

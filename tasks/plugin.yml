@@ -1,0 +1,92 @@
+---
+- name: Setup redmine
+  become: true
+  become_user: "{{ redmine_user }}"
+  environment:
+    RAILS_ENV: "{{ redmine_mode }}"
+    REDMINE_LANG: "{{ redmine_lang }}"
+  block:
+    - name: Install plugin from git
+      ansible.builtin.git:
+        repo: "{{ item.repo }}"
+        dest: "{{ redmine_plugin_dir }}/{{ item.directory if item.directory is defined else 'redmine_' + item.name }}"
+        version: "{{ item.version | default('master') }}"
+      loop: "{{ redmine_plugins | selectattr('repo', 'defined') | list }}"
+      loop_control:
+        label: "{{ item.name }}"
+      notify: restart redmine
+      register: plugin_install_from_git_result
+    - name: Download plugin archive file
+      ansible.builtin.get_url:
+        url: "{{ item.url }}"
+        dest: "{{ redmine_home }}/tmp/{{ item.url | basename }}"
+        mode: "0644"
+      loop: "{{ redmine_plugins | selectattr('url', 'defined') | list }}"
+      loop_control:
+        label: "{{ item.name }}"
+    - name: Unarchive downloaded plugin archive file
+      ansible.builtin.unarchive:
+        src: "{{ redmine_home }}/tmp/{{ item.url | basename }}"
+        dest: "{{ redmine_plugin_dir }}"
+        remote_src: true
+        mode: "0755"
+      loop: "{{ redmine_plugins | selectattr('url', 'defined') | list }}"
+      loop_control:
+        label: "{{ item.name }}"
+      notify: restart redmine
+      register: plugin_install_from_url_result
+    - name: Unarchive plugin archive file
+      ansible.builtin.unarchive:
+        src: "{{ item.file }}"
+        dest: "{{ redmine_plugin_dir }}"
+        mode: "0755"
+      loop: "{{ redmine_plugins | selectattr('file', 'defined') | list }}"
+      loop_control:
+        label: "{{ item.name }}"
+      notify: restart redmine
+      register: plugin_install_from_file_result
+    - name: Install plugin dependency packages
+      ansible.builtin.apt:
+        name: "{{ item.1 }}"
+        state: present
+      loop: "{{ redmine_plugins | subelements('required_packages', {'skip_missing': True}) }}"
+      loop_control:
+        label: "{{ item.1 }}"
+      notify: restart redmine
+      become: true
+      become_user: root
+    - name: Create plugin custom setting file
+      ansible.builtin.template:
+        src: plugin/custom_setting.yml.j2
+        dest: "{{ redmine_home }}/config/{{ item.custom_setting_name }}.yml"
+        mode: "0644"
+      loop: "{{ redmine_plugins | selectattr('custom_setting_name', 'defined') | list }}"
+      loop_control:
+        label: "{{ item.name }}"
+    - name: Setup plugin
+      when: |
+        plugin_install_from_git_result is changed
+        or
+        plugin_install_from_url_result is changed
+        or
+        plugin_install_from_file_result is changed
+      block:
+        - name: Execute bundle install
+          ansible.builtin.command:
+            cmd: bundle install
+            chdir: "{{ redmine_home }}"
+        - name: Execute bundle exec rake db:migrate
+          ansible.builtin.command:
+            cmd: bundle exec rake db:migrate
+            chdir: "{{ redmine_home }}"
+        - name: Execute bundle exec rake redmine:plugins:migrate
+          ansible.builtin.command:
+            cmd: bundle exec rake redmine:plugins:migrate
+            chdir: "{{ redmine_home }}"
+        - name: Execute plugin post install action
+          ansible.builtin.command:
+            cmd: "{{ item.post_install_action }}"
+            chdir: "{{ redmine_home }}"
+          loop: "{{ redmine_plugins | selectattr('post_install_action', 'defined') | list }}"
+          loop_control:
+            label: "{{ item.name }}"

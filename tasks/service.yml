@@ -1,4 +1,12 @@
 ---
+- name: Create puma config file
+  ansible.builtin.template:
+    src: puma.rb.j2
+    dest: "{{ redmine_home }}/config/puma.rb"
+    mode: "0644"
+  become: true
+  become_user: "{{ redmine_user }}"
+  notify: restart redmine
 - name: Create redmine systemd unit file
   ansible.builtin.template:
     src: redmine.service.j2
