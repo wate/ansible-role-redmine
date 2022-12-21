@@ -14,7 +14,8 @@ redmine_version: 5.0-stable
 ## --------------------
 ## 追加でインストールするgemパッケージ
 ## --------------------
-redmine_gemfile_local_content: ""
+redmine_gemfile_local_content: |
+  gem 'puma'
 
 ## --------------------
 ## Redmineのデータベース設定(config/database.yml)
