@@ -1,4 +1,15 @@
 ---
+redmine_dependency_packages:
+  - ruby
+  - ruby-dev
+  - rubygems-integration
+  - ruby-rmagick
+  - libmagickcore-dev
+  - bundler
+  - git
+  - acl
+  - pkg-config
+
 redmine_user: redmine
 redmine_home: /opt/redmine
 redmine_root: "{{ redmine_home }}"

@@ -13,13 +13,17 @@
 - name: Include variable file
   ansible.builtin.include_vars: "{{ variable_file }}"
   when: variable_file | length > 0
-- name: Install ruby
-  ansible.builtin.import_tasks: ruby.yml
-- name: Redmine database setting
-  ansible.builtin.import_tasks: database.yml
+- name: Import dependency task
+  ansible.builtin.import_tasks:
+    file: dependency.yml
+  tags: dependency
+- name: Import database task
+  ansible.builtin.import_tasks:
+    file: database.yml
 - name: Setup redmine
-  ansible.builtin.import_tasks: redmine.yml
-- name: Upload custom script
-  ansible.builtin.import_tasks: custom_script.yml
-- name: Setup cron jobs
-  ansible.builtin.import_tasks: cron.yml
+  ansible.builtin.import_tasks:
+    file: redmine.yml
+- name: Include service task
+  ansible.builtin.import_tasks:
+    file: service.yml
+  tags: service

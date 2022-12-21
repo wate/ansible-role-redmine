@@ -1,41 +1,4 @@
 ---
-- name: Install dependency packages
-  ansible.builtin.apt:
-    name:
-      - git
-      - acl
-      - pkg-config
-- name: Add redmine user
-  ansible.builtin.user:
-    name: "{{ redmine_user }}"
-    system: true
-- name: Create mysql connection file
-  community.general.ini_file:
-    path: /home/{{ redmine_user }}/.my.cnf
-    create: true
-    section: client
-    option: "{{ item.key | replace('_', '-') }}"
-    value: "{{ item.value | string }}"
-    owner: "{{ redmine_user }}"
-    group: "{{ redmine_user }}"
-    mode: "0640"
-  loop: "{{ redmine_database_setting | dict2items }}"
-  vars:
-    redmine_database_setting:
-      host: "{{ redmine_db_cfg.production.host }}"
-      database: "{{ redmine_db_cfg.production.database }}"
-      user: "{{ redmine_db_cfg.production.username }}"
-      password: "{{ redmine_db_cfg.production.password }}"
-      default_character_set: "{{ redmine_db_cfg.production.encoding | default('utf8') }}"
-  when: redmine_db_cfg.production.adapter == 'mysql2'
-  no_log: true
-- name: Create install directory
-  ansible.builtin.file:
-    path: "{{ redmine_home }}"
-    owner: "{{ redmine_user }}"
-    group: "{{ redmine_user }}"
-    state: directory
-    mode: "0755"
 - name: Setup redmine
   become: true
   become_user: "{{ redmine_user }}"
@@ -105,7 +68,7 @@
             mode: "0644"
           when: redmine_upload_restore_files_archive_file is defined
         - name: Restore redmine data
-          ansible.builtin.import_tasks: redmine/restore.yml
+          ansible.builtin.import_tasks: restore.yml
     - name: Migrate database
       ansible.builtin.command:
         cmd: bundle exec rake db:migrate
@@ -242,15 +205,3 @@
         generate_token_result is changed
         or
         redmine_reimport | default(false)
-- name: Create redmine systemd unit file
-  ansible.builtin.template:
-    src: redmine.service.j2
-    dest: /lib/systemd/system/redmine.service
-    mode: "0644"
-  notify: restart redmine
-- name: Redmine is active and enable on system startup
-  ansible.builtin.systemd:
-    daemon_reload: true
-    name: redmine
-    state: started
-    enabled: true
