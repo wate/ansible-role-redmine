@@ -11,7 +11,8 @@
       paths:
         - vars
 - name: Include variable file
-  ansible.builtin.include_vars: "{{ variable_file }}"
+  ansible.builtin.include_vars:
+    file: "{{ variable_file }}"
   when: variable_file | length > 0
 - name: Import dependency task
   ansible.builtin.import_tasks:
@@ -23,6 +24,12 @@
 - name: Setup redmine
   ansible.builtin.import_tasks:
     file: redmine.yml
+- name: Upload custom script
+  ansible.builtin.import_tasks:
+    file: custom_script.yml
+- name: Setup cron jobs
+  ansible.builtin.import_tasks:
+    file: cron.yml
 - name: Include service task
   ansible.builtin.import_tasks:
     file: service.yml
