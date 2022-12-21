@@ -18,6 +18,11 @@ redmine_gemfile_local_content: |
   gem 'puma', '< 6.0.0'
 
 ## --------------------
+## Redmineの動作モード
+## --------------------
+redmine_mode: production
+
+## --------------------
 ## Redmineのデータベース設定(config/database.yml)
 ## --------------------
 redmine_db_cfg:

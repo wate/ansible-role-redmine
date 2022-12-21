@@ -25,6 +25,10 @@ Redmineのバージョン(ブランチ名)
 
 追加でインストールするgemパッケージ
 
+### `redmine_mode`
+
+Redmineの動作モード
+
 ### `redmine_db_cfg`
 
 Redmineのデータベース設定(config/database.yml)
