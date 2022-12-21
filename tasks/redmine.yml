@@ -15,6 +15,7 @@
     - name: Import setting task
       ansible.builtin.import_tasks:
         file: setting.yml
+
     - name: Install/update gem packages
       community.general.bundler:
         gemfile: "{{ redmine_home }}/Gemfile"
@@ -23,12 +24,14 @@
         state: latest
         user_install: true
         chdir: "{{ redmine_home }}"
+
     - name: Create secret token
       ansible.builtin.command:
         cmd: bundle exec rake generate_secret_token
         chdir: "{{ redmine_home }}"
         creates: "{{ redmine_home }}/config/initializers/secret_token.rb"
       register: generate_token_result
+
     - name: Migrate database
       ansible.builtin.command:
         cmd: bundle exec rake db:migrate
@@ -43,30 +46,3 @@
         - generate_token_result is changed
         - redmine_restore_files is undefined
         - not redmine_skip_load_default_data
-    - name: Import restore task
-      ansible.builtin.import_tasks:
-        file: restore.yml
-    - name: Import theme task
-      ansible.builtin.import_tasks:
-        file: theme.yml
-    - name: Import plugin task
-      ansible.builtin.import_tasks:
-        file: plugin.yml
-    - name: clear cache
-      ansible.builtin.command:
-        cmd: bundle exec rake tmp:cache:clear
-        chdir: "{{ redmine_home }}"
-      when: redmine_cache_clear | default(false)
-    - name: Create setting file directory
-      ansible.builtin.file:
-        path: "{{ redmine_home }}/tmp/import"
-        state: directory
-        mode: "0755"
-
-    - name: Import import data task
-      ansible.builtin.import_tasks:
-        file: import.yml
-      when: |
-        generate_token_result is changed
-        or
-        redmine_reimport | default(false)

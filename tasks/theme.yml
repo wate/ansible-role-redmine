@@ -1,5 +1,5 @@
 ---
-- name: Install theme
+- name: install/update theme
   become: true
   become_user: "{{ redmine_user }}"
   block:

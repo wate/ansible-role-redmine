@@ -21,16 +21,38 @@
 - name: Import database task
   ansible.builtin.import_tasks:
     file: database.yml
-- name: Setup redmine
+
+- name: Import redmine
   ansible.builtin.import_tasks:
     file: redmine.yml
-- name: Upload custom script
+- name: Import restore task
+  ansible.builtin.import_tasks:
+    file: restore.yml
+- name: Import theme task
+  ansible.builtin.import_tasks:
+    file: theme.yml
+- name: Import plugin task
+  ansible.builtin.import_tasks:
+    file: plugin.yml
+- name: Clear cache
+  ansible.builtin.command:
+    cmd: bundle exec rake tmp:cache:clear
+    chdir: "{{ redmine_home }}"
+  when: redmine_cache_clear | default(false)
+- name: Import Redmine setting import task
+  ansible.builtin.import_tasks:
+    file: import.yml
+  when: |
+    generate_token_result is changed
+    or
+    redmine_reimport | default(false)
+- name: Import custom script task
   ansible.builtin.import_tasks:
     file: custom_script.yml
-- name: Setup cron jobs
+- name: Import cron job task
   ansible.builtin.import_tasks:
     file: cron.yml
-- name: Include service task
+- name: Import service task
   ansible.builtin.import_tasks:
     file: service.yml
   tags: service
