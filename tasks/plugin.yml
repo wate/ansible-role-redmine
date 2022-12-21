@@ -73,10 +73,7 @@
       block:
         - name: Install gem packages
           community.general.bundler:
-            gemfile: "{{ redmine_home }}/Gemfile"
-            deployment_mode: "{{ redmine_mode == 'production' }}"
-            exclude_groups: "{{ redmine_mode == 'production' | ternary(['development', 'test'], omit) }}"
-            state: latest
+            executable: "{{ redmine_home }}/bin/bundle"
             chdir: "{{ redmine_home }}"
         - name: Execute bundle exec rake db:migrate
           ansible.builtin.command:

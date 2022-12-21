@@ -303,6 +303,11 @@ redmine_puma_extra_cfg: |
   bind "unix://#{app_root}/tmp/redmine.sock"
 
 ## --------------------
+## Gemパッケージのインストール先
+## --------------------
+redmine_gem_path: vendor/bundle
+
+## --------------------
 ## Redmineの標準の言語設定
 ## --------------------
 redmine_lang: ja

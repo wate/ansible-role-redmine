@@ -41,6 +41,10 @@ config/configuration.ymlの設定
 
 Pumaの追加設定
 
+### `redmine_gem_path`
+
+Gemパッケージのインストール先
+
 ### `redmine_lang`
 
 Redmineの標準の言語設定
