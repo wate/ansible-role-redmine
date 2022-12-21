@@ -296,7 +296,7 @@
     redmine_reimport_all | default(true)
     or
     redmine_reimport_issue_templates_note | default(false)
-- name: Update redmine settings
+- name: Update Redmine settings
   ansible.builtin.command:
     cmd: bundle exec rails runner {{ redmine_home }}/scripts/import.rb
     chdir: "{{ redmine_home }}"

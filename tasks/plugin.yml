@@ -71,9 +71,13 @@
         or
         plugin_install_from_file_result is changed
       block:
-        - name: Execute bundle install
-          ansible.builtin.command:
-            cmd: bundle install
+        - name: Install gem packages
+          community.general.bundler:
+            gemfile: "{{ redmine_home }}/Gemfile"
+            deployment_mode: "{{ redmine_mode == 'production' }}"
+            exclude_groups: "{{ redmine_mode == 'production' | ternary(['development', 'test'], omit) }}"
+            state: latest
+            user_install: true
             chdir: "{{ redmine_home }}"
         - name: Execute bundle exec rake db:migrate
           ansible.builtin.command:

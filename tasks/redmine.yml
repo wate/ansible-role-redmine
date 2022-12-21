@@ -15,11 +15,14 @@
     - name: Import setting task
       ansible.builtin.import_tasks:
         file: setting.yml
-    - name: Execute bundle update
-      ansible.builtin.command:
-        cmd: bundle update
+    - name: Install/update gem packages
+      community.general.bundler:
+        gemfile: "{{ redmine_home }}/Gemfile"
+        deployment_mode: "{{ redmine_mode == 'production' }}"
+        exclude_groups: "{{ redmine_mode == 'production' | ternary(['development', 'test'], omit) }}"
+        state: latest
+        user_install: true
         chdir: "{{ redmine_home }}"
-      when: git_result is changed
     - name: Create secret token
       ansible.builtin.command:
         cmd: bundle exec rake generate_secret_token
