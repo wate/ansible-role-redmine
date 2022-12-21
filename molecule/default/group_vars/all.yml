@@ -2,22 +2,22 @@
 redmine_db_cfg:
   production:
     adapter: mysql2
-    database: redmine
+    database: redmine_prod
     host: localhost
-    username: redmine_user
-    password: redmine_password
+    username: redmine_prod_user
+    password: redmine_prod_password
     encoding: utf8mb4
   development:
     adapter: mysql2
-    database: redmine
+    database: redmine_dev
     host: localhost
-    username: redmine_user
-    password: redmine_password
+    username: redmine_dev_user
+    password: redmine_dev_password
     encoding: utf8mb4
   test:
     adapter: mysql2
-    database: redmine
+    database: redmine_test
     host: localhost
-    username: redmine_user
-    password: redmine_password
+    username: redmine_test_user
+    password: redmine_test_password
     encoding: utf8mb4

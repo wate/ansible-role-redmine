@@ -6,7 +6,7 @@
 - name: Restore redmine database dump data
   when:
     - redmine_restor_file_result.stat.exists
-    - redmine_db_cfg.production.adapter == 'mysql2'
+    - redmine_db_cfg[redmine_mode]['adapter'] == 'mysql2'
   block:
     - name: Restore redmine database dump data
       community.mysql.mysql_db:
@@ -18,6 +18,10 @@
         login_password: "{{ redmine_restore_database_password | default(omit) }}"
         login_port: "{{ redmine_restore_database_port | default(omit) }}"
         login_unix_socket: "{{ redmine_restore_database_unix_socket | default(omit) }}"
-    - name: Set execute cache clear variable
+    - name: Overwrite redmine_skip_load_default_data variable
       ansible.builtin.set_fact:
-        redmine_cache_clear: true
+        redmine_skip_load_default_data: true
+    - name: Clear cache
+      ansible.builtin.command:
+        cmd: bundle exec rake tmp:cache:clear
+        chdir: "{{ redmine_home }}"

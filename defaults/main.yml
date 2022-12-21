@@ -18,6 +18,11 @@ redmine_gemfile_local_content: |
   gem 'puma', '< 6.0.0'
 
 ## --------------------
+## Redmineの動作モード
+## --------------------
+redmine_mode: production
+
+## --------------------
 ## Redmineのデータベース設定(config/database.yml)
 ## --------------------
 redmine_db_cfg:
@@ -296,6 +301,11 @@ redmine_cfg:
 ## --------------------
 redmine_puma_extra_cfg: |
   bind "unix://#{app_root}/tmp/redmine.sock"
+
+## --------------------
+## Gemパッケージのインストール先
+## --------------------
+redmine_gem_path: vendor/bundle
 
 ## --------------------
 ## Redmineの標準の言語設定

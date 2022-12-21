@@ -1,7 +1,0 @@
----
-- name: restore files
-  ansible.builtin.import_tasks: restore/files.yml
-  when: redmine_restore_files_archive_file is defined
-- name: restore database
-  ansible.builtin.import_tasks: restore/database.yml
-  when: redmine_restore_database_dump_file is defined
