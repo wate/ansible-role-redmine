@@ -15,7 +15,7 @@
         that: result is not changed
     ## グループのテスト
     - name: Add group check
-      ansible.builtin.user:
+      ansible.builtin.group:
         name: redmine
       register: result
     - name: Assert group
