@@ -21,3 +21,6 @@ redmine_db_cfg:
     username: redmine_test_user
     password: redmine_test_password
     encoding: utf8mb4
+
+redmine_puma_extra_cfg: |
+  port 3000
