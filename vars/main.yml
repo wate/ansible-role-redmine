@@ -4,11 +4,22 @@ redmine_dependency_packages:
   - ruby-dev
   - rubygems-integration
   - ruby-rmagick
-  - libmagickcore-dev
   - bundler
+  - libmagickcore-dev
   - git
   - acl
   - pkg-config
+
+redmine_mysql2_dependency_packages:
+  - mariadb-client
+  - mariadb-server
+  - libmariadb-dev
+  - python3-pymysql
+
+redmine_postgresql_dependency_packages:
+  - postgresql
+  - postgresql-server-dev-13
+  - python3-psycopg2
 
 redmine_user: redmine
 redmine_home: /opt/redmine
