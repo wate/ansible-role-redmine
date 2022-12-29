@@ -21,6 +21,10 @@ Redmineのリポジトリ
 
 Redmineのバージョン(ブランチ名)
 
+### `redmine_additional_environment`
+
+追加の環境設定
+
 ### `redmine_gemfile_local_content`
 
 追加でインストールするgemパッケージ
