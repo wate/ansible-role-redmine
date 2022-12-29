@@ -21,9 +21,17 @@ Redmineのリポジトリ
 
 Redmineのバージョン(ブランチ名)
 
+### `redmine_additional_environment`
+
+追加の環境設定
+
 ### `redmine_gemfile_local_content`
 
 追加でインストールするgemパッケージ
+
+### `redmine_mode`
+
+Redmineの動作モード
 
 ### `redmine_db_cfg`
 
@@ -36,6 +44,10 @@ config/configuration.ymlの設定
 ### `redmine_puma_extra_cfg`
 
 Pumaの追加設定
+
+### `redmine_gem_path`
+
+Gemパッケージのインストール先
 
 ### `redmine_lang`
 

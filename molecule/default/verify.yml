@@ -2,8 +2,55 @@
 - name: Verify
   hosts: all
   gather_facts: false
-  # check_mode: true
+  check_mode: true
+  become: true
   tasks:
-    - name: Example assertion
+    ## ユーザーのテスト
+    - name: Add user check
+      ansible.builtin.user:
+        name: redmine
+      register: result
+    - name: Assert user
       ansible.builtin.assert:
-        that: true
+        that: result is not changed
+    ## グループのテスト
+    - name: Add group check
+      ansible.builtin.group:
+        name: redmine
+      register: result
+    - name: Assert group
+      ansible.builtin.assert:
+        that: result is not changed
+    ## パッケージのテスト
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: auto
+    - name: Assert package
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.packages['ruby']
+          - ansible_facts.packages['ruby-dev']
+          - ansible_facts.packages['rubygems-integration']
+          - ansible_facts.packages['acl']
+          - ansible_facts.packages['git']
+    ## サービスのテスト
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+    - name: Assert service
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['redmine.service']
+          - ansible_facts.services['redmine.service']['state'] == 'running'
+          - ansible_facts.services['redmine.service']['status'] == 'enabled'
+    ## 待受ポートのテスト
+    - name: Gather facts on listening ports
+      community.general.listen_ports_facts:
+        command: ss
+    - name: Set assert variables
+      ansible.builtin.set_fact:
+        listen_tcp_posts: "{{ ansible_facts.tcp_listen | map(attribute='port') | unique | list }}"
+        listen_udp_posts: "{{ ansible_facts.udp_listen | map(attribute='port') | unique | list }}"
+    - name: Assert listen port
+      ansible.builtin.assert:
+        that:
+          - 3000 in listen_tcp_posts

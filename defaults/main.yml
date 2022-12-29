@@ -12,9 +12,21 @@ redmine_version: 5.0-stable
 ## redmine_version: "stable-2.0"
 
 ## --------------------
+## 追加の環境設定
+## --------------------
+redmine_additional_environment: ""
+
+## --------------------
 ## 追加でインストールするgemパッケージ
 ## --------------------
-redmine_gemfile_local_content: ""
+redmine_gemfile_local_content: |
+  gem 'puma', '< 6.0.0'
+
+
+## --------------------
+## Redmineの動作モード
+## --------------------
+redmine_mode: production
 
 ## --------------------
 ## Redmineのデータベース設定(config/database.yml)
@@ -294,7 +306,13 @@ redmine_cfg:
 ## Pumaの追加設定
 ## --------------------
 redmine_puma_extra_cfg: |
+  # port 3000
   bind "unix://#{app_root}/tmp/redmine.sock"
+
+## --------------------
+## Gemパッケージのインストール先
+## --------------------
+redmine_gem_path: vendor/bundle
 
 ## --------------------
 ## Redmineの標準の言語設定

@@ -1,0 +1,9 @@
+---
+common_install_utilities:
+  - tig
+  - jq
+  - silversearcher-ag
+  - exa
+  - vnstati
+  - glances
+  - rclone

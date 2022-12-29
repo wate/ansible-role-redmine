@@ -1,0 +1,21 @@
+---
+- name: Create puma config file
+  ansible.builtin.template:
+    src: puma.rb.j2
+    dest: "{{ redmine_home }}/config/puma.rb"
+    mode: "0644"
+  become: true
+  become_user: "{{ redmine_user }}"
+  notify: restart redmine
+- name: Create redmine systemd unit file
+  ansible.builtin.template:
+    src: redmine.service.j2
+    dest: /lib/systemd/system/redmine.service
+    mode: "0644"
+  notify: restart redmine
+- name: Redmine is active and enable on system startup
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: redmine
+    state: started
+    enabled: true
