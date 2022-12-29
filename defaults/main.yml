@@ -12,10 +12,16 @@ redmine_version: 5.0-stable
 ## redmine_version: "stable-2.0"
 
 ## --------------------
+## 追加の環境設定
+## --------------------
+redmine_additional_environment: ""
+
+## --------------------
 ## 追加でインストールするgemパッケージ
 ## --------------------
 redmine_gemfile_local_content: |
   gem 'puma', '< 6.0.0'
+
 
 ## --------------------
 ## Redmineの動作モード

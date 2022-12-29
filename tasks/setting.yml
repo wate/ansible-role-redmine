@@ -8,25 +8,31 @@
         path: "{{ redmine_home }}/.bundle"
         state: directory
         mode: "0755"
-    - name: Copy bundler setting file
+    - name: Create//update bundler setting file
       ansible.builtin.template:
         src: bundle/config.j2
         dest: "{{ redmine_home }}/.bundle/config"
         mode: "0644"
-    - name: Create Gemfile.local file
+    - name: Create/update Gemfile.local file
       ansible.builtin.template:
         src: Gemfile.local.j2
         dest: "{{ redmine_home }}/Gemfile.local"
         mode: "0644"
-    - name: Create database config file
+    - name: Create/update database config file
       ansible.builtin.template:
         src: database.yml.j2
         dest: "{{ redmine_home }}/config/database.yml"
         mode: "0644"
       register: db_config_result
-    - name: Create Redmine config file
+    - name: Create/update Redmine config file
       ansible.builtin.template:
         src: configuration.yml.j2
         dest: "{{ redmine_home }}/config/configuration.yml"
+        mode: "0644"
+      notify: restart redmine
+    - name: Create/update additional environment file
+      ansible.builtin.template:
+        src: additional_environment.rb.j2
+        dest: "{{ redmine_home }}/config/additional_environment.rb"
         mode: "0644"
       notify: restart redmine
