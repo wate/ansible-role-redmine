@@ -13,7 +13,7 @@
     dest: /lib/systemd/system/redmine.service
     mode: "0644"
   notify: restart redmine
-- name: Redmine is active and enable on system startup
+- name: Service Redmine is active and enable on system startup
   ansible.builtin.systemd:
     daemon_reload: true
     name: redmine
