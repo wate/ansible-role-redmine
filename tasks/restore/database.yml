@@ -4,20 +4,11 @@
     path: "{{ redmine_restore_database_dump_file }}"
   register: redmine_restor_file_result
 - name: Restore redmine database dump data
-  when:
-    - redmine_restor_file_result.stat.exists
-    - redmine_db_cfg[redmine_mode]['adapter'] == 'mysql2'
+  when: redmine_restor_file_result.stat.exists
   block:
-    - name: Restore redmine database dump data
-      community.mysql.mysql_db:
-        name: "{{ redmine_db_cfg.production.database }}"
-        state: import
-        target: "{{ redmine_restore_database_dump_file }}"
-        login_host: "{{ redmine_restore_database_host | default(omit) }}"
-        login_user: "{{ redmine_restore_database_user | default(omit) }}"
-        login_password: "{{ redmine_restore_database_password | default(omit) }}"
-        login_port: "{{ redmine_restore_database_port | default(omit) }}"
-        login_unix_socket: "{{ redmine_restore_database_unix_socket | default(omit) }}"
+    - name: Restore Database
+      ansible.builtin.include_tasks:
+        file: restore/database/{{ redmine_db_cfg[redmine_mode]['adapter'] }}
     - name: Overwrite redmine_skip_load_default_data variable
       ansible.builtin.set_fact:
         redmine_skip_load_default_data: true

@@ -1,0 +1,11 @@
+---
+- name: Restore redmine database dump data
+  community.mysql.mysql_db:
+    state: import
+    target: "{{ redmine_restore_database_dump_file }}"
+    name: "{{ redmine_db_cfg[redmine_mode]['database'] }}"
+    login_host: "{{ redmine_restore_database_host | default(redmine_db_cfg[redmine_mode]['host'] | default(omit)) }}"
+    login_user: "{{ redmine_restore_database_user | default(redmine_db_cfg[redmine_mode]['username'] | default(omit)) }}"
+    login_password: "{{ redmine_restore_database_password | default(redmine_db_cfg[redmine_mode]['password'] | default(omit)) }}"
+    login_port: "{{ redmine_restore_database_port | default(redmine_db_cfg[redmine_mode]['port'] | default(omit)) }}"
+    login_unix_socket: "{{ redmine_restore_database_unix_socket | default(omit) }}"
