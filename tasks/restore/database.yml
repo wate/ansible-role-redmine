@@ -8,7 +8,7 @@
   block:
     - name: Restore Database
       ansible.builtin.include_tasks:
-        file: restore/database/{{ redmine_db_cfg[redmine_mode]['adapter'] }}
+        file: restore/database/{{ redmine_db_cfg[redmine_mode]['adapter'] }}.yml
     - name: Overwrite redmine_skip_load_default_data variable
       ansible.builtin.set_fact:
         redmine_skip_load_default_data: true
