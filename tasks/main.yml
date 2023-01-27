@@ -39,6 +39,7 @@
         file: setting.yml
     - name: Install gem packages
       community.general.bundler:
+        state: latest
         executable: "{{ redmine_home }}/bin/bundle"
         chdir: "{{ redmine_home }}"
     - name: Create secret token
