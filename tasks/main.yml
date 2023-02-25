@@ -17,10 +17,13 @@
 - name: Import dependency task
   ansible.builtin.import_tasks:
     file: dependency.yml
-  tags: dependency
+  tags:
+    - role_redmine_dependency
 - name: Import database task
   ansible.builtin.import_tasks:
     file: database.yml
+  tags:
+    - role_redmine_database
 - name: Setup Redmine
   become: true
   become_user: "{{ redmine_user }}"
@@ -37,6 +40,8 @@
     - name: Import setting task
       ansible.builtin.import_tasks:
         file: setting.yml
+      tags:
+        - role_redmine_setting
     - name: Install gem packages
       community.general.bundler:
         state: latest
@@ -51,6 +56,8 @@
     - name: Import restore task
       ansible.builtin.import_tasks:
         file: restore.yml
+      tags:
+        - role_redmine_restore
     - name: Migrate database
       ansible.builtin.command:
         cmd: bundle exec rake db:migrate
@@ -70,9 +77,13 @@
     - name: Import theme task
       ansible.builtin.import_tasks:
         file: theme.yml
+      tags:
+        - role_redmine_theme
     - name: Import plugin task
       ansible.builtin.import_tasks:
         file: plugin.yml
+      tags:
+        - role_redmine_plugin
     - name: Import Redmine setting import task
       ansible.builtin.import_tasks:
         file: import.yml
@@ -80,13 +91,20 @@
         generate_token_result is changed
         or
         redmine_reimport | default(false)
+      tags:
+        - role_redmine_import
     - name: Import custom script task
       ansible.builtin.import_tasks:
         file: custom_script.yml
+      tags:
+        - role_redmine_custom_script
 - name: Import cron job task
   ansible.builtin.import_tasks:
     file: cron.yml
+  tags:
+    - role_redmine_cron
 - name: Import service task
   ansible.builtin.import_tasks:
     file: service.yml
-  tags: service
+  tags:
+    - role_redmine_service
