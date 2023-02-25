@@ -22,6 +22,7 @@ redmine_postgresql_dependency_packages:
   - python3-psycopg2
 
 redmine_user: redmine
+redmine_group: redmine
 redmine_home: /opt/redmine
 redmine_root: "{{ redmine_home }}"
 redmine_tmp_dir: "{{ redmine_home }}/tmp"

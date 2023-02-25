@@ -2,9 +2,14 @@
 - name: Install dependency packages
   ansible.builtin.apt:
     name: "{{ redmine_dependency_packages }}"
+- name: Add Redmine group
+  ansible.builtin.group:
+    name: "{{ redmine_group }}"
+    system: true
 - name: Add Redmine user
   ansible.builtin.user:
     name: "{{ redmine_user }}"
+    group: "{{ redmine_group }}"
     system: true
 - name: Create install directory
   ansible.builtin.file:
