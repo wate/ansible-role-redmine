@@ -835,100 +835,6 @@ redmine_custom_queries: []
 #       - spent_hours
 
 ## --------------------
-## ワークフロー
-## --------------------
-redmine_workflows: []
-#   - roles: [管理者]
-#     trackers: [不具合, 機能 ,運用保守, その他]
-#     transitions:
-#       - from: 未対応
-#         to: [対応中, 対応済み, 確認待ち, フィードバック, 終了, 破棄]
-#       - from: 対応中
-#         to: [未対応, 対応済み, 確認待ち, フィードバック, 終了, 破棄]
-#       - from: 対応済み
-#         to: [未対応, 対応中, 確認待ち, フィードバック, 終了, 破棄]
-#       - from: 確認待ち
-#         to: [未対応, 対応中, 対応済み, フィードバック, 終了, 破棄]
-#       - from: フィードバック
-#         to: [未対応, 対応中, 対応済み, 確認待ち, 終了, 破棄]
-#       - from: 終了
-#         to: [未対応, 対応中, 対応済み, 確認待ち, フィードバック, 破棄]
-#       - from: 破棄
-#         to: [未対応, 対応中, 対応済み, 確認待ち, フィードバック, 終了]
-#   - roles: [開発者]
-#     trackers: [不具合, 機能 ,運用保守, その他]
-#     transitions:
-#       - from: 未対応
-#         to: [対応中, 対応済み, 確認待ち, フィードバック, 終了]
-#       - from: 対応中
-#         to: [未対応, 対応済み, 確認待ち, フィードバック, 終了]
-#       - from: 対応済み
-#         to: [未対応, 対応中, 確認待ち, フィードバック, 終了]
-#       - from: 確認待ち
-#         to: [未対応, 対応中, 対応済み, フィードバック, 終了]
-#       - from: フィードバック
-#         to: [未対応, 対応中, 対応済み, 確認待ち, 終了]
-#   - roles: [報告者]
-#     trackers: [不具合, 機能 ,運用保守, その他]
-#     transitions:
-#       - from: 未対応
-#         to: [終了]
-#       - from: 対応中
-#         to: [終了]
-#       - from: 対応済み
-#         to: [終了]
-#       - from: 確認待ち
-#         to: [フィードバック, 終了]
-#       - from: フィードバック
-#         to: [確認待ち, 終了]
-
-## --------------------
-## フィールドの権限
-## --------------------
-# -----
-# フィールドの指定
-# -----
-# project：プロジェクト
-# tracker：トラッカー
-# subject：題名
-# description：説明
-# priority：優先度
-# assigned_to：担当者
-# category：カテゴリ
-# fixed_version：対象バージョン
-# parent_issue：親チケット
-# start_date：開始日
-# due_date：期日
-# estimated_hours：予定時間
-# done_ratio：進捗率
-# is_private：プライベート
-#
-# ※上記以外は「カスタムフィールド」として認識されます
-#
-# -----
-# アクセス権の設定値
-# -----
-# nil：未指定
-# readonly：読み取り専用
-# required：必須
-#
-redmine_workflow_permissions: []
-#   - roles: [管理者, 開発者, 報告者]
-#     trackers: [不具合, 機能, 運用保守, その他]
-#     permissions:
-#       # 以下のステータスの場合は「担当者」を必須化
-#       - statuses: [対応中, 対応済み, 確認待ち, フィードバック, 終了]
-#         fields: assigned_to
-#         permission: required
-#       # ステータスが「破棄」以外の場合は、カスタムフィールド「破棄理由」を非表示にする
-#       - statuses: [未対応, 対応中, 対応済み, 確認待ち, フィードバック, 終了]
-#         fields: 破棄理由
-#         permission: readonly
-#       # ステータスが「破棄」の場合、カスタムフィールド「破棄理由」を必須化
-#       - statuses: 破棄
-#         fields: 破棄理由
-#         permission: required
-## --------------------
 ## ロールと権限
 ## --------------------
 redmine_roles: []
@@ -1168,6 +1074,245 @@ redmine_roles: []
 #       - log_time
 #       - view_wiki_pages
 #       - view_wiki_edits
+
+## --------------------
+## ワークフロー
+## --------------------
+redmine_workflows: []
+#   - roles: [管理者]
+#     trackers: [不具合, 機能 ,運用保守, その他]
+#     transitions:
+#       - from: 未対応
+#         to: [対応中, 対応済み, 確認待ち, フィードバック, 終了, 破棄]
+#       - from: 対応中
+#         to: [未対応, 対応済み, 確認待ち, フィードバック, 終了, 破棄]
+#       - from: 対応済み
+#         to: [未対応, 対応中, 確認待ち, フィードバック, 終了, 破棄]
+#       - from: 確認待ち
+#         to: [未対応, 対応中, 対応済み, フィードバック, 終了, 破棄]
+#       - from: フィードバック
+#         to: [未対応, 対応中, 対応済み, 確認待ち, 終了, 破棄]
+#       - from: 終了
+#         to: [未対応, 対応中, 対応済み, 確認待ち, フィードバック, 破棄]
+#       - from: 破棄
+#         to: [未対応, 対応中, 対応済み, 確認待ち, フィードバック, 終了]
+#   - roles: [開発者]
+#     trackers: [不具合, 機能 ,運用保守, その他]
+#     transitions:
+#       - from: 未対応
+#         to: [対応中, 対応済み, 確認待ち, フィードバック, 終了]
+#       - from: 対応中
+#         to: [未対応, 対応済み, 確認待ち, フィードバック, 終了]
+#       - from: 対応済み
+#         to: [未対応, 対応中, 確認待ち, フィードバック, 終了]
+#       - from: 確認待ち
+#         to: [未対応, 対応中, 対応済み, フィードバック, 終了]
+#       - from: フィードバック
+#         to: [未対応, 対応中, 対応済み, 確認待ち, 終了]
+#   - roles: [報告者]
+#     trackers: [不具合, 機能 ,運用保守, その他]
+#     transitions:
+#       - from: 未対応
+#         to: [終了]
+#       - from: 対応中
+#         to: [終了]
+#       - from: 対応済み
+#         to: [終了]
+#       - from: 確認待ち
+#         to: [フィードバック, 終了]
+#       - from: フィードバック
+#         to: [確認待ち, 終了]
+
+## --------------------
+## フィールドの権限
+## --------------------
+# -----
+# フィールドの指定
+# -----
+# project：プロジェクト
+# tracker：トラッカー
+# subject：題名
+# description：説明
+# priority：優先度
+# assigned_to：担当者
+# category：カテゴリ
+# fixed_version：対象バージョン
+# parent_issue：親チケット
+# start_date：開始日
+# due_date：期日
+# estimated_hours：予定時間
+# done_ratio：進捗率
+# is_private：プライベート
+#
+# ※上記以外は「カスタムフィールド」として認識されます
+#
+# -----
+# アクセス権の設定値
+# -----
+# nil：未指定
+# readonly：読み取り専用
+# required：必須
+#
+redmine_workflow_permissions: []
+#   - roles: [管理者, 開発者, 報告者]
+#     trackers: [不具合, 機能, 運用保守, その他]
+#     permissions:
+#       # 以下のステータスの場合は「担当者」を必須化
+#       - statuses: [対応中, 対応済み, 確認待ち, フィードバック, 終了]
+#         fields: assigned_to
+#         permission: required
+#       # ステータスが「破棄」以外の場合は、カスタムフィールド「破棄理由」を非表示にする
+#       - statuses: [未対応, 対応中, 対応済み, 確認待ち, フィードバック, 終了]
+#         fields: 破棄理由
+#         permission: readonly
+#       # ステータスが「破棄」の場合、カスタムフィールド「破棄理由」を必須化
+#       - statuses: 破棄
+#         fields: 破棄理由
+#         permission: required
+
+## --------------------
+## カスタムフィールド(チケット)
+## --------------------
+redmine_issue_custom_fields: []
+#     ## 名称
+#   - name: テキスト
+#     ## 形式
+#     ## * string:テキスト
+#     ## * version:バージョン
+#     ## * attachment:ファイル
+#     ## * user:ユーザー
+#     ## * list:リスト
+#     ## * link:リンク
+#     ## * float:小数
+#     ## * int:整数
+#     ## * date:日付
+#     ## * bool:真偽値
+#     ## * text:長いテキスト
+#     ## * enumeration:キー・バリュー リスト
+#     field_format: string
+#     ## 説明
+#     # description: ""
+#     ## 最小(形式が以下の場合のみ)
+#     ## * テキスト
+#     ## * 整数
+#     ## * 小数
+#     ## * リンク
+#     ## * 長いテキスト
+#     # min_length: ""
+#     ## 最大(形式が以下の場合のみ)
+#     ## * テキスト
+#     ## * 整数
+#     ## * 小数
+#     ## * リンク
+#     ## * 長いテキスト
+#     # max_length: ""
+#     ## 正規表現(形式が以下の場合のみ)
+#     ## * テキスト
+#     ## * 整数
+#     ## * 小数
+#     ## * リンク
+#     ## * 長いテキスト
+#     # regexp: ""
+#     ## デフォルト値(形式が以下の場合のみ)
+#     ## * テキスト
+#     ## * リンク
+#     ## * 整数
+#     ## * 小数
+#     ## * 日付
+#     ## * 真偽値(1:はい/0:いいえ)
+#     ## * 長いテキスト
+#     # default_value: ""
+#     ## テキスト書式(形式が「テキスト」または「長いテキスト」の場合のみ)
+#     # text_formatting: false
+#     ## 値に設定するリンクURL / URL(形式が以下以外の場合のみ)
+#     ## * ユーザー
+#     ## * バージョン
+#     ## * ファイル
+#     ## * 長いテキスト
+#     # url_pattern: ""
+#     ## 表示(入力形式)
+#     ## ※形式が以下の場合のみ
+#     ## * バージョン
+#     ## * ユーザー
+#     ## * リスト
+#     ## * 真偽値
+#     ## * キー・バリュー リスト
+#     ## ※設定値一覧
+#     ## *(空):ドロップダウンリスト
+#     ## * check_box:チェックボックス
+#     ## * radio:ラジオ(形式が「真偽値」の場合のみ)
+#     # edit_tag_style: ""
+#     ## 複数選択可(形式が以下の場合のみ)
+#     ## * ユーザー
+#     ## * バージョン
+#     ## * リスト
+#     ## * キー・バリュー リスト
+#     # multiple: false
+#     ## 必須
+#     # is_required: false
+#     ## 表示(すべて)
+#     # visible: true
+#     ## 表示(表示するロールを限定)
+#     # visible:
+#     #   - 管理者
+#     #   - 開発者
+#     ## 検索対象(形式が以下の場合のみの場合のみ)
+#     ## * テキスト
+#     ## * リスト
+#     ## * 長いテキスト
+#     # searchable: false
+#     ## フィルタとして使用(形式が「ファイル」以外の場合のみ)
+#     # is_filter: false
+#     ## トラッカー
+#     # trackers:
+#     #   - 不具合
+#     #   - 機能
+#     ## プロジェクト
+#     # projects:
+#     #     - プロジェクト1
+#     #     - プロジェクト2
+#     #     - プロジェクト3
+#   - name: バージョン
+#     field_format: version
+#     ## ステータス(形式が「バージョン」の場合のみ)
+#     version_status:
+#       - open
+#       - locked
+#   - name: ファイル
+#     field_format: attachment
+#     ## 許可する拡張子(形式が「ファイル」の場合のみ)
+#     extensions_allowed:
+#       - jpg
+#       - gif
+#       - png
+#   - name: ユーザー
+#     field_format: user
+#     ## ロール(形式が「ユーザー」の場合のみ)
+#     user_role:
+#       - 管理者
+#       - 開発者
+#   - name: リスト
+#     field_format: list
+#     ## 選択肢(形式が「リスト」の場合のみ)
+#     possible_values: |
+#       選択肢1
+#       選択肢2
+#       選択肢3
+#       選択肢4
+#   - name: リンク
+#     field_format: link
+#   - name: 小数
+#     field_format: float
+#   - name: 整数
+#     field_format: int
+#   - name: 日付
+#     field_format: date
+#   - name: 真偽値
+#     field_format: bool
+#   - name: 長いテキスト
+#     field_format: text
+#   - name: キー・バリュー リスト
+#     field_format: enumeration
 
 ## --------------------
 ## カスタムフィールド(プロジェクト)
@@ -1430,151 +1575,6 @@ redmine_user_custom_fields: []
 #     field_format: text
 #   - name: キー・バリュー リスト
 #     field_format: enumeration
-
-## --------------------
-## カスタムフィールド(チケット)
-## --------------------
-redmine_issue_custom_fields: []
-#     ## 名称
-#   - name: テキスト
-#     ## 形式
-#     ## * string:テキスト
-#     ## * version:バージョン
-#     ## * attachment:ファイル
-#     ## * user:ユーザー
-#     ## * list:リスト
-#     ## * link:リンク
-#     ## * float:小数
-#     ## * int:整数
-#     ## * date:日付
-#     ## * bool:真偽値
-#     ## * text:長いテキスト
-#     ## * enumeration:キー・バリュー リスト
-#     field_format: string
-#     ## 説明
-#     # description: ""
-#     ## 最小(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * 整数
-#     ## * 小数
-#     ## * リンク
-#     ## * 長いテキスト
-#     # min_length: ""
-#     ## 最大(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * 整数
-#     ## * 小数
-#     ## * リンク
-#     ## * 長いテキスト
-#     # max_length: ""
-#     ## 正規表現(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * 整数
-#     ## * 小数
-#     ## * リンク
-#     ## * 長いテキスト
-#     # regexp: ""
-#     ## デフォルト値(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * リンク
-#     ## * 整数
-#     ## * 小数
-#     ## * 日付
-#     ## * 真偽値(1:はい/0:いいえ)
-#     ## * 長いテキスト
-#     # default_value: ""
-#     ## テキスト書式(形式が「テキスト」または「長いテキスト」の場合のみ)
-#     # text_formatting: false
-#     ## 値に設定するリンクURL / URL(形式が以下以外の場合のみ)
-#     ## * ユーザー
-#     ## * バージョン
-#     ## * ファイル
-#     ## * 長いテキスト
-#     # url_pattern: ""
-#     ## 表示(入力形式)
-#     ## ※形式が以下の場合のみ
-#     ## * バージョン
-#     ## * ユーザー
-#     ## * リスト
-#     ## * 真偽値
-#     ## * キー・バリュー リスト
-#     ## ※設定値一覧
-#     ## *(空):ドロップダウンリスト
-#     ## * check_box:チェックボックス
-#     ## * radio:ラジオ(形式が「真偽値」の場合のみ)
-#     # edit_tag_style: ""
-#     ## 複数選択可(形式が以下の場合のみ)
-#     ## * ユーザー
-#     ## * バージョン
-#     ## * リスト
-#     ## * キー・バリュー リスト
-#     # multiple: false
-#     ## 必須
-#     # is_required: false
-#     ## 表示(すべて)
-#     # visible: true
-#     ## 表示(表示するロールを限定)
-#     # visible:
-#     #   - 管理者
-#     #   - 開発者
-#     ## 検索対象(形式が以下の場合のみの場合のみ)
-#     ## * テキスト
-#     ## * リスト
-#     ## * 長いテキスト
-#     # searchable: false
-#     ## フィルタとして使用(形式が「ファイル」以外の場合のみ)
-#     # is_filter: false
-#     ## トラッカー
-#     # trackers:
-#     #   - 不具合
-#     #   - 機能
-#     ## プロジェクト
-#     # projects:
-#     #     - プロジェクト1
-#     #     - プロジェクト2
-#     #     - プロジェクト3
-#   - name: バージョン
-#     field_format: version
-#     ## ステータス(形式が「バージョン」の場合のみ)
-#     version_status:
-#       - open
-#       - locked
-#   - name: ファイル
-#     field_format: attachment
-#     ## 許可する拡張子(形式が「ファイル」の場合のみ)
-#     extensions_allowed:
-#       - jpg
-#       - gif
-#       - png
-#   - name: ユーザー
-#     field_format: user
-#     ## ロール(形式が「ユーザー」の場合のみ)
-#     user_role:
-#       - 管理者
-#       - 開発者
-#   - name: リスト
-#     field_format: list
-#     ## 選択肢(形式が「リスト」の場合のみ)
-#     possible_values: |
-#       選択肢1
-#       選択肢2
-#       選択肢3
-#       選択肢4
-#   - name: リンク
-#     field_format: link
-#   - name: 小数
-#     field_format: float
-#   - name: 整数
-#     field_format: int
-#   - name: 日付
-#     field_format: date
-#   - name: 真偽値
-#     field_format: bool
-#   - name: 長いテキスト
-#     field_format: text
-#   - name: キー・バリュー リスト
-#     field_format: enumeration
-
 ## --------------------
 ## ユーザー
 ## --------------------

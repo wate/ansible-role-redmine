@@ -107,6 +107,10 @@ Redmineのcron設定
 
 カスタムクエリ
 
+### `redmine_roles`
+
+ロールと権限
+
 ### `redmine_workflows`
 
 ワークフロー
@@ -115,9 +119,9 @@ Redmineのcron設定
 
 フィールドの権限
 
-### `redmine_roles`
+### `redmine_issue_custom_fields`
 
-ロールと権限
+カスタムフィールド(チケット)
 
 ### `redmine_project_custom_fields`
 
@@ -126,10 +130,6 @@ Redmineのcron設定
 ### `redmine_user_custom_fields`
 
 カスタムフィールド(ユーザー)
-
-### `redmine_issue_custom_fields`
-
-カスタムフィールド(チケット)
 
 ### `redmine_users`
 
