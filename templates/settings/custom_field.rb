@@ -108,17 +108,39 @@ def import_custom_filed(cf, setting)
   if cf.is_a?(IssueCustomField)
     # チケットカスタムフィールドの固有処理
     # トラッカー
-    if setting.key?('trackers')
-      trackers = setting['trackers'].map {|item| item.is_a?(Hash) ? item : item.name }
-      cf.tracker_ids = Tracker.where(:name => trackers).pluck(:id).map {|v| v.to_s }
+    if setting.key?('trackers') && setting['trackers'].present?
+      trackers = setting['trackers'].map {|item| item.is_a?(Hash) ? item : item.name}
+      trackers = setting['trackers'].map do |item|
+        if item.is_a?(Hash)
+          if item.key?('id')
+            tracker = Tracker.find_by_id(item.id)
+          else
+            tracker = Tracker.find_by_name(item.name)
+          end
+        else
+          tracker = Tracker.find_by_name(item)
+        end
+        return tracker
+      end
+      cf.tracker_ids = trackers.pluck(:id).map {|v| v.to_s }
     end
     # プロジェクト
     cf.is_for_all = true
-    if setting.key?('projects')
-      ## @todo APIの戻り値をそのまま利用した場合のことを考慮する必要あり
+    if setting.key?('projects') && setting['projects'].present?
       cf.is_for_all = false
-      project_names = setting['projects'].map {|item| item.is_a?(Hash) ? item : item.name }
-      cf.project_ids = Tracker.where(:name => project_names).pluck(:id).map {|v| v.to_s }
+      projects = setting['projects'].map do |item|
+        if item.is_a?(Hash)
+          if item.key?('id')
+            project = Project.find_by_id(item.id)
+          else
+            project = Project.find_by_name(item.name)
+          end
+        else
+          project = Project.find_by_name(item)
+        end
+        return project
+      end
+      cf.project_ids = projects.pluck(:id).map {|v| v.to_s }
     end
   end
   cf.save
