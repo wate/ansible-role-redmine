@@ -64,6 +64,7 @@ def import_tracker(trackers)
       ]
     end
     tracker.core_fields = item['enabled_standard_fields'] if item['enabled_standard_fields'].present?
+    tracker.description = item['description'] if item.key?('description')
     tracker.default_status_id = default_issue_status.id
     if item['default_status'].present?
       if item['default_status'].is_a?(Hash)

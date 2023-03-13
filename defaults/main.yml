@@ -633,6 +633,7 @@ redmine_trackers: []
 #     position: 3
 #   - name: その他
 #     position: 4
+#     description: トラッカーの説明を起債します。
 #     enabled_standard_fields:
 #       # 担当者
 #       - assigned_to_id
