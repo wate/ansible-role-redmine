@@ -83,7 +83,7 @@ Redmineのcron設定
 
 デフォルトのシステム管理者設定
 
-### `redmine_issue_statuses`
+### `redmine_statuses`
 
 チケットのステータス
 

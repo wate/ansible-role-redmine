@@ -599,7 +599,7 @@ redmine_admin: {}
 ## --------------------
 ## チケットのステータス
 ## --------------------
-redmine_issue_statuses: []
+redmine_statuses: []
 #   - name: 未対応
 #     is_closed: false
 #     position: 1
@@ -1818,7 +1818,7 @@ redmine_skip_load_default_data: false
 # ## 全データ(対象はシステム管理者および添付ファイル以外の全て)
 # redmine_reimport_all: true
 # ## チケットのステータス
-# redmine_reimport_issue_status: false
+# redmine_reimport_status: false
 # ## トラッカー
 # redmine_reimport_tracker: false
 # ## 設定

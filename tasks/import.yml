@@ -34,13 +34,13 @@
         dest: "{{ redmine_tmp_dir }}/status.yml"
         mode: "0640"
       vars:
-        redmine_import_data: "{{ redmine_issue_statuses | default([]) }}"
+        redmine_import_data: "{{ redmine_statuses | default([]) }}"
       when: |
         generate_token_result is changed
         or
         redmine_reimport_all | default(true)
         or
-        redmine_reimport_issue_status | default(false)
+        redmine_reimport_status | default(false)
     - name: Create import tracker setting files
       ansible.builtin.template:
         src: import_setting.yml.j2
