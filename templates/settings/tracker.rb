@@ -25,7 +25,7 @@ def import_tracker(trackers)
         'description'
       ]
     end
-    tracker.core_fields = item['core_fields'] if item['core_fields'].present?
+    tracker.core_fields = item['enabled_standard_fields'] if item['enabled_standard_fields'].present?
     tracker.default_status_id = default_issue_status.id
     if item['default_status'].present?
       status_name = item['default_status']
@@ -63,12 +63,11 @@ def import_tracker(trackers)
         'description'
       ]
     end
-    tracker.core_fields = item['core_fields'] if item['core_fields'].present?
+    tracker.core_fields = item['enabled_standard_fields'] if item['enabled_standard_fields'].present?
     tracker.default_status_id = default_issue_status.id
     if item['default_status'].present?
-      issue_status = {id: nil}
       if item['default_status'].is_a?(Hash)
-        if item['default_status'].key?('id')
+        if item['default_status'].key?('id') && item['default_status'].id
           issue_status = IssueStatus.find_by_id(item['default_status'].id)
         else
           issue_status = IssueStatus.find_by_name(item['default_status'].name)

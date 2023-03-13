@@ -109,10 +109,9 @@ def import_custom_filed(cf, setting)
     # チケットカスタムフィールドの固有処理
     # トラッカー
     if setting.key?('trackers') && setting['trackers'].present?
-      trackers = setting['trackers'].map {|item| item.is_a?(Hash) ? item : item.name}
       trackers = setting['trackers'].map do |item|
         if item.is_a?(Hash)
-          if item.key?('id')
+          if item.key?('id') && item.id
             tracker = Tracker.find_by_id(item.id)
           else
             tracker = Tracker.find_by_name(item.name)
@@ -130,7 +129,7 @@ def import_custom_filed(cf, setting)
       cf.is_for_all = false
       projects = setting['projects'].map do |item|
         if item.is_a?(Hash)
-          if item.key?('id')
+          if item.key?('id') && item.id
             project = Project.find_by_id(item.id)
           else
             project = Project.find_by_name(item.name)

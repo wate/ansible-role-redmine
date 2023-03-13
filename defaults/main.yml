@@ -633,7 +633,7 @@ redmine_trackers: []
 #     position: 3
 #   - name: その他
 #     position: 4
-#     core_fields:
+#     enabled_standard_fields:
 #       # 担当者
 #       - assigned_to_id
 #       # カテゴリ
