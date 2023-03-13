@@ -26,7 +26,9 @@ def import_custom_filed(cf, setting)
     cf.max_length = setting['max_length'].to_s
   end
   # 正規表現
-  cf.regexp = setting['regexp'] if setting.key?('field_format') && allow_regexp_formats.include?(setting['field_format'])
+  if setting.key?('regexp') && allow_regexp_formats.include?(setting['field_format'])
+    cf.regexp = setting['regexp']
+  end
   # 初期値
   if setting.key?('default_value') && allow_default_value_formats.include?(setting['field_format'])
     cf.default_value = setting['default_value'].to_s
@@ -42,8 +44,10 @@ def import_custom_filed(cf, setting)
   # 表示(入力形式)
   if setting.key?('edit_tag_style') && allow_edit_tag_style_formats.include?(setting['field_format'])
     edit_tag_style = nil
-    edit_tag_style = setting['edit_tag_style'] if ['check_box', 'radio'].include?(setting['edit_tag_style'])
-    cf.edit_tag_style = edit_tag_style
+    if ['check_box', 'radio'].include?(setting['edit_tag_style'])
+      edit_tag_style = setting['edit_tag_style']
+      cf.edit_tag_style = edit_tag_style
+    end
   end
   # 複数選択
   if setting.key?('multiple') && allow_multiple_formats.include?(setting['field_format'])
@@ -55,6 +59,7 @@ def import_custom_filed(cf, setting)
   end
   # 選択肢
   if setting.key?('possible_values') && setting['field_format'] == 'list'
+    ## @todo APIの戻り値をそのまま利用した場合のことを考慮する必要あり
     cf.possible_values = setting['possible_values']
   end
   # ロール
@@ -104,11 +109,13 @@ def import_custom_filed(cf, setting)
     # チケットカスタムフィールドの固有処理
     # トラッカー
     if setting.key?('trackers')
+      ## @todo APIの戻り値をそのまま利用した場合のことを考慮する必要あり
       cf.tracker_ids = Tracker.where(:name => setting['trackers']).pluck(:id).map {|v| v.to_s }
     end
     # プロジェクト
     cf.is_for_all = true
     if setting.key?('projects')
+      ## @todo APIの戻り値をそのまま利用した場合のことを考慮する必要あり
       cf.is_for_all = false
       cf.project_ids = Tracker.where(:name => setting['projects']).pluck(:id).map {|v| v.to_s }
     end

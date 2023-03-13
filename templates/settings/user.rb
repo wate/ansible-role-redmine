@@ -61,7 +61,7 @@ def import_user(users)
     # 言語
     user.language = item['language'] if item.key?('language')
     # システム管理者
-    user.admin = !!item['system_admin'] if item.key?('system_admin') && user.id != 1
+    user.admin = !!item['admin'] if item.key?('admin') && user.id != 1
     # 次回ログイン時にパスワード変更を強制
     user.must_change_passwd = !!item['must_change_passwd'] if item.key?('must_change_passwd')
     # メール通知

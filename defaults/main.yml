@@ -1590,7 +1590,7 @@ redmine_users: []
 #     ## 言語
 #     # language: ja
 #     ## システム管理
-#     # system_admin: false
+#     # admin: false
 #     ## パスワード(最小:8文字以上[Redmineの初期値])
 #     # password: str0ngp455w0rd
 #     ## 次回ログイン時にパスワード変更を強制
