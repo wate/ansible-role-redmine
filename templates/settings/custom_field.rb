@@ -59,8 +59,8 @@ def import_custom_filed(cf, setting)
   end
   # 選択肢
   if setting.key?('possible_values') && setting['field_format'] == 'list'
-    ## @todo APIの戻り値をそのまま利用した場合のことを考慮する必要あり
-    cf.possible_values = setting['possible_values']
+    possible_values = setting['possible_values'].map {|item| item.is_a?(Hash) ? item :  item.value }
+    cf.possible_values = possible_values
   end
   # ロール
   if setting.key?('user_role') && setting['field_format'] == 'user'
@@ -109,15 +109,16 @@ def import_custom_filed(cf, setting)
     # チケットカスタムフィールドの固有処理
     # トラッカー
     if setting.key?('trackers')
-      ## @todo APIの戻り値をそのまま利用した場合のことを考慮する必要あり
-      cf.tracker_ids = Tracker.where(:name => setting['trackers']).pluck(:id).map {|v| v.to_s }
+      trackers = setting['trackers'].map {|item| item.is_a?(Hash) ? item : item.name }
+      cf.tracker_ids = Tracker.where(:name => trackers).pluck(:id).map {|v| v.to_s }
     end
     # プロジェクト
     cf.is_for_all = true
     if setting.key?('projects')
       ## @todo APIの戻り値をそのまま利用した場合のことを考慮する必要あり
       cf.is_for_all = false
-      cf.project_ids = Tracker.where(:name => setting['projects']).pluck(:id).map {|v| v.to_s }
+      project_names = setting['projects'].map {|item| item.is_a?(Hash) ? item : item.name }
+      cf.project_ids = Tracker.where(:name => project_names).pluck(:id).map {|v| v.to_s }
     end
   end
   cf.save
