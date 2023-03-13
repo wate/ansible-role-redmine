@@ -936,6 +936,8 @@ redmine_roles: []
 #     - edit_own_issues
 #     # 自分が追加したコメントの編集
 #     - edit_own_issue_notes
+#     ## 時間管理
+#     # 自分の作業時間の編集
 
 ## --------------------
 ## ワークフロー
