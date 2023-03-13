@@ -59,7 +59,12 @@ def import_custom_filed(cf, setting)
   end
   # 選択肢
   if setting.key?('possible_values') && setting['field_format'] == 'list'
-    possible_values = setting['possible_values'].map {|item| item.is_a?(Hash) ? item :  item.value }
+    if setting['possible_values'].is_a?(Array)
+      choice_values = setting['possible_values'].map {|item| item.is_a?(Hash) ? item :  item.value }
+      possible_values = choice_values.join("\n")
+    else
+      possible_values = setting['possible_values']
+    end
     cf.possible_values = possible_values
   end
   # ロール
