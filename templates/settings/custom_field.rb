@@ -124,7 +124,6 @@ def import_custom_filed(cf, setting)
         else
           tracker = Tracker.find_by_name(item)
         end
-        return tracker
       end
       cf.tracker_ids = trackers.pluck(:id).map {|v| v.to_s }
     end
@@ -142,7 +141,6 @@ def import_custom_filed(cf, setting)
         else
           project = Project.find_by_name(item)
         end
-        return project
       end
       cf.project_ids = projects.pluck(:id).map {|v| v.to_s }
     end
