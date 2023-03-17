@@ -48,15 +48,22 @@ def import_custom_query(queryies)
       filter_operators[field_name] = field_filter_operator
       filter_values[field_name] = field_filter_value
     end
-    form_params = {}
+    form_params = {
+      :c => [],
+      :sort => [
+        ['id', 'desc']
+      ]
+    }
     ## フィルター
     form_params[:fields] = filter_fields
     form_params[:operators] = filter_operators
     form_params[:values] = filter_values
     ## 表示項目
-    form_params[:c] = item['columns'] if item.key?('columns')
+    if item.key?('columns') && item['columns'].present?
+      form_params[:c] = item['columns']
+    end
     ## 並び順
-    if item.key?('sort')
+    if item.key?('sort') && item['sort'].present?
       form_params[:sort] = []
       item['sort'].each do |sort|
         form_params[:sort].push [sort['field'], sort['order']]
