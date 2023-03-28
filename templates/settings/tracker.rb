@@ -28,6 +28,7 @@ def import_tracker(trackers)
     tracker.core_fields = item['enabled_standard_fields'] if item['enabled_standard_fields'].present?
     tracker.description = item['description'] if item.key?('description')
     tracker.default_status_id = default_issue_status.id
+    tracker.is_in_roadmap = !!item['is_in_roadmap'] if item.key?('is_in_roadmap')
     if item['default_status'].present?
       status_name = item['default_status']
       if status_name.is_a?(Hash)
@@ -67,6 +68,7 @@ def import_tracker(trackers)
     tracker.core_fields = item['enabled_standard_fields'] if item['enabled_standard_fields'].present?
     tracker.description = item['description'] if item.key?('description')
     tracker.default_status_id = default_issue_status.id
+    tracker.is_in_roadmap = !!item['is_in_roadmap'] if item.key?('is_in_roadmap')
     if item['default_status'].present?
       if item['default_status'].is_a?(Hash)
         if item['default_status'].key?('id') && item['default_status'].id

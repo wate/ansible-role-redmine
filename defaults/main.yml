@@ -625,35 +625,39 @@ redmine_statuses: []
 ## トラッカー
 ## --------------------
 redmine_trackers: []
-#   - name: 不具合
-#     position: 1
-#   - name: 機能
-#     position: 2
-#   - name: 運用保守
-#     position: 3
-#   - name: その他
-#     position: 4
-#     description: トラッカーの説明を起債します。
-#     enabled_standard_fields:
-#       # 担当者
-#       - assigned_to_id
-#       # カテゴリ
-#       - category_id
-#       # バージョン
-#       # - fixed_version_id
-#       # 親チケット
-#       # - parent_issue_id
-#       # 開始日
-#       # - start_date
-#       # 期日
-#       - due_date
-#       # 予定工数
-#       # - estimated_hours
-#       # 進捗率
-#       # - done_ratio
-#       # 説明
-#       - description
-#     copy_workflow_from: 機能
+# - name: 不具合
+#   position: 1
+# - name: 機能
+#   position: 2
+# - name: 運用保守
+#   position: 3
+# - name: その他
+#   position: 4
+#   description: トラッカーの説明を起債します。
+#   enabled_standard_fields:
+#     # 担当者
+#     - assigned_to_id
+#     # カテゴリ
+#     - category_id
+#     # バージョン
+#     # - fixed_version_id
+#     # 親チケット
+#     # - parent_issue_id
+#     # 開始日
+#     # - start_date
+#     # 期日
+#     - due_date
+#     # 予定工数
+#     # - estimated_hours
+#     # 進捗率
+#     # - done_ratio
+#     # 説明
+#     - description
+#   copy_workflow_from: 機能
+# - name: Todo
+#   position: 5
+#   # チケットをロードマップに表示する
+#   is_in_roadmap: false
 
 ## --------------------
 ## チケットの優先度
