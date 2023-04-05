@@ -741,102 +741,93 @@ redmine_time_entry_activities: []
 # "!o"  => なし または完了したチケット
 # --
 redmine_custom_queries: []
-#     ## カスタムクエリ名
 #   - name: 先月度実績
-#     ## フィルター
 #     filters:
-#       ## フィルタ項目
+#       # ステータス / 終了
 #       status:
-#         ## 検索条件
-#         operator: "="
-#         ## 検索値
-#         values: 終了
-#       tracker:
-#         operator: "="
+#         operator: c
 #         values:
-#           - 不具合
-#           - 機能
-#           - 運用保守
-#       assigned_to:
-#         operator: "="
-#         values: me
+#           - ""
+#       # 終了日 / 先月
 #       closed_on:
-#         operator: "lm"
-#     ## --------------
-#     ## オプション
-#     ## --------------
-#     ## 表示項目
+#         operator: lm
+#         values:
+#           - ""
 #     columns:
 #       # トラッカー
 #       - tracker
-#       # 題名
-#       - subject
 #       # 優先度
 #       - priority
+#       # 題名
+#       - subject
 #       # 担当者
 #       - assigned_to
 #       # 予定時間
 #       - estimated_hours
 #       # 作業時間
 #       - spent_hours
+#       # 期日
+#       - due_date
 #       # 終了日
 #       - closed_on
-#     ## 並び順
+#     group_by: project
 #     sort:
-#       # 終了日/昇順
+#       # プロジェクト / 昇順
+#       - field: project
+#         order: asc
+#       # 期日 / 昇順
+#       - field: due_date
+#         order: asc
+#       # 終了日 / 昇順
 #       - field: closed_on
 #         order: asc
-#       # チケットNo/昇順
-#       - field: id
-#         order: asc
-#     ## 合計
 #     total:
 #       # 予定時間
 #       - estimated_hours
 #       # 作業時間
 #       - spent_hours
-#   - name: 今月度度実績
+#   - name: 今月度実績
 #     filters:
+#       # ステータス / 終了
 #       status:
-#         operator: "="
-#         values: 終了
-#       tracker:
-#         operator: "="
+#         operator: c
 #         values:
-#           - タスク
-#           - 不具合
-#           - 運用保守
-#       assigned_to:
-#         operator: "="
-#         values: me
+#           - ""
+#       # 終了日 / 今月
 #       closed_on:
-#         operator: "m"
+#         operator: m
+#         values:
+#           - ""
 #     columns:
 #       # トラッカー
 #       - tracker
-#       # 題名
-#       - subject
 #       # 優先度
 #       - priority
+#       # 題名
+#       - subject
 #       # 担当者
 #       - assigned_to
 #       # 予定時間
 #       - estimated_hours
 #       # 作業時間
 #       - spent_hours
+#       # 期日
+#       - due_date
 #       # 終了日
 #       - closed_on
+#     group_by: project
 #     sort:
-#       # 終了日/昇順
+#       # プロジェクト / 昇順
+#       - field: project
+#         order: asc
+#       # 期日 / 昇順
+#       - field: due_date
+#         order: asc
+#       # 終了日 / 昇順
 #       - field: closed_on
 #         order: asc
-#       # チケットNo/昇順
-#       - field: id
-#         order: asc
 #     total:
-#       # 予定時間
 #       - estimated_hours
-#       # 作業時間
 #       - spent_hours
 
 ## --------------------
