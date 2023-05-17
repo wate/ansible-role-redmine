@@ -14,7 +14,7 @@
         dest: "{{ redmine_home }}/.bundle/config"
         mode: "0644"
     - name: Gemfile.localの自動設定
-      when: redmine_gemfile_local_content is none
+      when: redmine_gemfile_local_content is undefined
       block:
         - name: Gemfileからpumaのパッケージ情報を抽出
           ansible.builtin.command:
