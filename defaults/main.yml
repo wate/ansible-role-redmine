@@ -18,11 +18,9 @@ redmine_additional_environment: ""
 
 ## --------------------
 ## 追加でインストールするgemパッケージ
+## ※nullが指定されている場合はGemfileからpumaの設定を抽出して自動で割り当てます。
 ## --------------------
-redmine_gemfile_local_content: |
-  gem 'puma', (Gem.ruby_version < Gem::Version.new('2.7') ? '< 6.0.0' : '>= 0')
-
-
+redmine_gemfile_local_content:
 ## --------------------
 ## Redmineの動作モード
 ## --------------------

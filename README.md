@@ -29,7 +29,8 @@ Redmineのバージョン(ブランチ名)
 
 ### `redmine_gemfile_local_content`
 
-追加でインストールするgemパッケージ
+追加でインストールするgemパッケージ  
+※nullが指定されている場合はGemfileからpumaの設定を抽出して自動で割り当てます。
 
 ### `redmine_mode`
 
