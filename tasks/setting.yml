@@ -16,13 +16,13 @@
     - name: Gemfile.localの自動設定
       when: redmine_gemfile_local_content is undefined
       block:
-        - name: Gemfileからpumaのパッケージ情報を抽出
+        - name: Find puma package on Gemfile
           ansible.builtin.command:
             cmd: grep puma Gemfile
             chdir: "{{ redmine_home }}"
           changed_when: false
           register: puma_version_result
-        - name: Gemfile.local設定用変数に値を割り当て
+        - name: Set Gemfile.local setting value variable
           ansible.builtin.set_fact:
             redmine_gemfile_local_content: "{{ puma_version_result.stdout | trim }}"
     - name: Create/update Gemfile.local file
