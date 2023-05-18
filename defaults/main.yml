@@ -321,14 +321,14 @@ redmine_lang: ja
 ## Redmineにインストールするテーマ
 ## --------------------
 redmine_themes: []
-# - name: farend_fancy
-#   repo: "https://github.com/farend/redmine_theme_farend_fancy.git"
-# - name: farend_basic
-#   repo: "https://github.com/farend/redmine_theme_farend_basic.git"
 # - name: PurpleMine2
-#   repo: "https://github.com/mrliptontea/PurpleMine2.git"
+#   repo: https://github.com/mrliptontea/PurpleMine2.git
 # - name: gitmike
-#   repo: "https://github.com/makotokw/redmine-theme-gitmike.git"
+#   repo: https://github.com/makotokw/redmine-theme-gitmike.git
+# - name: farend_fancy
+#   repo: https://github.com/farend/redmine_theme_farend_fancy.git
+# - name: farend_basic
+#   repo: https://github.com/farend/redmine_theme_farend_basic.git
 
 ## --------------------
 ## Redmineにインストールするプラグイン
