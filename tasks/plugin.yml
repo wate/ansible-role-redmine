@@ -55,12 +55,23 @@
       notify: restart redmine
       become: true
       become_user: root
+    - name: Set plugin cron job
+      ansible.builtin.cron:
+        name: Redmine plugin {{ item.directory if item.directory is defined else 'redmine_' + item.name }} job
+        job: "{{ item.cron_job.cmd }}"
+        minute: "{{ item.cron_job.minute | default(omit) }}"
+        hour: "{{ item.cron_job.hour | default(omit) }}"
+        day: "{{ item.cron_job.day | default(omit) }}"
+        month: "{{ item.cron_job.month | default(omit) }}"
+      loop: "{{ redmine_plugins | selectattr('cron_job', 'defined') | list }}"
+      loop_control:
+        label: "{{ item.name }}"
     - name: Create plugin custom setting file
       ansible.builtin.template:
-        src: plugin/custom_setting.yml.j2
-        dest: "{{ redmine_home }}/config/{{ item.custom_setting_name }}.yml"
-        mode: "0644"
-      loop: "{{ redmine_plugins | selectattr('custom_setting_name', 'defined') | list }}"
+        src: plugin/custom_setting_file.j2
+        dest: "{{ item.custom_setting_file.path }}"
+        mode: "{{ item.custom_setting_file.mode | default('0644') }}"
+      loop: "{{ redmine_plugins | selectattr('custom_setting_file', 'defined') | list }}"
       loop_control:
         label: "{{ item.name }}"
     - name: Setup plugin

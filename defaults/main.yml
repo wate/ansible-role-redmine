@@ -335,12 +335,12 @@ redmine_themes: []
 ## --------------------
 redmine_plugins: []
 # - name: view_customize
-#   repo: "https://github.com/onozaty/redmine-view-customize.git"
+#   repo: https://github.com/onozaty/redmine-view-customize.git
 #   directory: view_customize
 # - name: issue_templates
-#   repo: "https://github.com/agileware-jp/redmine_issue_templates.git"
+#   repo: https://github.com/agileware-jp/redmine_issue_templates.git
 # - name: slack
-#   repo: "https://github.com/cat-in-136/redmine-slack.git"
+#   repo: https://github.com/cat-in-136/redmine-slack.git
 #   version: evolved
 # - name: dashboard
 #   repo: https://github.com/jgraichen/redmine_dashboard.git
@@ -352,7 +352,7 @@ redmine_plugins: []
 #   directory: redmica_ui_extension
 #   version: master
 # - name: message_customize
-#   repo: "https://github.com/ishikawa999/redmine_message_customize.git"
+#   repo: https://github.com/farend/redmine_message_customize.git
 # - name: dmsf
 #   repo: https://github.com/danmunn/redmine_dmsf.git
 #   required_packages:
