@@ -133,5 +133,7 @@ redmine_plugins:
           end
         end
 
+redmine_gemfile_local_packages:
+  rails-erd:
 redmine_puma_extra_cfg: |
   port 3000
