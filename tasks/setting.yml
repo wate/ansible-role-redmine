@@ -13,18 +13,21 @@
         src: bundle/config.j2
         dest: "{{ redmine_home }}/.bundle/config"
         mode: "0644"
-    - name: Gemfile.localの自動設定
-      when: redmine_gemfile_local_content is undefined
+    - name: Automatically configure puma package in Gemfile.local
+      when: redmine_gemfile_local_packages is undefined or redmine_gemfile_local_packages['puma'] is undefined
       block:
-        - name: Find puma package on Gemfile
+        - name: Gather puma package info
           ansible.builtin.command:
             cmd: grep puma Gemfile
             chdir: "{{ redmine_home }}"
           changed_when: false
-          register: puma_version_result
-        - name: Set Gemfile.local setting value variable
+          register: puma_package_result
+        - name: Set puma package temporary variable
           ansible.builtin.set_fact:
-            redmine_gemfile_local_content: "{{ puma_version_result.stdout | trim }}"
+            redmine_puma_package: "{{ puma_package_result.stdout | split(',') | map('trim') }}"
+        - name: Set Gemfile.local setting variable
+          ansible.builtin.set_fact:
+            redmine_gemfile_local_packages: "{{ redmine_gemfile_local_packages | combine({'puma': redmine_puma_package[1] | default('')}) }}"
     - name: Create/update Gemfile.local file
       ansible.builtin.template:
         src: Gemfile.local.j2

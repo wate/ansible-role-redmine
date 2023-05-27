@@ -17,9 +17,10 @@ redmine_version: 5.0-stable
 redmine_additional_environment: ""
 
 ## --------------------
-## 追加でインストールするgemパッケージ
+## 追加インストールするgemパッケージ
 ## --------------------
-# redmine_gemfile_local_content:
+# redmine_gemfile_local_packages:
+#   rails-erd:
 
 ## --------------------
 ## Redmineの動作モード

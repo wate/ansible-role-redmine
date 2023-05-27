@@ -1,1 +1,7 @@
-{{ redmine_gemfile_local_content }}
+{% for package_name, package_version in redmine_gemfile_local_packages.items() %}
+{% if package_version %}
+gem '{{ package_name }}', {{ package_version }}
+{% else %}
+gem '{{ package_name }}'
+{% endif %}
+{% endfor %}
