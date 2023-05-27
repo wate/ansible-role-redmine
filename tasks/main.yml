@@ -43,9 +43,8 @@
       tags:
         - role_redmine_setting
     - name: Install gem packages
-      community.general.bundler:
-        state: latest
-        executable: "{{ redmine_home }}/bin/bundle"
+      ansible.builtin.command:
+        cmd: bundle update
         chdir: "{{ redmine_home }}"
     - name: Create secret token
       ansible.builtin.command:
