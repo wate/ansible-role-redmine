@@ -1,11 +1,10 @@
 [Unit]
 Description=Redmine
-{% if redmine_db_cfg.production.host is defined and redmine_db_cfg.production.host in ['localhost', '127.0.0.1']  -%}
-{% if redmine_db_cfg.production.adapter in 'mysql2'%}
+{% if redmine_db_cfg[redmine_mode]['host'] is defined and redmine_db_cfg[redmine_mode]['host'] in ['localhost', '127.0.0.1']  -%}
+{% if redmine_db_cfg[redmine_mode]['adapter'] in 'mysql2'%}
 Requires=mariadb.service
 After=network.target mariadb.service
-{% endif -%}
-{% if redmine_db_cfg.production.adapter == 'postgresql' and redmine_db_cfg.production.host  in ['localhost', '127.0.0.1'] -%}
+{% elif redmine_db_cfg[redmine_mode]['adapter'] == 'postgresql' -%}
 Requires=postgresql.service
 After=network.target postgresql.service
 {% endif -%}
@@ -15,7 +14,6 @@ After=network.target
 
 [Service]
 Type=simple
-Restart=always
 User={{ redmine_user }}
 Group={{ redmine_group }}
 Environment=REDMINE_LANG={{ redmine_lang }}
@@ -23,6 +21,7 @@ WorkingDirectory={{ redmine_home }}
 ExecStart=/usr/bin/bundle exec puma -C {{ redmine_home }}/config/puma.rb -e {{ redmine_mode }}
 ExecStop=/bin/kill -TERM $MAINPID
 ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
