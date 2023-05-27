@@ -27,7 +27,7 @@
             redmine_puma_package: "{{ puma_package_result.stdout | split(',') | map('trim') }}"
         - name: Set Gemfile.local setting variable
           ansible.builtin.set_fact:
-            redmine_gemfile_local_packages: "{{ redmine_gemfile_local_packages | combine({'puma': redmine_puma_package[1] | default('')}) }}"
+            redmine_gemfile_local_packages: "{{ redmine_gemfile_local_packages | default({}) | combine({'puma': redmine_puma_package[1] | default('')}) }}"
     - name: Create/update Gemfile.local file
       ansible.builtin.template:
         src: Gemfile.local.j2
