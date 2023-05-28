@@ -82,10 +82,11 @@
         or
         plugin_install_from_file_result is changed
       block:
-        - name: Install gem packages
+        - name: Install/update gem packages
           community.general.bundler:
             state: latest
             executable: "{{ redmine_home }}/bin/bundle"
+            extra_args: "{{ redmine_bundler_extra_args | join(' ') }}"
             chdir: "{{ redmine_home }}"
         - name: Execute bundle exec rake db:migrate
           ansible.builtin.command:

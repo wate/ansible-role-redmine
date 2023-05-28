@@ -314,6 +314,12 @@ redmine_puma_extra_cfg: |
 redmine_gem_path: vendor/bundle
 
 ## --------------------
+## bundle install/update実行時の追加パラメーター
+## --------------------
+redmine_bundler_extra_args:
+  - --jobs=5
+
+## --------------------
 ## Redmineの標準の言語設定
 ## --------------------
 redmine_lang: ja

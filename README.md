@@ -47,6 +47,10 @@ Pumaの追加設定
 
 Gemパッケージのインストール先
 
+### `redmine_bundler_extra_args`
+
+bundle install/update実行時の追加パラメーター
+
 ### `redmine_lang`
 
 Redmineの標準の言語設定
