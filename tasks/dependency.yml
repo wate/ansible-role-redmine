@@ -15,6 +15,6 @@
   ansible.builtin.file:
     path: "{{ redmine_home }}"
     owner: "{{ redmine_user }}"
-    group: "{{ redmine_user }}"
+    group: "{{ redmine_group }}"
     state: directory
     mode: "0755"
