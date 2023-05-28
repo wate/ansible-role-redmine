@@ -3,22 +3,24 @@ role_name_check: 1
 dependency:
   name: galaxy
 driver:
-  name: ${DRIVER_NAME:-docker}
+  name: ${DRIVER_NAME:-vagrant}
 platforms:
   - name: bullseye
     groups:
       - family_debian
     children:
       - debian
-    # driver:docker
-    image: geerlingguy/docker-debian11-ansible:latest
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    pre_build_image: true
-    # driver:vagrant
+    ## driver:docker
+    # image: geerlingguy/docker-debian11-ansible:latest
+    # command: ${MOLECULE_DOCKER_COMMAND:-""}
+    # volumes:
+    #   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    # privileged: true
+    # pre_build_image: true
+    ## driver:vagrant
     box: wate/debian-11
+    memory: 2048
+    cpus: 2
 provisioner:
   name: ansible
   env:
