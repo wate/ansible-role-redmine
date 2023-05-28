@@ -1,5 +1,3 @@
-source 'https://rubygems.org'
-
 {% for package_name, package_version in redmine_gemfile_local_packages.items() %}
 {% if package_version %}
 gem '{{ package_name }}', {{ package_version }}
