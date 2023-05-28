@@ -3,6 +3,11 @@
   become: true
   become_user: "{{ redmine_user }}"
   block:
+    - name: Create ~/.gemrc
+      ansible.builtin.copy:
+        src: .gemrc
+        dest: ~/.gemrc
+        mode: "0644"
     - name: Create bundler setting directory
       ansible.builtin.file:
         path: "{{ redmine_home }}/.bundle"
