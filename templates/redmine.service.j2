@@ -2,10 +2,8 @@
 Description=Redmine
 {% if redmine_db_cfg[redmine_mode]['host'] is defined and redmine_db_cfg[redmine_mode]['host'] in ['localhost', '127.0.0.1']  -%}
 {% if redmine_db_cfg[redmine_mode]['adapter'] in 'mysql2'%}
-Requires=mariadb.service
 After=network.target mariadb.service
 {% elif redmine_db_cfg[redmine_mode]['adapter'] == 'postgresql' -%}
-Requires=postgresql.service
 After=network.target postgresql.service
 {% endif -%}
 {% else -%}
