@@ -1,5 +1,6 @@
 ---
 BUNDLE_DISABLE_SHARED_GEMS: "true"
+BUNDLE_JOBS: "{{ redmine_bundler_job | default(1) }}"
 {% if redmine_gem_path -%}
 BUNDLE_PATH: "{{ redmine_gem_path }}"
 {% endif %}

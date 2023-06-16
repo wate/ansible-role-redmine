@@ -18,7 +18,7 @@ redmine_mysql2_dependency_packages:
 
 redmine_postgresql_dependency_packages:
   - postgresql
-  - postgresql-server-dev-13
+  - postgresql-server-dev-all
   - python3-psycopg2
 
 redmine_user: redmine

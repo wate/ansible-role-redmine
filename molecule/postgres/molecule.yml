@@ -50,22 +50,22 @@ provisioner:
       stdout_callback: yaml
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
-# verifier:
-#   name: ansible
-# scenario:
-#   test_sequence:
-#     - dependency
-#     - cleanup
-#     - destroy
-#     - syntax
-#     - create
-#     - prepare
-#     - converge
-#     - idempotence
-#     - side_effect
-#     - verify
-#     - cleanup
-#     - destroy
+  # verifier:
+  #   name: ansible
+  # scenario:
+  test_sequence:
+    - dependency
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    # - idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
 #   create_sequence:
 #     - dependency
 #     - create

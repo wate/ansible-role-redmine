@@ -314,10 +314,9 @@ redmine_puma_extra_cfg: |
 redmine_gem_path: vendor/bundle
 
 ## --------------------
-## bundle install/update実行時の追加パラメーター
+## bundle install/update実行時の並列ジョブ数
 ## --------------------
-redmine_bundler_extra_args:
-  - --jobs=5
+redmine_bundler_job: 5
 
 ## --------------------
 ## Redmineの標準の言語設定

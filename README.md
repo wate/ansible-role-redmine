@@ -48,9 +48,9 @@ Pumaの追加設定
 
 Gemパッケージのインストール先
 
-### `redmine_bundler_extra_args`
+### `redmine_bundler_job`
 
-bundle install/update実行時の追加パラメーター
+bundle install/update実行時の並列ジョブ数
 
 ### `redmine_lang`
 
