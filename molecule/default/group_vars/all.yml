@@ -73,13 +73,13 @@ redmine_plugins:
     cron_job:
       cmd: cd {{ redmine_home }}/plugins && /usr/bin/ruby redmine_dmsf/extra/xapian_indexer.rb -v
       minute: 10
-  - name: additionals
-    repo: https://github.com/AlphaNodes/additionals.git
-    directory: additionals
-    version: stable
-  - name: sudo
-    repo: https://github.com/AlphaNodes/redmine_sudo.git
-    version: stable
+  # - name: additionals
+  #   repo: https://github.com/AlphaNodes/additionals.git
+  #   directory: additionals
+  #   version: stable
+  # - name: sudo
+  #   repo: https://github.com/AlphaNodes/redmine_sudo.git
+  #   version: stable
   ## unverified plugin
   - name: saml
     repo: https://github.com/AlphaNodes/redmine_saml.git

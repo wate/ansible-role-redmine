@@ -6,7 +6,7 @@ redmine_repo: https://github.com/redmine/redmine.git
 ## --------------------
 ## Redmineのバージョン(ブランチ名)
 ## --------------------
-redmine_version: 5.0-stable
+redmine_version: 5.1-stable
 ## RedMica
 ## redmine_repo: https://github.com/redmica/redmica.git
 ## redmine_version: "stable-2.0"
