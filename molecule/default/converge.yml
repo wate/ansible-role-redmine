@@ -7,21 +7,22 @@
       ansible.builtin.apt:
         update_cache: true
       when: ansible_facts.pkg_mgr == 'apt'
+      changed_when: false
     - name: Update cache(yum)
       ansible.builtin.yum:
         update_cache: true
       when: ansible_facts.pkg_mgr == 'yum'
+      changed_when: false
     - name: Update cache(dnf)
       ansible.builtin.dnf:
         update_cache: true
       when: ansible_facts.pkg_mgr == 'dnf'
+      changed_when: false
+  roles:
+    - role: common
+    - role: logrotate
+    - role: mariadb
   tasks:
-    - name: Include roles
-      ansible.builtin.include_role:
-        name: "{{ item }}"
-      loop:
-        - common
-        - mariadb
     - name: Include role
       ansible.builtin.include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
