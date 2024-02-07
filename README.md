@@ -9,7 +9,6 @@ OS Platform
 ### Debian
 
 - bookworm
-- bullseye
 
 Role Variables
 --------------
