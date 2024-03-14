@@ -40,8 +40,8 @@ platforms:
     cpus: 1
 provisioner:
   name: ansible
-  env:
-    ANSIBLE_ROLES_PATH: ../../../roles
+  # env:
+  #   ANSIBLE_ROLES_PATH: ../../../roles
   options:
     diff: true
   config_options:
