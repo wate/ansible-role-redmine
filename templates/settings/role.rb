@@ -89,7 +89,7 @@ def import_role(roles)
     role.permissions_tracker_ids = permissions_tracker_ids
     # 並び順
     role.position = item['position'] if item.key?('position')
-    role.save
+    role.save!
     # ワークフローのコピー(新規登録時のみ)
     if is_new && item.key?('copy_workflow_from')
       copy_from = Role.find_by_name(item['copy_workflow_from'])

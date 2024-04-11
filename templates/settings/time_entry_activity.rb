@@ -14,7 +14,7 @@ def import_time_entry_activity(time_entry_activities)
     time_entry_activity.active = !!item['active'] if item.key?('active')
     time_entry_activity.is_default = !!item['is_default'] if item.key?('is_default')
     time_entry_activity.position = item['position'] if item.key?('position')
-    time_entry_activity.save
+    time_entry_activity.save!
   end
 end
 time_entry_activities = []

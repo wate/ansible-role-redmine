@@ -98,7 +98,7 @@ def import_user(users)
     if item.key?('locked')
       user.status = item['locked'] ? User::STATUS_LOCKED : User::STATUS_ACTIVE
     end
-    user.save
+    user.save!
   end
 end
 

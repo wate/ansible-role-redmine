@@ -19,7 +19,7 @@ def import_view_customize(settings)
       view_customize.insertion_position = item['insertion_position'] if item.key?('insertion_position')
       view_customize.customize_type = item['customize_type'] if item.key?('customize_type')
       view_customize.is_enabled = !!item['is_enabled']  if item.key?('is_enabled')
-      view_customize.save
+      view_customize.save!
     end
   end
 end

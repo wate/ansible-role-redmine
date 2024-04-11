@@ -74,7 +74,7 @@ def import_custom_query(queryies)
     ## 合計
     form_params[:t] = item['total'] if item.key?('total')
     custom_query.build_from_params form_params
-    custom_query.save
+    custom_query.save!
   end
 end
 queryies = []

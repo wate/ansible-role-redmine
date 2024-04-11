@@ -10,7 +10,7 @@ def import_status(statuses)
     status = IssueStatus.new unless status
     status.safe_attributes = item
     status.position = item['position'] if item['position'].present?
-    status.save
+    status.save!
   end
 end
 

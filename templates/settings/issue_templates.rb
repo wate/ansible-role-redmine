@@ -30,7 +30,7 @@ def import_issue_templates(settings)
       ## 表示順序
       template.position = item['position'] if item.key?('position')
       template.author = User.current if template.new_record?
-      template.save
+      template.save!
     end
   end
 end

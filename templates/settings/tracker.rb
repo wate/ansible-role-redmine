@@ -82,10 +82,9 @@ def import_tracker(trackers)
       tracker.default_status_id = issue_status.id
     end
     tracker.position = item['position'] if item['position'].present?
-    if tracker.save
-      copy_from = Tracker.find_by_name(item['copy_workflow_from'])
-      tracker.copy_workflow_rules(copy_from) if copy_from
-    end
+    tracker.save!
+    copy_from = Tracker.find_by_name(item['copy_workflow_from'])
+    tracker.copy_workflow_rules(copy_from) if copy_from
   end
 end
 trackers = [];

@@ -12,7 +12,7 @@ def import_admin(admin)
     default_admin.password_confirmation = admin['password']
     default_admin.must_change_passwd = admin['must_change_passwd']
   end
-  default_admin.save
+  default_admin.save!
 end
 
 admin = {};

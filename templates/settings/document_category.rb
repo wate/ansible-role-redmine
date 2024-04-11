@@ -14,7 +14,7 @@ def import_document_category(document_categories)
     document_category.active = !!item['active'] if item.key?('active')
     document_category.is_default = !!item['is_default'] if item.key?('is_default')
     document_category.position = item['position'] if item.key?('position')
-    document_category.save
+    document_category.save!
   end
 end
 document_categories = []

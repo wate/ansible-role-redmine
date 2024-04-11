@@ -9,11 +9,10 @@ def import_group(groups)
     end
     group = Group.new unless group
     group.name = item['name']
-    if group.save
-      if item['users'].present?
-        users = User.where(:login => item['users']).to_a
-        group.users = users
-        end
+    group.save!
+    if item['users'].present?
+      users = User.where(:login => item['users']).to_a
+      group.users = users
     end
   end
 end

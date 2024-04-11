@@ -16,7 +16,7 @@ def import_attachment(attachments)
       attachment.filename = item['base_file_name']
       attachment.filename = item['file_name'] if item.key?('file_name')
       attachment.description = item['description'] if item.key?('description')
-      attachment.save
+      attachment.save!
     end
   end
 end

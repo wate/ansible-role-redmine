@@ -14,7 +14,7 @@ def import_priority(priorities)
     priority.active = !!item['active'] if item.key?('active')
     priority.is_default = !!item['is_default'] if item.key?('is_default')
     priority.position = item['position'] if item.key?('position')
-    priority.save
+    priority.save!
   end
 end
 priorities = []

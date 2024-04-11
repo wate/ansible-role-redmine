@@ -145,6 +145,6 @@ def import_custom_filed(cf, setting)
       cf.project_ids = projects.pluck(:id).map {|v| v.to_s }
     end
   end
-  cf.save
+  cf.save!
 end
 #{% endraw %}
