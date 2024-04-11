@@ -21,6 +21,7 @@ redmine_additional_environment: ""
 ## --------------------
 # redmine_gemfile_local_packages:
 #   rails-erd:
+#   annotate:
 
 ## --------------------
 ## Redmineの動作モード
