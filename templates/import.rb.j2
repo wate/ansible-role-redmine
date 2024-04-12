@@ -11,11 +11,11 @@ REDMINE_IMPORT_FILE_DIR = REDMINE_TMP_DIR
 
 User.current = User.find(1)
 
-{% include "settings/admin.rb" %}
-{% include "settings/status.rb" %}
-{% include "settings/tracker.rb" %}
-{% include "settings/setting.rb" %}
-{% include "settings/role.rb" %}
+{% include "settings/admin.rb.j2" %}
+{% include "settings/status.rb.j2" %}
+{% include "settings/tracker.rb.j2" %}
+{% include "settings/setting.rb.j2" %}
+{% include "settings/role.rb.j2" %}
 
 ALLOW_FIELD_FORMTS = [
   'string',
@@ -32,31 +32,31 @@ ALLOW_FIELD_FORMTS = [
   'enumeration'
 ].map(&:freeze).freeze
 
-{% include "settings/custom_field.rb" %}
-{% include "settings/issue_custom_field.rb" %}
-{% include "settings/project_custom_field.rb" %}
-{% include "settings/user_custom_field.rb" %}
+{% include "settings/custom_field.rb.j2" %}
+{% include "settings/issue_custom_field.rb.j2" %}
+{% include "settings/project_custom_field.rb.j2" %}
+{% include "settings/user_custom_field.rb.j2" %}
 
-{% include "settings/priority.rb" %}
-{% include "settings/document_category.rb" %}
-{% include "settings/time_entry_activity.rb" %}
+{% include "settings/priority.rb.j2" %}
+{% include "settings/document_category.rb.j2" %}
+{% include "settings/time_entry_activity.rb.j2" %}
 
-{% include "settings/workflow.rb" %}
-{% include "settings/workflow_permission.rb" %}
+{% include "settings/workflow.rb.j2" %}
+{% include "settings/workflow_permission.rb.j2" %}
 
-{% include "settings/user.rb" %}
-{% include "settings/group.rb" %}
+{% include "settings/user.rb.j2" %}
+{% include "settings/group.rb.j2" %}
 
-{% include "settings/custom_query.rb" %}
+{% include "settings/custom_query.rb.j2" %}
 
-{% include "settings/project.rb" %}
-{% include "settings/attachment.rb" %}
+{% include "settings/project.rb.j2" %}
+{% include "settings/attachment.rb.j2" %}
 
 # -------------
 # プラグイン
 # -------------
 
-{% include "settings/message_customize.rb" %}
-{% include "settings/view_customize.rb" %}
-{% include "settings/issue_templates.rb" %}
-{% include "settings/note_templates.rb" %}
+{% include "settings/message_customize.rb.j2" %}
+{% include "settings/view_customize.rb.j2" %}
+{% include "settings/issue_templates.rb.j2" %}
+{% include "settings/note_templates.rb.j2" %}
