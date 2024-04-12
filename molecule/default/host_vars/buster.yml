@@ -3,7 +3,12 @@ common_install_utilities:
   - tig
   - jq
   - silversearcher-ag
-  - exa
+  - eza
   - vnstati
   - glances
   - rclone
+
+## --------------------
+## Redmineのバージョン(ブランチ名)
+## --------------------
+redmine_version: 5.1-stable
