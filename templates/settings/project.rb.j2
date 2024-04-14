@@ -61,7 +61,7 @@ def import_project(projects)
     project = Project.find_by_identifier(item['identifier'])
     if project
       parent = Project.where("identifier = :parent OR name = :parent", {parent: item['parent']}).sorted.first
-      project.set_parent!(parent_project) if parent
+      project.set_parent!(parent) if parent
     end
   end
 end
