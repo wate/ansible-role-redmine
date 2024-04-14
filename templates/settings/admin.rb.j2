@@ -10,7 +10,7 @@ def import_admin(admin)
   if admin.key?('password')
     default_admin.password = admin['password']
     default_admin.password_confirmation = admin['password']
-    default_admin.must_change_passwd = admin['must_change_passwd']
+    default_admin.must_change_passwd = !!admin['must_change_passwd'] if admin.key?('must_change_passwd')
   end
   default_admin.save!
 end
