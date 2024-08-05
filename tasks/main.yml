@@ -93,11 +93,6 @@
         redmine_reimport | default(false)
       tags:
         - role_redmine_import
-    - name: Import custom script task
-      ansible.builtin.import_tasks:
-        file: custom_script.yml
-      tags:
-        - role_redmine_custom_script
 - name: Import cron job task
   ansible.builtin.import_tasks:
     file: cron.yml

@@ -1,13 +1,6 @@
 require 'yaml'
 
-REDMINE_HOME = '{{ redmine_home }}'
-REDMINE_ROOT = REDMINE_HOME
-REDMINE_CONFIG_DIR = '{{ redmine_config_dir }}'
-REDMINE_TMP_DIR = '{{ redmine_tmp_dir }}'
-REDMINE_THEME_DIR = '{{ redmine_theme_dir }}'
-REDMINE_PLUGIN_DIR = '{{ redmine_plugin_dir }}'
-REDMINE_SCRIPT_DIR = '{{ redmine_script_dir }}'
-REDMINE_IMPORT_FILE_DIR = REDMINE_TMP_DIR
+REDMINE_IMPORT_FILE_DIR = '{{ redmine_tmp_dir }}'
 
 User.current = User.find(1)
 

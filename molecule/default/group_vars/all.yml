@@ -48,37 +48,49 @@ redmine_cfg:
     sudo_mode_timeout: 15
 
 redmine_themes:
-  - name: PurpleMine2
+  PurpleMine2:
     repo: https://github.com/mrliptontea/PurpleMine2.git
-  - name: gitmike
+    version: master
+  gitmike:
     repo: https://github.com/makotokw/redmine-theme-gitmike.git
+    version: master
+  farend_fancy:
+    repo: https://github.com/farend/redmine_theme_farend_fancy.git
+    version: master
+  farend_basic:
+    repo: https://github.com/farend/redmine_theme_farend_basic.git
+    version: master
+  bleuclair:
+    repo: https://github.com/farend/redmine_theme_farend_bleuclair.git
+    version: master
 
 redmine_plugins:
-  - name: view_customize
+  view_customize:
     repo: https://github.com/onozaty/redmine-view-customize.git
-    directory: view_customize
-  - name: issue_templates
+    version: master
+  redmine_issue_templates:
     repo: https://github.com/agileware-jp/redmine_issue_templates.git
-  - name: slack
+    version: master
+  redmine_slack:
     repo: https://github.com/cat-in-136/redmine-slack.git
     version: evolved
-  - name: dashboard
+  redmine_dashboard:
     repo: https://github.com/jgraichen/redmine_dashboard.git
     version: main
-  - name: drawio
+  redmine_drawio:
     repo: https://github.com/mikitex70/redmine_drawio.git
-  - name: redmica_ui_extension
-    repo: https://github.com/redmica/redmica_ui_extension.git
-    directory: redmica_ui_extension
     version: master
-  - name: additionals
+  redmica_ui_extension:
+    repo: https://github.com/redmica/redmica_ui_extension.git
+    version: master
+  additionals:
     repo: https://github.com/AlphaNodes/additionals.git
     directory: additionals
     version: stable
-  - name: sudo
+  redmine_sudo:
     repo: https://github.com/AlphaNodes/redmine_sudo.git
     version: stable
-  - name: dmsf
+  redmine_dmsf:
     repo: https://github.com/danmunn/redmine_dmsf.git
     required_packages:
       # CGI search interface and indexers using Xapian
@@ -98,8 +110,9 @@ redmine_plugins:
     cron_job:
       cmd: cd {{ redmine_home }}/plugins && /usr/bin/ruby redmine_dmsf/extra/xapian_indexer.rb -v
       minute: 10
-  - name: message_customize
+  redmine_message_customize:
     repo: https://github.com/farend/redmine_message_customize.git
+    version: master
 
 ##
 redmine_puma_extra_cfg: |
@@ -934,437 +947,3 @@ redmine_groups:
       - authority_check_developer
       - authority_check_repoter
       - authority_check_guest
-
-# --------------------
-# Redmineの「プロジェクト」設定
-# --------------------
-redmine_projects:
-  - identifier: skeleton
-    name: スケルトン
-    description: 全体管理用のテンプレートプロジェクトです
-    custom_fields:
-      - name: Slack Channel
-        value: "#general"
-    members:
-      - login: authority_check_admin
-        role: 管理者
-      - login: authority_check_developer
-        role: 開発者
-      - login: authority_check_repoter
-        role: 報告者
-      - login: admin
-        role: 管理者
-    trackers:
-      - 要望
-      - タスク
-      - 問い合わせ
-      - その他
-    modules:
-      ### ------------------
-      ### 標準
-      ### ------------------
-      ## チケットトラッキング
-      - issue_tracking
-      # 時間管理
-      - time_tracking
-      ## ニュース
-      - news
-      ## ファイル
-      - files
-      ## Wiki
-      - wiki
-      # カレンダー
-      - calendar
-      # ガントチャート
-      - gantt
-      ### ------------------
-      ### プラグイン
-      ### ------------------
-      ## チケットテンプレート
-      - issue_templates
-      ## ダッシュボード
-      - dashboard
-    wiki_start_page: Wiki
-    wiki_pages:
-      - name: Wiki
-        content: Wikiのホーム
-      ### 「ワークフロー」関連
-      - name: 種別ごとのワークフロー
-        parent: Wiki
-        content: 種別毎のワークフロートップ
-      - name: 要望
-        parent: 種別ごとのワークフロー
-        content: 要望のワークフロー
-      - name: タスク
-        parent: 種別ごとのワークフロー
-        content: タスクのワークフロー
-      - name: 不具合
-        parent: 種別ごとのワークフロー
-        content: 不具合のワークフロー
-      - name: 運用保守
-        parent: 種別ごとのワークフロー
-        content: 運用保守のワークフロー
-      - name: 問い合わせ
-        parent: 種別ごとのワークフロー
-        content: 問い合わせのワークフロー
-      - name: その他
-        parent: 種別ごとのワークフロー
-        content: その他のワークフロー
-      ### 「ヘルプ」関連
-      - name: ヘルプ
-        parent: Wiki
-        content: ヘルプのトップ
-      - name: Redmine記法
-        parent: ヘルプ
-        content: Redmine記法のコンテンツ
-      - name: 運用方法
-        parent: ヘルプ
-        content: 運用方法のコンテンツ
-      - name: マクロ一覧
-        parent: ヘルプ
-        content: マクロ一覧のコンテンツ
-      ## サイドバー
-      - name: Sidebar
-        content: "{{ '{{' + child_pages + '}}' }}"
-  - identifier: skeleton_web
-    name: Web制作
-    parent: skeleton
-    description: Web制作用のテンプレートプロジェクトです
-    custom_fields:
-      - name: Slack Channel
-        value: "#site"
-    trackes:
-      - 要望
-      - タスク
-      - 不具合
-      - 運用保守
-      - 問い合わせ
-      - その他
-    modules:
-      ### ------------------
-      ### 標準
-      ### ------------------
-      ## チケットトラッキング
-      - issue_tracking
-      ## 時間管理
-      - time_tracking
-      ## ニュース
-      - news
-      ## Wiki
-      - wiki
-      ## カレンダー
-      - calendar
-      # ガントチャート
-      - gantt
-      ### ------------------
-      ### プラグイン
-      ### ------------------
-      ## チケットテンプレート
-      - issue_templates
-      ## ダッシュボード
-      - dashboard
-      ## DMSF
-      - dmsf
-    members:
-      - login: authority_check_admin
-        role: 管理者
-      - login: authority_check_developer
-        role: 開発者
-      - login: authority_check_repoter
-        role: 報告者
-      - login: admin
-        role: 報告者
-    wiki_start_page: Wiki
-    wiki_pages:
-      - name: Wiki
-        content: Wikiのホーム
-      ### 「サイト概要」関連
-      - name: サイト概要
-        parent: Wiki
-        content: サイト概要のコンテンツ
-      - name: サイトマップ
-        parent: サイト概要
-        content: サイトマップのコンテンツ
-      - name: 環境情報
-        parent: Wiki
-        content: 環境情報のコンテンツ
-      - name: 議事録
-        parent: Wiki
-        content: 議事録のコンテンツ
-      ## 「開発情報」関連
-      - name: 開発情報
-        parent: Wiki
-        content: 開発情報のトップ
-      - name: リポジトリ情報
-        parent: 開発情報
-        content: リポジトリ情報のコンテンツ
-      ## 「ホスティング」関連
-      - name: ホスティング情報
-        parent: Wiki
-        content: ホスティング情報のコンテンツ
-      ### 「ヘルプ」関連
-      - name: ヘルプ
-        parent: Wiki
-        content: ヘルプのトップ
-      - name: Redmine記法
-        parent: ヘルプ
-        content: Redmine記法のコンテンツ
-      - name: 運用方法
-        parent: ヘルプ
-        content: 運用方法のコンテンツ
-      - name: マクロ一覧
-        parent: ヘルプ
-        content: マクロ一覧のコンテンツ
-      ## サイドバー
-      - name: Sidebar
-        content: "{{ '{{' + child_pages + '}}' }}"
-  - identifier: skeleton_support
-    name: カスタマーサポート
-    parent: skeleton
-    description: カスタマーサポート用のテンプレートプロジェクトです
-    custom_fields:
-      - name: Slack Channel
-        value: "#support"
-    trackers:
-      - 要望
-      - 問い合わせ
-      - タスク
-      - その他
-    modules:
-      ### ------------------
-      ### 標準
-      ### ------------------
-      ## チケットトラッキング
-      - issue_tracking
-      # 時間管理
-      - time_tracking
-      ## ファイル
-      - files
-      ## Wiki
-      - wiki
-      ### ------------------
-      ### プラグイン
-      ### ------------------
-      ## チケットテンプレート
-      - issue_templates
-      ## ダッシュボード
-      - dashboard
-    members:
-      - login: authority_check_admin
-        role: 管理者
-      - login: authority_check_developer
-        role: 開発者
-      - login: authority_check_repoter
-        role: 報告者
-      - login: admin
-        role: 報告者
-    wiki_start_page: Wiki
-    wiki_pages:
-      - name: Wiki
-        content: Wikiのホーム
-      ### 「ヘルプ」関連
-      - name: ヘルプ
-        parent: Wiki
-        content: ヘルプのトップ
-      - name: Redmine記法
-        parent: ヘルプ
-        content: Redmine記法のコンテンツ
-      - name: 運用方法
-        parent: ヘルプ
-        content: 運用方法のコンテンツ
-      - name: マクロ一覧
-        parent: ヘルプ
-        content: マクロ一覧のコンテンツ
-      ## サイドバー
-      - name: Sidebar
-        content: "{{ '{{' + child_pages + '}}' }}"
-  - identifier: skeleton_develop
-    name: システム開発
-    parent: skeleton
-    description: システム開発用のテンプレートプロジェクトです
-    trackers:
-      - 要望
-      - タスク
-      - 不具合
-      - 運用保守
-      - 問い合わせ
-      - その他
-    modules:
-      ### ------------------
-      ### 標準
-      ### ------------------
-      ## チケットトラッキング
-      - issue_tracking
-      ## 時間管理
-      - time_tracking
-      ## ニュース
-      - news
-      ## ファイル
-      # - files
-      ## Wiki
-      - wiki
-      ## カレンダー
-      - calendar
-      # ガントチャート
-      - gantt
-      ### ------------------
-      ### プラグイン
-      ### ------------------
-      ## チケットテンプレート
-      - issue_templates
-      ## ダッシュボード
-      - dashboard
-      ## DMSF
-      - dmsf
-    members:
-      - login: admin
-        role: 管理者
-      - login: authority_check_admin
-        role: 管理者
-      - login: authority_check_developer
-        role: 開発者
-      - login: authority_check_repoter
-        role: 報告者
-    custom_fields:
-      - name: Slack Channel
-        value: "#develop"
-    wiki_start_page: Wiki
-    wiki_pages:
-      - name: Wiki
-        content: Wikiのホーム
-      ### 「システム概要」関連
-      - name: システム概要
-        parent: Wiki
-        content: システム概要のトップ
-      - name: 機能一覧
-        parent: システム概要
-        content: 機能一覧のコンテンツ
-      - name: データ構造
-        parent: システム概要
-        content: データ構造のコンテンツ
-      - name: システム構成
-        parent: システム概要
-        content: システム構成のコンテンツ
-      - name: 環境情報
-        parent: Wiki
-        content: 環境情報のコンテンツ
-      - name: 議事録
-        parent: Wiki
-        content: 議事録のコンテンツ
-      ### 「開発情報」関連
-      - name: 開発情報
-        parent: Wiki
-        content: 開発情報のトップ
-      - name: リポジトリ情報
-        parent: 開発情報
-        content: リポジトリ情報のコンテンツ
-      - name: デプロイ方法
-        parent: 開発情報
-        content: デプロイ方法のコンテンツ
-      - name: ローカル開発環境
-        parent: 開発情報
-        content: ローカル開発環境のコンテンツ
-      ### 「サーバー情報」関連
-      - name: サーバー情報
-        parent: Wiki
-        content: サーバー情報のトップ
-      - name: バーチャルホスト情報
-        parent: サーバー情報
-        content: バーチャルホストのコンテンツ
-      - name: データベース情報
-        parent: サーバー情報
-        content: サーバー情報のコンテンツ
-      ### 「ヘルプ」関連
-      - name: ヘルプ
-        parent: Wiki
-        content: ヘルプのトップ
-      - name: Redmine記法
-        parent: ヘルプ
-        content: Redmine記法のコンテンツ
-      - name: 運用方法
-        parent: ヘルプ
-        content: 運用方法のコンテンツ
-      - name: マクロ一覧
-        parent: ヘルプ
-        content: マクロ一覧のコンテンツ
-      ## サイドバー
-      - name: Sidebar
-        content: "{{ '{{' + child_pages + '}}' }}"
-  - identifier: skeleton_infra
-    name: インフラ管理
-    parent: skeleton
-    description: インフラ管理用のテンプレートプロジェクトです
-    members:
-      - login: authority_check_admin
-        role: 管理者
-      - login: authority_check_developer
-        role: 開発者
-      - login: admin
-        role: 開発者
-      - login: authority_check_repoter
-        role: 報告者
-    custom_fields:
-      - name: Slack Channel
-        value: "#infra"
-    trackers:
-      - 要望
-      - タスク
-      - 不具合
-      - 運用保守
-      - 問い合わせ
-      - その他
-    modules:
-      ### ------------------
-      ### 標準
-      ### ------------------
-      ## チケットトラッキング
-      - issue_tracking
-      ## 時間管理
-      - time_tracking
-      ## ニュース
-      - news
-      ## ファイル
-      # - files
-      ## Wiki
-      - wiki
-      ## カレンダー
-      - calendar
-      # ガントチャート
-      - gantt
-      ### ------------------
-      ### プラグイン
-      ### ------------------
-      ## チケットテンプレート
-      - issue_templates
-      ## ダッシュボード
-      - dashboard
-      ## DMSF
-      - dmsf
-    wiki_start_page: Wiki
-    wiki_pages:
-      - name: Wiki
-        content: Wikiのホーム
-      ### 「プラットフォーム」関連
-      - name: プラットフォーム
-        parent: Wiki
-        content: プラットフォームのコンテンツ
-      ### 「ドメイン管理」関連
-      - name: ドメイン
-        parent: Wiki
-        content: ドメインのコンテンツ
-      ### 「ヘルプ」関連
-      - name: ヘルプ
-        parent: Wiki
-        content: ヘルプのトップ
-      - name: Redmine記法
-        parent: ヘルプ
-        content: Redmine記法のコンテンツ
-      - name: 運用方法
-        parent: ヘルプ
-        content: 運用方法のコンテンツ
-      - name: マクロ一覧
-        parent: ヘルプ
-        content: マクロ一覧のコンテンツ
-      ## サイドバー
-      - name: Sidebar
-        content: "{{ '{{' + child_pages + '}}' }}"

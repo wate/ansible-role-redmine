@@ -6,15 +6,10 @@
     RAILS_ENV: "{{ redmine_mode }}"
     REDMINE_LANG: "{{ redmine_lang }}"
   block:
-    - name: Create script directory
-      ansible.builtin.file:
-        path: "{{ redmine_script_dir }}"
-        state: directory
-        mode: "0750"
     - name: Create setting import script
       ansible.builtin.template:
         src: import.rb.j2
-        dest: "{{ redmine_script_dir }}/import.rb"
+        dest: "{{ redmine_bin_dir }}/import.rb"
         mode: "0640"
       no_log: true
     - name: Create import admin setting files
@@ -306,5 +301,5 @@
         redmine_reimport_issue_templates_note | default(false)
     - name: Update Redmine settings
       ansible.builtin.command:
-        cmd: bundle exec rails runner {{ redmine_home }}/scripts/import.rb
+        cmd: bundle exec rails runner {{ redmine_bin_dir }}/import.rb
         chdir: "{{ redmine_home }}"
