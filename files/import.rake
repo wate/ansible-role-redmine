@@ -51,8 +51,20 @@ namespace :redmine do
       data = load_data data_file
       if data.present?
         puts "\nImport admin\n-----------------------\n\n"
-        User.update!(1, data)
-        puts User.find_by_id(1)
+        admin = User.find_by_id(1)
+        admin.login = data['login'] if data.key?('login')
+        admin.firstname = data['firstname'] if data.key?('firstname')
+        admin.lastname =  data['lastname'] if data.key?('lastname')
+        admin.mail = data['mail'] if data.key?('mail')
+        admin.language = data['language'] if data.key?('language')
+        if data.key?('password')
+          admin.password = data['password']
+          admin.password_confirmation = data['password']
+        end
+        admin.must_change_passwd = !!data['must_change_passwd'] if data.key?('must_change_passwd')
+        admin.mail_notification = data['mail_notification'] if data.key?('mail_notification')
+        admin.save!
+        pp admin
       end
       FileUtils.rm_f(data_file) unless ENV['IMPORT_ADMIN_DATA_FILE_NO_DELETE']
     end

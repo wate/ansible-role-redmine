@@ -56,7 +56,6 @@ redmine_cfg:
 redmine_puma_extra_cfg: |
   port 3000
 
-
 ## --------------------
 ## テーマ
 ## --------------------
@@ -76,6 +75,7 @@ redmine_themes:
   bleuclair:
     repo: https://github.com/farend/redmine_theme_farend_bleuclair.git
     version: master
+
 ## --------------------
 ## プラグイン
 ## --------------------
@@ -129,9 +129,9 @@ redmine_plugins:
     repo: https://github.com/farend/redmine_message_customize.git
     version: master
 
-
 ## --------------------
 ## 全データの再インポート
+## (※「redmine_admin」以外の全て)
 ## --------------------
 # redmine_reimport_all: true
 
@@ -147,6 +147,7 @@ redmine_admin:
   language: ja
   password: password
   must_change_passwd: false
+  mail_notification: none
 
 ## --------------------
 ## チケットのステータス
@@ -726,7 +727,6 @@ redmine_settings:
     # issue_auto_assign: 0
     # issue_auto_assign_status: []
     # issue_auto_assign_role: null
-    # 作業時間の記録を必須化
     # issue_timelog_required: 0
     # issue_timelog_required_tracker: []
     # issue_timelog_required_status: []
@@ -1394,9 +1394,11 @@ redmine_wiki_content_development: "{{ lookup('file', 'files/wiki/development.md'
 redmine_wiki_content_development_deploy: "{{ lookup('file', 'files/wiki/development/deploy.md') }}"
 redmine_wiki_content_development_local_dev_env: "{{ lookup('file', 'files/wiki/development/local_dev_env.md') }}"
 redmine_wiki_content_development_repository: "{{ lookup('file', 'files/wiki/development/repository.md') }}"
-## サーバー情報
-redmine_wiki_content_server: "{{ lookup('file', 'files/wiki/server.md') }}"
-
+## インフラ情報
+redmine_wiki_content_infra: "{{ lookup('file', 'files/wiki/infra.md') }}"
+redmine_wiki_content_infra_cloud: "{{ lookup('file', 'files/wiki/infra/cloud.md') }}"
+redmine_wiki_content_infra_dns: "{{ lookup('file', 'files/wiki/infra/dns.md') }}"
+redmine_wiki_content_infra_server: "{{ lookup('file', 'files/wiki/infra/server.md') }}"
 ## ヘルプ
 redmine_wiki_content_help: "{{ lookup('file', 'files/wiki/help.md') }}"
 redmine_wiki_content_help_format: "{{ lookup('file', 'files/wiki/help/format.md') }}"
@@ -1444,7 +1446,12 @@ redmine_wiki_page_development:
     デプロイ方法: "{{ redmine_wiki_content_development_deploy }}"
     ローカル開発環境: "{{ redmine_wiki_content_development_local_dev_env }}"
     リポジトリ情報: "{{ redmine_wiki_content_development_repository }}"
-redmine_wiki_page_server: "{{ redmine_wiki_content_server }}"
+redmine_wiki_page_infra:
+  content: "{{ redmine_wiki_content_infra }}"
+  childlen:
+    クラウド情報: "{{ redmine_wiki_content_infra_cloud }}"
+    DNS情報: "{{ redmine_wiki_content_infra_dns }}"
+    サーバー情報: "{{ redmine_wiki_content_infra_server }}"
 
 ## --------------------
 ## プロジェクト
@@ -1543,7 +1550,7 @@ redmine_projects:
             content: "{{ lookup('file', 'files/wiki/home/develop.md') }}"
             childlen:
               システム概要: "{{ redmine_wiki_page_orverview }}"
-              サーバー情報: "{{ redmine_wiki_page_server }}"
+              インフラ情報: "{{ redmine_wiki_page_infra }}"
               環境情報: "{{ redmine_wiki_page_environment }}"
               開発情報: "{{ redmine_wiki_page_development }}"
               ヘルプ: "{{ redmine_wiki_page_help }}"
@@ -1583,12 +1590,10 @@ redmine_attachments:
   - project: client
     file: files/attachment/dummy_project.txt
     description: ダミーファイル
-    remote_file: true
   - project: client
     wiki: Wiki
     file: files/attachment/dummy_wiki.txt
     filename: dummy.txt
-    remote_file: true
 
 ## --------------------
 ## message customizeプラグイン
@@ -1736,8 +1741,8 @@ redmine_message_customize:
   error_scm_annotate_big_text_file: テキストファイルサイズの上限を超えているため注釈できません。
   setting_default_issue_start_date_to_creation_date: 現在の日付を新しい課題の開始日とする
   label_x_issues:
-    zero: "0 課題"
-    one: "1 課題"
+    zero: 0 課題
+    one: 1 課題
     other: "%{count} 課題"
   setting_commit_cross_project_ref: 異なるプロジェクトの課題の参照/修正を許可
   notice_issue_update_conflict: この課題を編集中に他のユーザーが更新しました。

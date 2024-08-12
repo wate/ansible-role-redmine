@@ -260,6 +260,8 @@
       when: >
         generate_secret_token_result is changed
         or
+        redmine_reimport_all | default(false)
+        or
         redmine_reimport_attachment | default(false)
       block:
         - name: Set tempolary upload file variables

@@ -16,11 +16,11 @@ https://github.com/xxxxx/xxxx
 
 ### ホスト名
 
-web01
+redmine
 
 ### FQDN
 
-www.example.com
+redmine.example.com
 
 OS
 ---------------------------
@@ -66,8 +66,8 @@ IPアドレス一覧
 
 ### IPv6
 
-* xxxx::xxxx:xxxx:xxxx:xxxx
-* xxxx::xxxx:xxxx:xxxx:xxxx
+* xxxx:xxxx:xxxx:xxxx:xxxx
+* xxxx:xxxx:xxxx:xxxx:xxxx
 
 稼働中のサービス
 ---------------------------
@@ -75,6 +75,7 @@ IPアドレス一覧
 | サービス名                          | 有効 / 無効 | 取得元   |
 | ----------------------------------- | ----------- | -------- |
 | nginx.service                       | enabled     | systemd  |
+| redmine.service                     | enabled     | systemd  |
 
 サーバー情報 詳細
 ----------------------------------

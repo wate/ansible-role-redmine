@@ -10,9 +10,9 @@
   ansible.builtin.copy:
     src: "{{ attachment.file }}"
     dest: "{{ attachment_remote_file }}"
-    mode: "0644"
-    remote_src: "{{ attachment.remote_file | default(true) }}"
-- name: Appemd uploaded_attachments variable
+    mode: "0640"
+    remote_src: "{{ attachment.remote_file | default(false) }}"
+- name: Append uploaded_attachments variable
   ansible.builtin.set_fact:
     uploaded_attachments: "{{ uploaded_attachments | default([]) + [uploaded_attachment] }}"
   vars:
