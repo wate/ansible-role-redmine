@@ -31,7 +31,7 @@
 - name: Set redmine cron job
   ansible.builtin.cron:
     name: "{{ item.name | default(omit) }}"
-    job: cd {{ redmine_home }} && {{ item.command }} {{ item.params | default([]) | join(' ') }}
+    job: cd {{ redmine_root }} && {{ item.command }} {{ item.params | default([]) | join(' ') }}
     hour: "{{ item.hour | default('*') | string }}"
     minute: "{{ item.minute | default('*') | string }}"
     day: "{{ item.day | default('*') | string }}"

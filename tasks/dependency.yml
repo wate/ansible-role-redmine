@@ -13,7 +13,7 @@
     system: true
 - name: Create install directory
   ansible.builtin.file:
-    path: "{{ redmine_home }}"
+    path: "{{ redmine_root }}"
     owner: "{{ redmine_user }}"
     group: "{{ redmine_group }}"
     state: directory

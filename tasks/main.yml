@@ -34,7 +34,7 @@
     - name: Checkout Redmine
       ansible.builtin.git:
         repo: "{{ redmine_repo }}"
-        dest: "{{ redmine_home }}"
+        dest: "{{ redmine_root }}"
         version: "{{ redmine_version }}"
       register: checkout_result
     - name: Import setting task
@@ -45,13 +45,13 @@
     - name: Install/update gem packages
       community.general.bundler:
         state: latest
-        executable: "{{ redmine_home }}/bin/bundle"
-        chdir: "{{ redmine_home }}"
+        executable: "{{ redmine_root }}/bin/bundle"
+        chdir: "{{ redmine_root }}"
     - name: Create secret token
       ansible.builtin.command:
         cmd: bundle exec rake generate_secret_token
-        chdir: "{{ redmine_home }}"
-        creates: "{{ redmine_home }}/config/initializers/secret_token.rb"
+        chdir: "{{ redmine_root }}"
+        creates: "{{ redmine_root }}/config/initializers/secret_token.rb"
       register: generate_token_result
     - name: Import restore task
       ansible.builtin.import_tasks:
@@ -61,7 +61,7 @@
     - name: Migrate database
       ansible.builtin.command:
         cmd: bundle exec rake db:migrate
-        chdir: "{{ redmine_home }}"
+        chdir: "{{ redmine_root }}"
       notify: restart redmine
       when: |
         checkout_result is changed
@@ -70,7 +70,7 @@
     - name: Load default data
       ansible.builtin.command:
         cmd: bundle exec rake redmine:load_default_data
-        chdir: "{{ redmine_home }}"
+        chdir: "{{ redmine_root }}"
       when:
         - generate_token_result is changed
         - not redmine_skip_load_default_data

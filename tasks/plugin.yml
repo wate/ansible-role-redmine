@@ -60,20 +60,20 @@
         - name: Install/update gem packages
           community.general.bundler:
             state: latest
-            executable: "{{ redmine_home }}/bin/bundle"
-            chdir: "{{ redmine_home }}"
+            executable: "{{ redmine_root }}/bin/bundle"
+            chdir: "{{ redmine_root }}"
         - name: Execute bundle exec rake db:migrate
           ansible.builtin.command:
             cmd: bundle exec rake db:migrate
-            chdir: "{{ redmine_home }}"
+            chdir: "{{ redmine_root }}"
         - name: Execute bundle exec rake redmine:plugins:migrate
           ansible.builtin.command:
             cmd: bundle exec rake redmine:plugins:migrate
-            chdir: "{{ redmine_home }}"
+            chdir: "{{ redmine_root }}"
         - name: Execute plugin post install action
           ansible.builtin.command:
             cmd: "{{ item.post_install_action }}"
-            chdir: "{{ redmine_home }}"
+            chdir: "{{ redmine_root }}"
           loop: "{{ redmine_plugins | selectattr('post_install_action', 'defined') | list }}"
           loop_control:
             label: "{{ item.name }}"

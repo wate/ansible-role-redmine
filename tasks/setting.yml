@@ -10,13 +10,13 @@
         mode: "0644"
     - name: Create bundler setting directory
       ansible.builtin.file:
-        path: "{{ redmine_home }}/.bundle"
+        path: "{{ redmine_root }}/.bundle"
         state: directory
         mode: "0755"
     - name: Create/update bundler setting file
       ansible.builtin.template:
         src: bundle/config.j2
-        dest: "{{ redmine_home }}/.bundle/config"
+        dest: "{{ redmine_root }}/.bundle/config"
         mode: "0644"
     - name: Automatically configure puma package in Gemfile.local
       when: redmine_gemfile_local_packages is undefined or redmine_gemfile_local_packages['puma'] is undefined
@@ -24,7 +24,7 @@
         - name: Gather puma package info
           ansible.builtin.command:
             cmd: grep puma Gemfile
-            chdir: "{{ redmine_home }}"
+            chdir: "{{ redmine_root }}"
           changed_when: false
           register: puma_package_result
         - name: Set puma package temporary variable
@@ -36,23 +36,23 @@
     - name: Create/update Gemfile.local file
       ansible.builtin.template:
         src: Gemfile.local.j2
-        dest: "{{ redmine_home }}/Gemfile.local"
+        dest: "{{ redmine_root }}/Gemfile.local"
         mode: "0644"
     - name: Create/update database config file
       ansible.builtin.template:
         src: database.yml.j2
-        dest: "{{ redmine_home }}/config/database.yml"
+        dest: "{{ redmine_root }}/config/database.yml"
         mode: "0644"
       register: db_config_result
     - name: Create/update Redmine config file
       ansible.builtin.template:
         src: configuration.yml.j2
-        dest: "{{ redmine_home }}/config/configuration.yml"
+        dest: "{{ redmine_root }}/config/configuration.yml"
         mode: "0644"
       notify: restart redmine
     - name: Create/update additional environment file
       ansible.builtin.template:
         src: additional_environment.rb.j2
-        dest: "{{ redmine_home }}/config/additional_environment.rb"
+        dest: "{{ redmine_root }}/config/additional_environment.rb"
         mode: "0644"
       notify: restart redmine

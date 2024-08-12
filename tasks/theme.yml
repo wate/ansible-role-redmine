@@ -5,11 +5,11 @@
   block:
     - name: Check theme directory
       ansible.builtin.stat:
-        path: "{{ redmine_home }}/themes"
+        path: "{{ redmine_root }}/themes"
       register: redmine_theme_dir_result
     - name: Overwrite redmine_theme_dir variable
       ansible.builtin.set_fact:
-        redmine_theme_dir: "{{ redmine_home }}/{{ 'themes' if redmine_theme_dir_result.stat.exists else 'public/themes' }}"
+        redmine_theme_dir: "{{ redmine_root }}/{{ 'themes' if redmine_theme_dir_result.stat.exists else 'public/themes' }}"
     - name: Install themes
       ansible.builtin.git:
         repo: "{{ theme.value.repo }}"
