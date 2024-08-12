@@ -58,9 +58,8 @@
         plugin_install_from_file_result is changed
       block:
         - name: Install/update gem packages
-          community.general.bundler:
-            state: latest
-            executable: "{{ redmine_root }}/bin/bundle"
+          ansible.builtin.command:
+            cmd: bundle update
             chdir: "{{ redmine_root }}"
         - name: Execute bundle exec rake db:migrate
           ansible.builtin.command:
