@@ -33,6 +33,13 @@
           - ansible_facts.packages['rubygems-integration']
           - ansible_facts.packages['acl']
           - ansible_facts.packages['git']
+    - name: Check import task
+      ansible.builtin.stat:
+        path: /opt/redmine/lib/tasks/import.rake
+      register: import_task_result
+    - name: Assert import script
+      ansible.builtin.assert:
+        that: import_task_result.stat.exists
     ## サービスのテスト
     - name: Populate service facts
       ansible.builtin.service_facts:

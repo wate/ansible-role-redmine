@@ -51,7 +51,7 @@ redmine_db_cfg:
     # # SQLite3 setting example
     # # ---------
     # adapter: sqlite3
-    # database: "{{ redmine_home }}/redmine.sqlite3"
+    # database: "{{ redmine_root }}/redmine.sqlite3"
     # # ---------
     # # SQL Server setting example
     # # ---------
@@ -317,7 +317,7 @@ redmine_gem_path: vendor/bundle
 ## --------------------
 ## bundle install/update実行時の並列ジョブ数
 ## --------------------
-redmine_bundler_job: 5
+redmine_bundler_job: 3
 
 ## --------------------
 ## Redmineの標準の言語設定
@@ -389,7 +389,7 @@ redmine_plugins: {}
 #       # Universally Unique Identifier Command-Line Tool
 #       - uuid
 #     cron_job:
-#       cmd: ruby {{ redmine_home }}/plugins/redmine_dmsf/extra/xapian_indexer.rb -v
+#       cmd: ruby {{ redmine_root }}/plugins/redmine_dmsf/extra/xapian_indexer.rb -v
 #       minute: 10
 #   additionals:
 #     repo: https://github.com/AlphaNodes/additionals.git
@@ -563,12 +563,12 @@ redmine_cron_vars: []
 ## --------------------
 redmine_cron_jobs:
   - name: attachment prune
-    command: cd {{ redmine_home }} && bundle exec rake redmine:attachments:prune
+    command: cd {{ redmine_root }} && bundle exec rake redmine:attachments:prune
     hour: 1
     minute: 0
   - name: send reminders
     disabled: true
-    command: cd {{ redmine_home }} && rake redmine:send_reminders
+    command: cd {{ redmine_root }} && rake redmine:send_reminders
     params:
       - days=7
       # - 'tracker=1'
@@ -577,7 +577,7 @@ redmine_cron_jobs:
     minute: 0
   - name: receive mail pop3
     disabled: true
-    command: cd {{ redmine_home }} && bundle exec rake redmine:email:receive_pop3
+    command: cd {{ redmine_root }} && bundle exec rake redmine:email:receive_pop3
     params:
       - username=pop3_acount
       - password=pop3_password
@@ -587,7 +587,7 @@ redmine_cron_jobs:
     minute: "*/10"
   - name: receive mail imap
     disabled: true
-    command: cd {{ redmine_home }} && bundle exec rake redmine:email:receive_imap
+    command: cd {{ redmine_root }} && bundle exec rake redmine:email:receive_imap
     params:
       - username=imap_acount
       - password=imap_password
@@ -1759,7 +1759,7 @@ redmine_restore: false
 # redmine_upload_restore_files_archive_file: path/to/local/redmine/files_archive/file.tar.gz
 # 「files」ディレクトリのリストアファイルをサーバにアップロードする場合は以下の変数にコントロールノード側のファイルパスを設定します
 # ※変数「redmine_restore_files_archive_file」のパスにアップロードされます。
-# redmine_restore_files_archive_file: "{{ redmine_home }}/tmp/redmine_files_archive.tar.gz"
+# redmine_restore_files_archive_file: "{{ redmine_root }}/tmp/redmine_files_archive.tar.gz"
 
 # アーカイブファイル展開時のコマンドラインオプションを設定します。
 # redmine_restore_files_archive_extra_opts:
@@ -1769,7 +1769,7 @@ redmine_restore: false
 # データベースのガンプファイルをサーバにアップロードする場合は以下の変数にコントロールノード側のファイルパスを設定する
 # ※変数「redmine_restore_database_dump_file」のパスにアップロードされます。
 # redmine_upload_restore_database_dump_file: path/to/local/redmine/database_dump.tar.gz
-# redmine_restore_database_dump_file: "{{ redmine_home }}/tmp/redmine_database_dump.sql.gz"
+# redmine_restore_database_dump_file: "{{ redmine_root }}/tmp/redmine_database_dump.sql.gz"
 
 ### データベースダンプファイルリストア時の接続情報
 # redmine_restore_database_host:

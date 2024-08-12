@@ -52,7 +52,7 @@
         cmd: bundle exec rake generate_secret_token
         chdir: "{{ redmine_root }}"
         creates: "{{ redmine_root }}/config/initializers/secret_token.rb"
-      register: generate_token_result
+      register: generate_secret_token_result
     - name: Import restore task
       ansible.builtin.import_tasks:
         file: restore.yml
@@ -72,7 +72,7 @@
         cmd: bundle exec rake redmine:load_default_data
         chdir: "{{ redmine_root }}"
       when:
-        - generate_token_result is changed
+        - generate_secret_token_result is changed
         - not redmine_skip_load_default_data
     - name: Import theme task
       ansible.builtin.import_tasks:
@@ -88,7 +88,7 @@
       ansible.builtin.import_tasks:
         file: import.yml
       when: |
-        generate_token_result is changed
+        generate_secret_token_result is changed
         or
         redmine_reimport | default(false)
       tags:
