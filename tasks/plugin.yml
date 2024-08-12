@@ -17,7 +17,7 @@
         label: "{{ plugin.key }}"
       notify: restart redmine
       register: plugin_install_from_git_result
-    - name: Unarchive plugin archive file
+    - name: Install plugin from file
       ansible.builtin.unarchive:
         src: "{{ plugin.value.file }}"
         dest: "{{ redmine_plugin_dir }}"
