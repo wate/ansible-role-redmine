@@ -605,16 +605,16 @@ redmine_user_custom_fields:
 ## --------------------
 # redmine_reimport_setting: true
 redmine_settings:
+  ## --------------------
+  ## Redmine本体の設定
+  ## --------------------
   ## 全般
   # ホスト名とパス
   # host_name: "{{ inventory_hostname }}"
   # テキスト書式
   text_formatting: common_mark
   # ウェルカムメッセージ
-  welcome_text: |
-    ウェルカムメッセージ
-    ウェルカムメッセージウェルカムメッセージ
-    ウェルカムメッセージウェルカムメッセージウェルカムメッセージ
+  welcome_text: ""
   ## 表示
   # デフォルトの言語
   default_language: ja
@@ -695,7 +695,7 @@ redmine_settings:
   # 添付ファイルとリポジトリのエンコーディング
   repositories_encodings: "utf-8,cp932,euc-jp"
   ## ----------
-  ## プラグイン
+  ## プラグインの設定
   ## ----------
   ### Additionals
   plugin_additionals:

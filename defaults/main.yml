@@ -325,7 +325,7 @@ redmine_bundler_job: 3
 redmine_lang: ja
 
 ## --------------------
-## Redmineにインストールするテーマ
+## インストールするテーマ
 ## --------------------
 redmine_themes: {}
 #   PurpleMine2:
@@ -344,9 +344,8 @@ redmine_themes: {}
 #     repo: https://github.com/farend/redmine_theme_farend_bleuclair.git
 #     version: master
 
-
 ## --------------------
-## Redmineにインストールするプラグイン
+## インストールするプラグイン
 ## --------------------
 redmine_plugins: {}
 #   view_customize:
@@ -399,155 +398,689 @@ redmine_plugins: {}
 #     version: stable
 
 ## --------------------
-## Redmineの全体設定
+## 全データの再インポート
+## (※「redmine_admin」以外の全て)
 ## --------------------
-redmine_settings:
-  ## -------------
-  ## 全般
-  ## -------------
-  ## アプリケーションのタイトル
-  # app_title: Redmine
-  ## ウェルカムメッセージ
-  # welcome_text: |
-  #   Redmineの使い方
-  #   =======================
-  #
-  #   以下の内容を把握した上でRedmineを利用しましょう。
-  #
-  #   チケット種別
-  #   -----------------------
-  #   チケットの種別を表しています。
-  #   ### バグ
-  #   不具合(と思われるもの)は、チケット種別にこの値を設定します。
-  #   ### 機能
-  #   新たに機能を追加するものは、チケット種別にこの値を設定します。
-  #   ### サポート
-  #   既存機能の改善や保守作業に該当するものは、チケット種別にこの値を設定します。
-  #
-  #   ステータス
-  #   -----------------------
-  #   チケットが現在どのような状態かを表しています。
-  #   ### 新規
-  #   何も対応が行われていない状態です。
-  #   ### 処理中
-  #   現在対応中の状態です。
-  #   ### 解決済み
-  #   対応が完了し、対応内容に問題ないかどうか確認中の状態です。
-  #   ### 完了
-  #   確認が完了し、完了した状態です。
-  #   ### 破棄
-  #   何も対応を行わず、完了した状態です。
-  ## ホスト名とパス
-  host_name: "{{ inventory_hostname }}"
-  ## プロトコル
-  # protocol: http
-  ## テキスト書式
-  text_formatting: markdown
-  ## -------------
-  ## 表示
-  ## -------------
-  ## テーマ
-  # ui_theme: ""
-  ## デフォルトの言語
-  default_language: "{{ redmine_lang }}"
-  ## ユーザー名の表示形式
-  ## * firstname_lastname：Redmine Admin
-  ## * firstname_lastinitial：Redmine A.
-  ## * firstinitial_lastname：R. Admin
-  ## * firstname：Redmine
-  ## * lastname_firstname：Admin Redmine
-  ## * lastnamefirstname：AdminRedmine
-  ## * lastname_comma_firstname：Admin, Redmine
-  ## * lastname：Admin
-  ## * username：admin
-  user_format: lastname_firstname
-  ## Gravatarのアイコンを使用する
-  # gravatar_enabled: 1
-  ## デフォルトのGravatarアイコン
-  # gravatar_default: ""
-  ## 添付ファイルのサムネイル画像を表示
-  # thumbnails_enabled: 1
-  ## サムネイル画像の大きさ(ピクセル単位)
-  # thumbnails_size: 100
-  ## 新規オブジェクト作成タブ
-  ## * 0：なし
-  ## * 1："新しいチケット"タブを表示
-  ## * 2："+"ドロップダウンを表示
-  # new_item_menu_tab: 0
-  ## -------------
-  ## 認証
-  ## -------------
-  ## 認証が必要
+# redmine_reimport_all: false
+
+## --------------------
+## デフォルトのシステム管理者
+## --------------------
+# redmine_reimport_admin: false
+redmine_admin: {}
+  # login: admin
+  # firstname: 管理者
+  # lastname: システム
+  # mail: admin@example.com
+  # language: ja
+  # password: password
+  # must_change_passwd: false
+  # mail_notification: none
+
+## --------------------
+## チケットのステータス
+## --------------------
+# redmine_reimport_status: false
+redmine_statuses: []
+  # - name: 未対応
+  #   id: 1
+  #   position: 1
+  #   ## この項目はテーブルには存在しません、以下の内容はWellcomeメッセージに出力するテキストです
+  #   description: |
+  #     何も対応を行っていない状態を表しています
+  # - name: 対応中
+  #   id: 2
+  #   position: 2
+  #   description: |
+  #     対応を行っている最中の状態を表しています
+  # - name: 対応済み
+  #   id: 3
+  #   position: 3
+  #   description: |
+  #     いったん対応が終わった状態を表しています。
+  #     ただし、検証などは完了していないため、チケット自体は完了していない状態を表しています。
+  # - name: 確認待ち
+  #   position: 4
+  #   description: |
+  #     不明点の確認を行っている状態を表しています。
+  # - name: フィードバック
+  #   position: 5
+  #   description: |
+  #     質問に対する回答を行った状態を表しています。
+  # - name: 経過観察
+  #   position: 6
+  #   description: |
+  #     * タスク：実装および検証は終わったが、しばらく様子見が必要といった状態を表しています
+  #         * 例：機能の実装後にABテストを実施している
+  #     * 不具合：何らかの理由により様子見を行っている状態を表しています。
+  #         * 例：対応を行う必要があるが、事象が再現しないため原因が特定しきれない
+  #     * 運用保守：何らかの理由により様子見を行っている状態を表しています。
+  #         * 例：依存パッケージのアップデートがあったが、影響範囲の確認が必要になるため適用を様子見している
+  # - name: 保留
+  #   position: 7
+  #   description: |
+  #     何らかの理由により対応を保留にしている状態を表しています。
+  #     ※「種別」が「要望」以外のチケットについては、「管理者」権限を有する人のみ設定できます。
+  # - name: 完了
+  #   id: 5
+  #   position: 8
+  #   description: |
+  #     チケットの対応がすべて終わり対応が完了した状態を表しています。
+  # - name: 破棄
+  #   id: 6
+  #   position: 9
+  #   description: |
+  #     何らかの理由によりチケットの対応を行わずに終了した状態を表しています。
+
+## --------------------
+## トラッカー
+## --------------------
+# redmine_reimport_tracker: false
+redmine_trackers: []
+  # - name: 要望
+  #   description: |
+  #     対応するかどうかが決まっていないチケットです。
+  #     思いついたことなどはこの種別を設定し気軽にチケットとして登録しましょう。
+  #   position: 1
+  #   enabled_standard_fields:
+  #     - description
+  #     - assigned_to_id
+  #     - start_date
+  #     - due_date
+  #     - category_id
+  #     - parent_issue_id
+  #   is_in_roadmap: false
+  #   copy_workflow_from: タスク
+  # - name: タスク
+  #   description: |
+  #     対応することが確定したチケットです。
+  #     主に機能追加や機能改善はこの種別を設定します。
+  #   id: 2
+  #   position: 2
+  # - name: 不具合
+  #   id: 1
+  #   description: |
+  #     不具合に関するチケットです。
+  #     システムの不具合だけでなく、見た目の表示崩れなどもこの種別を設定します。
+  #   position: 3
+  # - name: 運用保守
+  #   id: 3
+  #   description: |
+  #     運用保守作業に関するチケットです。
+  #     依存パッケージの更新やセキュリティアップデート、技術的負債の解消、
+  #     ドキュメントのメンテナンスといった内容はこの種別を設定します。
+  #   position: 4
+  #   is_in_roadmap: false
+  # - name: 問い合わせ
+  #   description: |
+  #     他部署などからの問い合わせに関するチケットです。
+  #     なるべく速やかに質問者(登録者)に回答をしてあげましょう。
+  #   position: 5
+  #   enabled_standard_fields:
+  #     - description
+  #     - assigned_to_id
+  #     - start_date
+  #     - due_date
+  #   is_in_roadmap: false
+  #   copy_workflow_from: タスク
+  # - name: その他
+  #   description: |
+  #     メイン業務以外の間接業務はこの種別を設定してください。
+  #   position: 6
+  #   enabled_standard_fields:
+  #     - description
+  #     - assigned_to_id
+  #     - start_date
+  #     - due_date
+  #   is_in_roadmap: false
+  #   copy_workflow_from: タスク
+
+## --------------------
+## ロール
+## --------------------
+# redmine_reimport_role: false
+redmine_roles: []
+  # - name: 管理者
+  #   id: 3
+  #   ## 権限
+  #   append_permissions:
+  #     ## チケットテンプレート
+  #     # テンプレートの編集
+  #     - edit_issue_templates
+  #     # テンプレートの表示
+  #     - show_issue_templates
+  #     # テンプレートの管理
+  #     - manage_issue_templates
+  #     ## Additionals
+  #     # ダッシュボードの共有
+  #     - share_dashboards
+  #     # ダッシュボードの保存
+  #     - save_dashboards
+  #     ## ダッシュボード
+  #     # ダッシュボードの表示
+  #     - view_dashboards
+  #     # ダッシュボードの設定
+  #     - configure_dashboards
+  #     # 終了済みチケットの作業時間の入力
+  #     - log_time_on_closed_issues
+  #     ## Webhooks
+  #     # Manage hook
+  #     - manage_hook
+  #     ## DMSF(ドキュメント管理)
+  #     # ダウンロード履歴の表示
+  #     - view_dmsf_file_revision_accesses
+  #     # リビジョン履歴の表示
+  #     - view_dmsf_file_revisions
+  #     # ファイルの一覧
+  #     - view_dmsf_folders
+  #     # ユーザー設定
+  #     - user_preferences
+  #     # ファイルの表示
+  #     - view_dmsf_files
+  #     # 文書をメールで送信
+  #     - email_documents
+  #     # フォルダ操作
+  #     - folder_manipulation
+  #     # ファイル操作
+  #     - file_manipulation
+  #     # ファイルの削除
+  #     - file_delete
+  #     # ファイルの強制ロック解除
+  #     - force_file_unlock
+  #     # ファイルの承認
+  #     - file_approval
+  #     # ワークフローの管理
+  #     - manage_workflows
+  # - name: 開発者
+  #   id: 4
+  #   append_permissions:
+  #     ## プロジェクト
+  #     # プロジェクトの編集
+  #     - edit_project
+  #     # モジュールの選択
+  #     - select_project_modules
+  #     ## チケットトラッキング
+  #     # チケットのコピー
+  #     - copy_issues
+  #     # チケットのインポート
+  #     - import_issues
+  #     # 自分が追加したチケットの編集
+  #     - edit_own_issues
+  #     # 自分が追加したチケットのプライベート設定
+  #     - set_own_issues_private
+  #     # 自分が追加したコメントの編集
+  #     - edit_own_issue_notes
+  #     ## 文書
+  #     # 文書の追加
+  #     - add_documents
+  #     # 文書の編集
+  #     - edit_documents
+  #     # 文書の削除
+  #     - delete_documents
+  #     ## 時間管理
+  #     # 自分の作業時間の編集
+  #     - edit_own_time_entries
+  #     # 作業時間のインポート
+  #     - import_time_entries
+  #     ## Wiki
+  #     # Wikiページ名の変更
+  #     - rename_wiki_pages
+  #     # Wikiページの保護
+  #     - protect_wiki_pages
+  #     # 添付ファイルの削除
+  #     - delete_wiki_pages_attachments
+  #     ## チケットテンプレート
+  #     # テンプレートの編集
+  #     - edit_issue_templates
+  #     # テンプレートの表示
+  #     - show_issue_templates
+  #     # テンプレートの管理
+  #     - manage_issue_templates
+  #     ## Additionals
+  #     # ダッシュボードの保存
+  #     - save_dashboards
+  #     ## ダッシュボード
+  #     # ダッシュボードの表示
+  #     - view_dashboards
+  #     # 終了済みチケットの作業時間の入力
+  #     - log_time_on_closed_issues
+  #     ## DMSF(ドキュメント管理)
+  #     # ダウンロード履歴の表示
+  #     - view_dmsf_file_revision_accesses
+  #     # リビジョン履歴の表示
+  #     - view_dmsf_file_revisions
+  #     # ファイルの一覧
+  #     - view_dmsf_folders
+  #     # ユーザー設定
+  #     - user_preferences
+  #     # ファイルの表示
+  #     - view_dmsf_files
+  #     # 文書をメールで送信
+  #     - email_documents
+  #     # フォルダ操作
+  #     - folder_manipulation
+  #     # ファイル操作
+  #     - file_manipulation
+  #     # ファイルの削除
+  #     - file_delete
+  #     # ファイルの承認
+  #     - file_approval
+  # - name: 報告者
+  #   id: 5
+  #   ## 権限
+  #   append_permissions:
+  #     ## チケットテンプレート
+  #     # テンプレートの表示
+  #     - show_issue_templates
+  #     ## チケットトラッキング
+  #     # 自分が追加したチケットの編集
+  #     - edit_own_issues
+  #     # 自分が追加したコメントの編集
+  #     - edit_own_issue_notes
+  #     ## 時間管理
+  #     # 自分の作業時間の編集
+  #     - edit_own_time_entries
+  #     ## DMSF(ドキュメント管理)
+  #     # ダウンロード履歴の表示
+  #     - view_dmsf_file_revision_accesses
+  #     # リビジョン履歴の表示
+  #     - view_dmsf_file_revisions
+  #     # ファイルの一覧
+  #     - view_dmsf_folders
+  #     # ファイルの表示
+  #     - view_dmsf_files
+
+## --------------------
+## チケットの優先度
+## --------------------
+# redmine_reimport_priority: false
+redmine_priorities: []
+  # - name: 低い
+  #   id: 1
+  # - name: 通常
+  #   id: 2
+  #   is_default: true
+  # - name: 高い
+  #   id: 3
+  # - name: 早急に
+  #   id: 4
+  # - name: 緊急
+  #   id: 5
+
+## --------------------
+## 文書カテゴリ
+## --------------------
+# redmine_reimport_document_category: false
+redmine_document_categories: []
+  # - name: ユーザーマニュアル
+  #   id: 6
+  # - name: 開発ドキュメント
+  #   id: 7
+
+## --------------------
+## 作業分類
+## --------------------
+# redmine_reimport_time_entry_activity: false
+redmine_time_entry_activities: []
+  # - name: 調査
+  #   position: 1
+  # - name: 要件定義
+  #   position: 2
+  # - name: 設計
+  #   id: 8
+  #   position: 3
+  # - name: コーディング
+  #   id: 9
+  #   position: 4
+  # - name: テスト
+  #   position: 5
+  # - name: ドキュメント
+  #   position: 6
+  # - name: 打ち合わせ
+  #   position: 7
+  # - name: その他
+  #   position: 8
+
+## --------------------
+## チケットのカスタムフィールド
+## --------------------
+# redmine_reimport_issue_custom_field: false
+redmine_issue_custom_fields: []
+  # - name: 理由
+  #   field_format: string
+  #   description: ステータス変更時の理由を記載します
+  #   visible: true
+  #   searchable: false
+  #   is_filter: false
+  #   trackers:
+  #     - 要望
+  #     - タスク
+  #     - 不具合
+  #     - 運用保守
+  #     - 問い合わせ
+  #     - その他
+
+## --------------------
+## プロジェクトのカスタムフィールド
+## --------------------
+# redmine_reimport_project_custom_field: false
+redmine_project_custom_fields: []
+  # - name: 管理画面URL
+  #   field_format: link
+  #   description: 管理画面のURLを設定します
+  #   visible: true
+  # - name: Slack Channel
+  #   field_format: string
+  #   visible: true
+  # - name: Slack URL
+  #   field_format: string
+  #   visible:
+  #     - 管理者
+
+## --------------------
+## ユーザーのカスタムフィールド
+## --------------------
+# redmine_reimport_user_custom_field: false
+redmine_user_custom_fields: []
+  # - name: 電話番号
+  #   field_format: string
+  #   description: 日中連絡先の電話番号を設定します
+  #   visible: true
+  # - name: Githubアカウント
+  #   field_format: string
+  #   description: Githubのアカウント名を設定します。
+  #   visible: true
+  #   url_pattern: https://github.com/%value%
+  # - name: 自己紹介
+  #   field_format: text
+  #   visible: true
+  # - name: 性格タイプ(MBTI)
+  #   field_format: list
+  #   description: |
+  #     16personalities(MBTI)の性格タイプを設定します。
+  #     https://www.16personalities.com/ja
+  #   visible: true
+  #   possible_values:
+  #     - INTJ
+  #     - INTP
+  #     - ENTJ
+  #     - ENTP
+  #     - INFJ
+  #     - INFP
+  #     - ENFJ
+  #     - ENFP
+  #     - ISTJ
+  #     - ISFJ
+  #     - ESTJ
+  #     - ESFJ
+  #     - ISTP
+  #     - ISFP
+  #     - ESTP
+  #     - ESFP
+  #   url_pattern: https://www.16personalities.com/ja/%value%%E5%9E%8B%E3%81%AE%E6%80%A7%E6%A0%BC
+  # - name: キャリア・アンカー(専門・職能別能力)
+  #   field_format: list
+  #   visible: true
+  #   description: 価値観の大きさに応じて10段階で指定してください
+  #   possible_values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  # - name: キャリア・アンカー(管理能力)
+  #   field_format: list
+  #   visible: true
+  #   description: 価値観の大きさに応じて10段階で指定してください
+  #   possible_values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  # - name: キャリア・アンカー(自律・独立)
+  #   field_format: list
+  #   visible: true
+  #   description: 価値観の大きさに応じて10段階で指定してください
+  #   possible_values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  # - name: キャリア・アンカー(保証・安定)
+  #   field_format: list
+  #   visible: true
+  #   description: 価値観の大きさに応じて10段階で指定してください
+  #   possible_values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  # - name: キャリア・アンカー(起業家的創造性)
+  #   field_format: list
+  #   visible: true
+  #   description: 価値観の大きさに応じて10段階で指定してください
+  #   possible_values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  # - name: キャリア・アンカー(奉仕・社会貢献)
+  #   field_format: list
+  #   visible: true
+  #   description: 価値観の大きさに応じて10段階で指定してください
+  #   possible_values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  # - name: キャリア・アンカー(純粋な挑戦)
+  #   field_format: list
+  #   visible: true
+  #   description: 価値観の大きさに応じて10段階で指定してください
+  #   possible_values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  # - name: キャリア・アンカー(ライフワークバランス)
+  #   field_format: list
+  #   visible: true
+  #   description: 価値観の大きさに応じて10段階で指定してください
+  #   possible_values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  # - name: ログイン後の遷移先
+  #   field_format: string
+  #   description: ログイン後のURLを「/」で始まるURLで指定します。
+  #   regexp: "^/+"
+  #   visible: false
+  # - name: Slack Username
+  #   field_format: string
+  #   description: SlackのユーザーIDを設定します
+  #   visible: false
+
+
+## --------------------
+## Redmineの設定
+## --------------------
+# redmine_reimport_setting: true
+redmine_settings: {}
+  # ## --------------------
+  # ## Redmine本体の設定
+  # ## --------------------
+  # ## -------------
+  # ## 全般
+  # ## -------------
+  # ## アプリケーションのタイトル
+  # # app_title: Redmine
+  # ## ホスト名とパス
+  # host_name: "{{ inventory_hostname }}"
+  # ## テキスト書式
+  # text_formatting: common_mark
+  # ## ウェルカムメッセージ
+  # welcome_text: ""
+  # ## -------------
+  # ## 表示
+  # ## -------------
+  # ## テーマ
+  # # ui_theme: ""
+  # ## デフォルトの言語
+  # default_language: "{{ redmine_lang }}"
+  # ## 時間の形式
+  # timespan_format: decimal
+  # ## ユーザー名の表示形式
+  # ## * firstname_lastname：Redmine Admin
+  # ## * firstname_lastinitial：Redmine A.
+  # ## * firstinitial_lastname：R. Admin
+  # ## * firstname：Redmine
+  # ## * lastname_firstname：Admin Redmine
+  # ## * lastnamefirstname：AdminRedmine
+  # ## * lastname_comma_firstname：Admin, Redmine
+  # ## * lastname：Admin
+  # ## * username：admin
+  # user_format: lastname_firstname
+  # ## Gravatarのアイコンを使用する
+  # # gravatar_enabled: 1
+  # ## デフォルトのGravatarアイコン
+  # # gravatar_default: ""
+  # ## 添付ファイルのサムネイル画像を表示
+  # # thumbnails_enabled: 1
+  # ## サムネイル画像の大きさ(ピクセル単位)
+  # # thumbnails_size: 100
+  # ## 新規オブジェクト作成タブ
+  # ## * 0：なし
+  # ## * 1："新しいチケット"タブを表示
+  # ## * 2："+"ドロップダウンを表示
+  # new_item_menu_tab: 1
+  # ## -------------
+  # ## 認証
+  # ## -------------
+  # ## 認証が必要
   # login_required: 1
-  ## 自動ログイン
-  # autologin: 7
-  ## -------------
-  ## API
-  ## -------------
-  ## RESTによるWebサービスを有効にする
+  # ## 自動ログイン
+  # autologin: 30
+  # ## -------------
+  # ## API
+  # ## -------------
+  # ## RESTによるWebサービスを有効にする
   # rest_api_enabled: 1
-  ## JSONPを有効にする
-  # jsonp_enabled: 1
-  ## -------------
-  ## プロジェクト
-  ## -------------
-  ## デフォルトで新しいプロジェクトは公開にする
-  # default_projects_public: 1
-  ## 新規プロジェクトにおいてデフォルトで有効になるモジュール
+  # ## JSONPを有効にする
+  # jsonp_enabled: 0
+  # ## -------------
+  # ## プロジェクト
+  # ## -------------
+  # ## デフォルトで新しいプロジェクトは公開にする
+  # default_projects_public: 0
+  # ## 新規プロジェクトにおいてデフォルトで有効になるモジュール
   # default_projects_modules:
+  #   # チケットトラッキング
   #   - issue_tracking
+  #   # 時間管理
   #   - time_tracking
+  #   # ニュース
   #   - news
-  #   - documents
+  #   # ファイル
   #   - files
+  #   # Wiki
   #   - wiki
+  #   # カレンダー
   #   - calendar
+  #   # ガントチャート
   #   - gantt
+  #   # チケットテンプレート
   #   - issue_templates
-  ## 新規プロジェクトにおいてデフォルトで有効になるトラッカー(ID指定)
-  # default_projects_tracker_ids:
-  #   - 1
-  #   - 3
-  ## 新規プロジェクトにおいてデフォルトで有効になるトラッカー(名前指定)
+  #   # ダッシュボード
+  #   - dashboard
+  # ## 新規プロジェクトにおいてデフォルトで有効になるトラッカー
   # default_projects_trackers:
-  #   - バグ
-  #   - 機能
-  #   - サポート
-  ## -------------
-  ## ファイル
-  ## -------------
-  ## 添付ファイルの上限(KB)
-  # attachment_max_size: 5120
-  ## 添付ファイルとリポジトリのエンコーディング
+  #   - 要望
+  #   - タスク
+  #   - 不具合
+  #   - 運用保守
+  #   - 問い合わせ
+  #   - その他
+  # ## -------------
+  # ## ファイル
+  # ## -------------
+  # ## 添付ファイルの上限(KB)
+  # attachment_max_size: 10240
+  # ## 添付ファイルとリポジトリのエンコーディング
   # repositories_encodings: "UTF-8,CP932,EUC-JP"
-  ## -------------
-  ## メール通知
-  ## -------------
-  ## 送信元メールアドレス
-  # mail_from: redmine@example.net
-  ## デフォルトのメール通知オプション
-  ## * all：参加しているプロジェクトのすべての通知
-  ## * only_my_events：ウォッチ中または自分が関係しているもの
-  ## * only_assigned：ウォッチ中または自分が担当しているもの
-  ## * only_owner：ウォッチ中または自分が作成したもの
-  ## * none：通知しない
-  # default_notification_option: only_my_events
-  ## メールのヘッダー
-  # emails_header: |
-  #   このメールはRedmineからのメール通知です。
-  # emails_footer: |
-  #   この通知は「個人設定」の「メール通知」により通知されています。
-  #   メール通知を無効にする場合は以下のURLより「個人設定」を開き、
-  #   「メール通知」の設定内容を変更してください。
-  #   ------
-  #   http://{{ inventory_hostname }}/my/account
-  #   ------
-  ## -------------
-  ## リポジトリ
-  ## -------------
-  ## 使用するバージョン管理システム
-  # enabled_scm:
-  #   - Git
+  # ## ユーザー
+  # # 新しいユーザーのデフォルト設定(タイムゾーン)
+  # default_users_time_zone: Tokyo
+  # ## -------------
+  # ## チケットトラッキング
+  # ## -------------
+  # ## チケットをコピーしたときに関連を設定
+  # link_copied_issue: ask
+  # ## 現在の日付を新しいチケットの開始日とする
+  # default_issue_start_date_to_creation_date: 0
+  # ## チケットの一覧で表示する項目
+  # issue_list_default_columns:
+  #   # トラッカー
+  #   - tracker
+  #   # 優先度
+  #   - priority
+  #   # 題名
+  #   - subject
+  #   # ステータス
+  #   - status
+  #   # 進捗率
+  #   - done_ratio
+  #   # 担当者
+  #   - assigned_to
+  #   # 期日
+  #   - due_date
+  #   # 更新日
+  #   - updated_on
+  # ## -------------
+  # ## メール通知
+  # ## -------------
+  # ## 送信元メールアドレス
+  # # mail_from: redmine@example.net
+  # ## デフォルトのメール通知オプション
+  # ## * all：参加しているプロジェクトのすべての通知
+  # ## * only_my_events：ウォッチ中または自分が関係しているもの
+  # ## * only_assigned：ウォッチ中または自分が担当しているもの
+  # ## * only_owner：ウォッチ中または自分が作成したもの
+  # ## * none：通知しない
+  # # default_notification_option: only_my_events
+  # ## メールのヘッダー
+  # # emails_header: |
+  # #   このメールはRedmineからのメール通知です。
+  # # emails_footer: |
+  # #   この通知は「個人設定」の「メール通知」により通知されています。
+  # #   メール通知を無効にする場合は以下のURLより「個人設定」を開き、
+  # #   「メール通知」の設定内容を変更してください。
+  # #   ------
+  # #   http://{{ inventory_hostname }}/my/account
+  # #   ------
+  # ## -------------
+  # ## リポジトリ
+  # ## -------------
+  # ## 使用するバージョン管理システム
+  # # enabled_scm:
+  # #   - Git
+  # ## --------------------
+  # ## プラグインの設定
+  # ## --------------------
+  # ### Additionals
+  # plugin_additionals:
+  #   # 無効にするモジュール
+  #   disabled_modules:
+  #     - repository
+  #   # ツールバーで無効にするマクロ
+  #   hidden_macros_in_toolbar:
+  #     - drawio
+  #     - reddit
+  #     - redmine_issue
+  #     - redmine_wiki
+  #   # 新規チケットのメモ
+  #   new_ticket_message: |
+  #     何をしてほしいかだけでなく、その理由や背景もきちんと記載しましょう。
+  #     また、何をもって完了とみなすのかの達成条件もきちんと記載するようにしましょう。
+  #     (追加の要望などが出てきた場合は現在のチケットに追記するのではなく新たにチケットを登録して対応してもらいましょう)
+  #   # プロフィール画面に「新しいチケット」を表示する
+  #   new_issue_on_profile: 1
+  #   # チケットのステータスをサイドバーに表示する
+  #   issue_change_status_in_sidebar: 1
+  #   # 終了したチケットの編集を禁止する
+  #   issue_freezed_with_close: 1
+  #   # issue_status_change: 0
+  #   # issue_status_x: []
+  #   # issue_status_y: null
+  #   # issue_current_user_status: 0
+  #   # issue_assign_to_x: []
+  #   # issue_auto_assign: 0
+  #   # issue_auto_assign_status: []
+  #   # issue_auto_assign_role: null
+  #   # issue_timelog_required: 0
+  #   # issue_timelog_required_tracker: []
+  #   # issue_timelog_required_status: []
+  # ### RedMica UI extension
+  # plugin_redmica_ui_extension:
+  #   # セレクトボックスを検索可能にする
+  #   searchable_selectbox:
+  #     enabled: 0
+  # ### チケットテンプレート
+  # plugin_redmine_issue_templates:
+  #   # グローバルチケットテンプレートを全てのプロジェクトに適用
+  #   apply_global_template_to_all_projects: "true"
+  # ### DMSF(文書管理)
+  # plugin_redmine_dmsf:
+  #   # WebDAV
+  #   dmsf_webdav: 0
+
 
 ## --------------------
 ## Redmineのcron用変数
@@ -598,119 +1131,7 @@ redmine_cron_jobs:
     minute: "*/10"
 
 ## --------------------
-## デフォルトのシステム管理者設定
-## --------------------
-redmine_admin: {}
-#   login: admin
-#   firstname: 管理者
-#   lastname: システム
-#   mail: sysadmin@example.net
-#   language: ja
-#   password: password
-#   must_change_passwd: false
-
-## --------------------
-## チケットのステータス
-## --------------------
-redmine_statuses: []
-#   - name: 未対応
-#     is_closed: false
-#     position: 1
-#   - name: 対応中
-#     is_closed: false
-#     position: 2
-#   - name: 対応済み
-#     is_closed: false
-#     position: 3
-#   - name: フィードバック
-#     is_closed: false
-#     position: 4
-#   - name: 確認待ち
-#     position: 5
-#   - name: 終了
-#     is_closed: true
-#     position: 7
-#   - name: 破棄
-#     is_closed: true
-#     position: 8
-
-## --------------------
-## トラッカー
-## --------------------
-redmine_trackers: []
-# - name: 不具合
-#   position: 1
-# - name: 機能
-#   position: 2
-# - name: 運用保守
-#   position: 3
-# - name: その他
-#   position: 4
-#   description: トラッカーの説明を起債します。
-#   enabled_standard_fields:
-#     # 担当者
-#     - assigned_to_id
-#     # カテゴリ
-#     - category_id
-#     # バージョン
-#     # - fixed_version_id
-#     # 親チケット
-#     # - parent_issue_id
-#     # 開始日
-#     # - start_date
-#     # 期日
-#     - due_date
-#     # 予定工数
-#     # - estimated_hours
-#     # 進捗率
-#     # - done_ratio
-#     # 説明
-#     - description
-#   copy_workflow_from: 機能
-# - name: Todo
-#   position: 5
-#   # チケットをロードマップに表示する
-#   is_in_roadmap: false
-
-## --------------------
-## チケットの優先度
-## --------------------
-redmine_priorities: []
-#   - name: 低い
-#     id: 1
-#   - name: 通常
-#     id: 2
-#     is_default: true
-#   - name: 高い
-#     id: 3
-#   - name: 早急に
-#     id: 4
-#   - name: 緊急
-#     id: 5
-
-## --------------------
-## 文書カテゴリ
-## --------------------
-redmine_document_categories: []
-#   - name: ユーザーマニュアル
-#     id: 6
-#   - name: 開発ドキュメント
-#     id: 7
-#   - name: インフラドキュメント
-
-## --------------------
-## 作業分類
-## --------------------
-redmine_time_entry_activities: []
-#   - name: 設計
-#     id: 8
-#   - name: コーディング
-#     id: 9
-#   - name: テスト
-#   - name: ドキュメント
-
-## --------------------
-## カスタムクエリ
+## チケットのカスタムクエリ
 ## --------------------
 # --
 # 検索条件の指定文字列
@@ -753,7 +1174,7 @@ redmine_time_entry_activities: []
 # "*o"  => 未完了のチケット
 # "!o"  => なし または完了したチケット
 # --
-redmine_custom_queries: []
+redmine_issue_custom_queries: []
 #   - name: 先月度実績
 #     filters:
 #       # ステータス / 終了
@@ -843,109 +1264,6 @@ redmine_custom_queries: []
 #       - estimated_hours
 #       - spent_hours
 
-## --------------------
-## ロールと権限
-## --------------------
-redmine_roles: []
-#   ## 名称
-# - name: 管理者
-#   ## このロールにチケットを割り当て可能
-#   assignable: true
-#   ## 表示できるチケット
-#   # * all: 全てのチケット
-#   # * default: プライベートチケット以外
-#   # * own: 作業者か作成者であるチケット
-#   issues_visibility: default
-#   ## 表示できる作業時間
-#   # * all: すべての作業時間
-#   # * own: 自身が登録した作業時間
-#   time_entries_visibility: all
-#   ## 表示できるユーザー
-#   # * all: すべてのアクティブなユーザー
-#   # * members_of_visible_projects: 見ることができるプロジェクトのメンバー
-#   users_visibility: all
-#   ## ワークフローをここからコピー(新規登録時のみ)
-#   # copy_workflow_from: 管理者
-#   ## メンバーの管理
-#   # managed_roles:
-#   #   - 管理者
-#   #   - 開発者
-#   #   - 報告者
-#   ## 権限
-#   append_permissions:
-#     ## チケットテンプレート
-#     # テンプレートの編集
-#     - edit_issue_templates
-#     # テンプレートの表示
-#     - show_issue_templates
-#     # テンプレートの管理
-#     - manage_issue_templates
-#   ## チケットトラッキング
-#   # permissions_trackers:
-#   #   view_issues: []
-#   #   add_issues: []
-#   #   edit_issues: []
-#   #   add_issue_notes: []
-#   #   delete_issues: []
-# - name: 開発者
-#   assignable: true
-#   issues_visibility: default
-#   time_entries_visibility: all
-#   users_visibility: all
-#   append_permissions:
-#     ## プロジェクト
-#     # プロジェクトの編集
-#     - edit_project
-#     # モジュールの選択
-#     - select_project_modules
-#     ## チケットトラッキング
-#     # チケットのコピー
-#     - copy_issues
-#     # チケットのインポート
-#     - import_issues
-#     # 自分が追加したコメントの編集
-#     - edit_own_issue_notes
-#     ## 文書
-#     # 文書の追加
-#     - add_documents
-#     # 文書の編集
-#     - edit_documents
-#     # 文書の削除
-#     - delete_documents
-#     ## 時間管理
-#     # 自分の作業時間の編集
-#     - edit_own_time_entries
-#     ## Wiki
-#     # Wikiページ名の変更
-#     - rename_wiki_pages
-#     # Wikiページの保護
-#     - protect_wiki_pages
-#     # 添付ファイルの削除
-#     - delete_wiki_pages_attachments
-#     ## チケットテンプレート
-#     # テンプレートの編集
-#     - edit_issue_templates
-#     # テンプレートの表示
-#     - show_issue_templates
-#     # テンプレートの管理
-#     - manage_issue_templates
-# - name: 報告者
-#   assignable: true
-#   issues_visibility: default
-#   time_entries_visibility: all
-#   users_visibility: all
-#   ## 権限
-#   append_permissions:
-#     ## チケットテンプレート
-#     # テンプレートの表示
-#     - show_issue_templates
-#     ## チケットトラッキング
-#     # 自分が追加したチケットの編集
-#     - edit_own_issues
-#     # 自分が追加したコメントの編集
-#     - edit_own_issue_notes
-#     ## 時間管理
-#     # 自分の作業時間の編集
 
 ## --------------------
 ## ワークフロー
@@ -1025,434 +1343,7 @@ redmine_workflows: []
 # readonly：読み取り専用
 # required：必須
 #
-redmine_workflow_permissions: []
-#   - roles: [管理者, 開発者, 報告者]
-#     trackers: [不具合, 機能, 運用保守, その他]
-#     permissions:
-#       # 以下のステータスの場合は「担当者」を必須化
-#       - statuses: [対応中, 対応済み, 確認待ち, フィードバック, 終了]
-#         fields: assigned_to
-#         permission: required
-#       # ステータスが「破棄」以外の場合は、カスタムフィールド「破棄理由」を非表示にする
-#       - statuses: [未対応, 対応中, 対応済み, 確認待ち, フィードバック, 終了]
-#         fields: 破棄理由
-#         permission: readonly
-#       # ステータスが「破棄」の場合、カスタムフィールド「破棄理由」を必須化
-#       - statuses: 破棄
-#         fields: 破棄理由
-#         permission: required
 
-## --------------------
-## カスタムフィールド(チケット)
-## --------------------
-redmine_issue_custom_fields: []
-#     ## 名称
-#   - name: テキスト
-#     ## 形式
-#     ## * string:テキスト
-#     ## * version:バージョン
-#     ## * attachment:ファイル
-#     ## * user:ユーザー
-#     ## * list:リスト
-#     ## * link:リンク
-#     ## * float:小数
-#     ## * int:整数
-#     ## * date:日付
-#     ## * bool:真偽値
-#     ## * text:長いテキスト
-#     ## * enumeration:キー・バリュー リスト
-#     field_format: string
-#     ## 説明
-#     # description: ""
-#     ## 最小(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * 整数
-#     ## * 小数
-#     ## * リンク
-#     ## * 長いテキスト
-#     # min_length: ""
-#     ## 最大(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * 整数
-#     ## * 小数
-#     ## * リンク
-#     ## * 長いテキスト
-#     # max_length: ""
-#     ## 正規表現(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * 整数
-#     ## * 小数
-#     ## * リンク
-#     ## * 長いテキスト
-#     # regexp: ""
-#     ## デフォルト値(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * リンク
-#     ## * 整数
-#     ## * 小数
-#     ## * 日付
-#     ## * 真偽値(1:はい/0:いいえ)
-#     ## * 長いテキスト
-#     # default_value: ""
-#     ## テキスト書式(形式が「テキスト」または「長いテキスト」の場合のみ)
-#     # text_formatting: false
-#     ## 値に設定するリンクURL / URL(形式が以下以外の場合のみ)
-#     ## * ユーザー
-#     ## * バージョン
-#     ## * ファイル
-#     ## * 長いテキスト
-#     # url_pattern: ""
-#     ## 選択肢(形式が「リスト」の場合のみ)
-#     # possible_values: |
-#     #   選択肢1
-#     #   選択肢2
-#     #   選択肢3
-#     #   選択肢4
-#     ## 表示(入力形式)
-#     ## ※形式が以下の場合のみ
-#     ## * バージョン
-#     ## * ユーザー
-#     ## * リスト
-#     ## * 真偽値
-#     ## * キー・バリュー リスト
-#     ## ※設定値一覧
-#     ## *(空):ドロップダウンリスト
-#     ## * check_box:チェックボックス
-#     ## * radio:ラジオ(形式が「真偽値」の場合のみ)
-#     # edit_tag_style: ""
-#     ## 複数選択可(形式が以下の場合のみ)
-#     ## * ユーザー
-#     ## * バージョン
-#     ## * リスト
-#     ## * キー・バリュー リスト
-#     # multiple: false
-#     ## 必須
-#     # is_required: false
-#     ## 表示(すべて)
-#     # visible: true
-#     ## 表示(表示するロールを限定)
-#     # visible:
-#     #   - 管理者
-#     #   - 開発者
-#     ## 検索対象(形式が以下の場合のみの場合のみ)
-#     ## * テキスト
-#     ## * リスト
-#     ## * 長いテキスト
-#     # searchable: false
-#     ## フィルタとして使用(形式が「ファイル」以外の場合のみ)
-#     # is_filter: false
-#     ## トラッカー
-#     # trackers:
-#     #   - 不具合
-#     #   - 機能
-#     ## プロジェクト
-#     # projects:
-#     #     - プロジェクト1
-#     #     - プロジェクト2
-#     #     - プロジェクト3
-#   - name: バージョン
-#     field_format: version
-#     ## ステータス(形式が「バージョン」の場合のみ)
-#     version_status:
-#       - open
-#       - locked
-#   - name: ファイル
-#     field_format: attachment
-#     ## 許可する拡張子(形式が「ファイル」の場合のみ)
-#     extensions_allowed:
-#       - jpg
-#       - gif
-#       - png
-#   - name: ユーザー
-#     field_format: user
-#     ## ロール(形式が「ユーザー」の場合のみ)
-#     user_role:
-#       - 管理者
-#       - 開発者
-#   - name: リスト
-#     field_format: list
-#     ## 選択肢(形式が「リスト」の場合のみ)
-#     possible_values: |
-#       選択肢1
-#       選択肢2
-#       選択肢3
-#       選択肢4
-#   - name: リンク
-#     field_format: link
-#   - name: 小数
-#     field_format: float
-#   - name: 整数
-#     field_format: int
-#   - name: 日付
-#     field_format: date
-#   - name: 真偽値
-#     field_format: bool
-#   - name: 長いテキスト
-#     field_format: text
-#   - name: キー・バリュー リスト
-#     field_format: enumeration
-
-## --------------------
-## カスタムフィールド(プロジェクト)
-## --------------------
-redmine_project_custom_fields: []
-#     ## 名称
-#   - name: テキスト
-#     ## 形式
-#     ## * string:テキスト
-#     ## * version:バージョン
-#     ## * attachment:ファイル
-#     ## * user:ユーザー
-#     ## * list:リスト
-#     ## * link:リンク
-#     ## * float:小数
-#     ## * int:整数
-#     ## * date:日付
-#     ## * bool:真偽値
-#     ## * text:長いテキスト
-#     ## * enumeration:キー・バリュー リスト
-#     field_format: string
-#     ## 説明
-#     # description: ""
-#     ## 最小(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * 整数
-#     ## * 小数
-#     ## * リンク
-#     ## * 長いテキスト
-#     # min_length: ""
-#     ## 最大(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * 整数
-#     ## * 小数
-#     ## * リンク
-#     ## * 長いテキスト
-#     # max_length: ""
-#     ## 正規表現(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * 整数
-#     ## * 小数
-#     ## * リンク
-#     ## * 長いテキスト
-#     # regexp: ""
-#     ## デフォルト値(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * リンク
-#     ## * 整数
-#     ## * 小数
-#     ## * 日付
-#     ## * 真偽値(1:はい/0:いいえ)
-#     ## * 長いテキスト
-#     # default_value: ""
-#     ## テキスト書式(形式が「テキスト」または「長いテキスト」の場合のみ)
-#     # text_formatting: false
-#     ## 値に設定するリンクURL / URL(形式が以下以外の場合のみ)
-#     ## * ユーザー
-#     ## * バージョン
-#     ## * ファイル
-#     ## * 長いテキスト
-#     # url_pattern: ""
-#     ## 表示(入力形式)
-#     ## ※形式が以下の場合のみ
-#     ## * バージョン
-#     ## * ユーザー
-#     ## * リスト
-#     ## * 真偽値
-#     ## * キー・バリュー リスト
-#     ## ※設定値一覧
-#     ## *(空):ドロップダウンリスト
-#     ## * check_box:チェックボックス
-#     ## * radio:ラジオ(形式が「真偽値」の場合のみ)
-#     # edit_tag_style: ""
-#     ## 複数選択可(形式が以下の場合のみ)
-#     ## * ユーザー
-#     ## * バージョン
-#     ## * リスト
-#     ## * キー・バリュー リスト
-#     # multiple: false
-#     ## 必須
-#     # is_required: false
-#     ## 表示
-#     # visible: true
-#     ## 検索対象(形式が以下の場合のみの場合のみ)
-#     ## * テキスト
-#     ## * リスト
-#     ## * 長いテキスト
-#     # searchable: false
-#     ## フィルタとして使用(形式が「ファイル」以外の場合のみ)
-#     # is_filter: false
-#   - name: バージョン
-#     field_format: version
-#     ## ステータス(形式が「バージョン」の場合のみ)
-#     version_status:
-#       - open
-#       - locked
-#   - name: ファイル
-#     field_format: attachment
-#     ## 許可する拡張子(形式が「ファイル」の場合のみ)
-#     extensions_allowed:
-#       - jpg
-#       - gif
-#       - png
-#   - name: ユーザー
-#     field_format: user
-#     ## ロール(形式が「ユーザー」の場合のみ)
-#     user_role:
-#       - 管理者
-#       - 開発者
-#   - name: リスト
-#     field_format: list
-#     ## 選択肢(形式が「リスト」の場合のみ)
-#     possible_values: |
-#       選択肢1
-#       選択肢2
-#       選択肢3
-#       選択肢4
-#   - name: リンク
-#     field_format: link
-#   - name: 小数
-#     field_format: float
-#   - name: 整数
-#     field_format: int
-#   - name: 日付
-#     field_format: date
-#   - name: 真偽値
-#     field_format: bool
-#   - name: 長いテキスト
-#     field_format: text
-#   - name: キー・バリュー リスト
-#     field_format: enumeration
-
-## --------------------
-## カスタムフィールド(ユーザー)
-## --------------------
-redmine_user_custom_fields: []
-#     ## 名称
-#   - name: テキスト
-#     ## 形式
-#     ## * string:テキスト
-#     ## * version:バージョン
-#     ## * attachment:ファイル
-#     ## * user:ユーザー
-#     ## * list:リスト
-#     ## * link:リンク
-#     ## * float:小数
-#     ## * int:整数
-#     ## * date:日付
-#     ## * bool:真偽値
-#     ## * text:長いテキスト
-#     ## * enumeration:キー・バリュー リスト
-#     field_format: string
-#     ## 説明
-#     # description: ""
-#     ## 最小(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * 整数
-#     ## * 小数
-#     ## * リンク
-#     ## * 長いテキスト
-#     # min_length: ""
-#     ## 最大(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * 整数
-#     ## * 小数
-#     ## * リンク
-#     ## * 長いテキスト
-#     # max_length: ""
-#     ## 正規表現(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * 整数
-#     ## * 小数
-#     ## * リンク
-#     ## * 長いテキスト
-#     # regexp: ""
-#     ## デフォルト値(形式が以下の場合のみ)
-#     ## * テキスト
-#     ## * リンク
-#     ## * 整数
-#     ## * 小数
-#     ## * 日付
-#     ## * 真偽値(1:はい/0:いいえ)
-#     ## * 長いテキスト
-#     # default_value: ""
-#     ## テキスト書式(形式が「テキスト」または「長いテキスト」の場合のみ)
-#     # text_formatting: false
-#     ## 値に設定するリンクURL / URL(形式が以下以外の場合のみ)
-#     ## * ユーザー
-#     ## * バージョン
-#     ## * ファイル
-#     ## * 長いテキスト
-#     # url_pattern: ""
-#     ## 表示(入力形式)
-#     ## ※形式が以下の場合のみ
-#     ## * バージョン
-#     ## * ユーザー
-#     ## * リスト
-#     ## * 真偽値
-#     ## * キー・バリュー リスト
-#     ## ※設定値一覧
-#     ## *(空):ドロップダウンリスト
-#     ## * check_box:チェックボックス
-#     ## * radio:ラジオ(形式が「真偽値」の場合のみ)
-#     # edit_tag_style: ""
-#     ## 複数選択可(形式が以下の場合のみ)
-#     ## * ユーザー
-#     ## * バージョン
-#     ## * リスト
-#     ## * キー・バリュー リスト
-#     # multiple: false
-#     ## 必須
-#     # is_required: false
-#     ## 表示
-#     # visible: true
-#     ## 検索対象(形式が以下の場合のみの場合のみ)
-#     ## * テキスト
-#     ## * リスト
-#     ## * 長いテキスト
-#     # searchable: false
-#     ## フィルタとして使用(形式が「ファイル」以外の場合のみ)
-#     # is_filter: false
-#   - name: バージョン
-#     field_format: version
-#     ## ステータス(形式が「バージョン」の場合のみ)
-#     version_status:
-#       - open
-#       - locked
-#   - name: ファイル
-#     field_format: attachment
-#     ## 許可する拡張子(形式が「ファイル」の場合のみ)
-#     extensions_allowed:
-#       - jpg
-#       - gif
-#       - png
-#   - name: ユーザー
-#     field_format: user
-#     ## ロール(形式が「ユーザー」の場合のみ)
-#     user_role:
-#       - 管理者
-#       - 開発者
-#   - name: リスト
-#     field_format: list
-#     ## 選択肢(形式が「リスト」の場合のみ)
-#     possible_values: |
-#       選択肢1
-#       選択肢2
-#       選択肢3
-#       選択肢4
-#   - name: リンク
-#     field_format: link
-#   - name: 小数
-#     field_format: float
-#   - name: 整数
-#     field_format: int
-#   - name: 日付
-#     field_format: date
-#   - name: 真偽値
-#     field_format: bool
-#   - name: 長いテキスト
-#     field_format: text
-#   - name: キー・バリュー リスト
-#     field_format: enumeration
 ## --------------------
 ## ユーザー
 ## --------------------
