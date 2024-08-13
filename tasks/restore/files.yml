@@ -9,12 +9,12 @@
     - name: Restore files archive
       ansible.builtin.unarchive:
         src: "{{ redmine_restore_files_archive_file }}"
-        dest: "{{ redmine_home }}/files"
+        dest: "{{ redmine_root }}/files"
         extra_opts: "{{ redmine_restore_files_archive_extra_opts | default(omit) }}"
         remote_src: true
     - name: Change file owner
       ansible.builtin.file:
-        path: "{{ redmine_home }}/files"
+        path: "{{ redmine_root }}/files"
         owner: "{{ redmine_user }}"
         group: "{{ redmine_user }}"
         recurse: true

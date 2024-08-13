@@ -34,7 +34,7 @@
     - name: Checkout Redmine
       ansible.builtin.git:
         repo: "{{ redmine_repo }}"
-        dest: "{{ redmine_home }}"
+        dest: "{{ redmine_root }}"
         version: "{{ redmine_version }}"
       register: checkout_result
     - name: Import setting task
@@ -43,16 +43,15 @@
       tags:
         - role_redmine_setting
     - name: Install/update gem packages
-      community.general.bundler:
-        state: latest
-        executable: "{{ redmine_home }}/bin/bundle"
-        chdir: "{{ redmine_home }}"
+      ansible.builtin.command:
+        cmd: bundle update
+        chdir: "{{ redmine_root }}"
     - name: Create secret token
       ansible.builtin.command:
         cmd: bundle exec rake generate_secret_token
-        chdir: "{{ redmine_home }}"
-        creates: "{{ redmine_home }}/config/initializers/secret_token.rb"
-      register: generate_token_result
+        chdir: "{{ redmine_root }}"
+        creates: "{{ redmine_root }}/config/initializers/secret_token.rb"
+      register: generate_secret_token_result
     - name: Import restore task
       ansible.builtin.import_tasks:
         file: restore.yml
@@ -61,7 +60,7 @@
     - name: Migrate database
       ansible.builtin.command:
         cmd: bundle exec rake db:migrate
-        chdir: "{{ redmine_home }}"
+        chdir: "{{ redmine_root }}"
       notify: restart redmine
       when: |
         checkout_result is changed
@@ -70,9 +69,9 @@
     - name: Load default data
       ansible.builtin.command:
         cmd: bundle exec rake redmine:load_default_data
-        chdir: "{{ redmine_home }}"
+        chdir: "{{ redmine_root }}"
       when:
-        - generate_token_result is changed
+        - generate_secret_token_result is changed
         - not redmine_skip_load_default_data
     - name: Import theme task
       ansible.builtin.import_tasks:
@@ -88,16 +87,11 @@
       ansible.builtin.import_tasks:
         file: import.yml
       when: |
-        generate_token_result is changed
+        generate_secret_token_result is changed
         or
         redmine_reimport | default(false)
       tags:
         - role_redmine_import
-    - name: Import custom script task
-      ansible.builtin.import_tasks:
-        file: custom_script.yml
-      tags:
-        - role_redmine_custom_script
 - name: Import cron job task
   ansible.builtin.import_tasks:
     file: cron.yml

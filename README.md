@@ -57,15 +57,103 @@ Redmineの標準の言語設定
 
 ### `redmine_themes`
 
-Redmineにインストールするテーマ
+インストールするテーマ
 
 ### `redmine_plugins`
 
-Redmineにインストールするプラグイン
+インストールするプラグイン
+
+### `redmine_admin`
+
+デフォルトの「システム管理者」の設定
+
+### `redmine_statuses`
+
+「チケットのステータス」の設定
+
+### `redmine_trackers`
+
+「トラッカー」の設定
+
+### `redmine_roles`
+
+「ロール」の設定
+
+### `redmine_priorities`
+
+「チケットの優先度」の設定
+
+### `redmine_document_categories`
+
+「文書カテゴリ」」の設定
+
+### `redmine_time_entry_activities`
+
+「作業分類」」の設定
+
+### `redmine_issue_custom_fields`
+
+「チケット」の「カスタムフィールド」の設定
+
+### `redmine_project_custom_fields`
+
+「プロジェクト」の「カスタムフィールド」の設定
+
+### `redmine_user_custom_fields`
+
+「ユーザー」の「カスタムフィールド」の設定
 
 ### `redmine_settings`
 
-Redmineの全体設定
+Redmineの設定
+
+### `redmine_workflows`
+
+「ワークフロー」の設定
+
+### `redmine_field_permissions`
+
+「フィールドの権限」の設定
+
+### `redmine_users`
+
+「ユーザー」の設定
+
+### `redmine_groups`
+
+「グループ」の設定
+
+### `redmine_issue_queries`
+
+「チケット」の「カスタムクエリ」の設定
+
+### `redmine_project_queries`
+
+「プロジェクト」の「カスタムクエリ」の設定
+
+### `redmine_projects`
+
+「プロジェクト」の設定
+
+### `redmine_attachments`
+
+「添付ファイル」の設定
+
+### `redmine_message_customize`
+
+「message customizeプラグイン」の設定
+
+### `redmine_view_customize`
+
+「view customizeプラグイン」に登録するデータ
+
+### `redmine_issue_templates`
+
+「グローバルチケットテンプレート」に登録するデータ
+
+### `redmine_note_templates`
+
+「グローバルノートテンプレート」に登録するデータ
 
 ### `redmine_cron_vars`
 
@@ -74,90 +162,6 @@ Redmineのcron用変数
 ### `redmine_cron_jobs`
 
 Redmineのcron設定
-
-### `redmine_custom_script_files`
-
-カスタムスクリプトのアップロード設定
-
-### `redmine_admin`
-
-デフォルトのシステム管理者設定
-
-### `redmine_statuses`
-
-チケットのステータス
-
-### `redmine_trackers`
-
-トラッカー
-
-### `redmine_priorities`
-
-チケットの優先度
-
-### `redmine_document_categories`
-
-文書カテゴリ
-
-### `redmine_time_entry_activities`
-
-作業分類
-
-### `redmine_custom_queries`
-
-カスタムクエリ
-
-### `redmine_roles`
-
-ロールと権限
-
-### `redmine_workflows`
-
-ワークフロー
-
-### `redmine_workflow_permissions`
-
-フィールドの権限
-
-### `redmine_issue_custom_fields`
-
-カスタムフィールド(チケット)
-
-### `redmine_project_custom_fields`
-
-カスタムフィールド(プロジェクト)
-
-### `redmine_user_custom_fields`
-
-カスタムフィールド(ユーザー)
-
-### `redmine_users`
-
-ユーザー
-
-### `redmine_groups`
-
-グループ
-
-### `redmine_projects`
-
-プロジェクト
-
-### `redmine_attachments`
-
-添付ファイル
-
-### `redmine_message_customize`
-
-message customizeプラグイン
-
-### `redmine_view_customize`
-
-view customizeプラグイン
-
-### `redmine_issue_templates`
-
-issue templatesプラグインのグルーバルチケットテンプレート
 
 ### `redmine_skip_load_default_data`
 

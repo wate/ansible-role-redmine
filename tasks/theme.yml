@@ -3,19 +3,27 @@
   become: true
   become_user: "{{ redmine_user }}"
   block:
-    - name: Install themes from git
+    - name: Check theme directory
+      ansible.builtin.stat:
+        path: "{{ redmine_root }}/themes"
+      register: redmine_theme_dir_result
+    - name: Overwrite redmine_theme_dir variable
+      ansible.builtin.set_fact:
+        redmine_theme_dir: "{{ redmine_root }}/{{ 'themes' if redmine_theme_dir_result.stat.exists else 'public/themes' }}"
+    - name: Install theme from git
       ansible.builtin.git:
-        repo: "{{ item.repo }}"
-        dest: "{{ redmine_theme_dir }}/{{ item.directory if item.directory is defined else item.name }}"
-        version: master
-      loop: "{{ redmine_themes | selectattr('repo', 'defined') | list }}"
+        repo: "{{ theme.value.repo }}"
+        dest: "{{ redmine_theme_dir }}/{{ theme.key }}"
+        version: "{{ theme.value.version | default('master') }}"
+      loop: "{{ redmine_themes | dict2items | selectattr('value.repo', 'defined') | list }}"
       loop_control:
-        label: "{{ item.name }}"
-    - name: Install themes from file
+        loop_var: theme
+        label: "{{ theme.key }}"
+    - name: Install theme from file
       ansible.builtin.unarchive:
-        src: "{{ item.file }}"
+        src: "{{ theme.value.file }}"
         dest: "{{ redmine_theme_dir }}"
-        mode: "0644"
-      loop: "{{ redmine_themes | selectattr('file', 'defined') | list }}"
+      loop: "{{ redmine_themes | dict2items | selectattr('value.file', 'defined') | list }}"
       loop_control:
-        label: "{{ item.name }}"
+        loop_var: theme
+        label: "{{ theme.key }}"

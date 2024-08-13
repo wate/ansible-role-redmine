@@ -15,4 +15,4 @@
     - name: Clear cache
       ansible.builtin.command:
         cmd: bundle exec rake tmp:cache:clear
-        chdir: "{{ redmine_home }}"
+        chdir: "{{ redmine_root }}"

@@ -5,7 +5,7 @@
   block:
     - name: Restore data
       when:
-        - (generate_token_result is changed or redmine_restore)
+        - (generate_secret_token_result is changed or redmine_restore)
         - (redmine_restore_files_archive_file is defined or redmine_restore_database_dump_file is defined)
       block:
         - name: Upload restore file(files archive)
