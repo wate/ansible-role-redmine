@@ -2235,20 +2235,32 @@ redmine_cron_vars: []
 ## Redmineのcron設定
 ## --------------------
 redmine_cron_jobs:
-  - name: attachment prune
+  - name: Execute redmine:attachments:prune
     command: cd {{ redmine_root }} && bundle exec rake redmine:attachments:prune
     hour: 1
     minute: 0
-  - name: send reminders
+  - name: Execute redmine:tokens:prune
+    command: cd {{ redmine_root }} && bundle exec rake redmine:tokens:prune
+    hour: 1
+    minute: 5
+  - name: Execute redmine:users:prune
+    command: cd {{ redmine_root }} && bundle exec rake redmine:users:prune
+    hour: 1
+    minute: 10
+  - name: Execute redmine:watchers:prune
+    command: cd {{ redmine_root }} && bundle exec rake redmine:watchers:prune
+    hour: 1
+    minute: 15
+  - name: Execute redmine:send_reminders
     disabled: true
     command: cd {{ redmine_root }} && rake redmine:send_reminders
     params:
       - days=7
       # - 'tracker=1'
       # - 'users="1,23,45"'
-    hour: 5
-    minute: 0
-  - name: receive mail pop3
+    hour: 7
+    minute: 30
+  - name: Execute redmine:email:receive_pop3
     disabled: true
     command: cd {{ redmine_root }} && bundle exec rake redmine:email:receive_pop3
     params:
@@ -2257,8 +2269,8 @@ redmine_cron_jobs:
       # - host=127.0.0.1
       # - port=110
       # - ssl=false
-    minute: "*/10"
-  - name: receive mail imap
+    minute: "*/5"
+  - name: Execute redmine:email:receive_imap
     disabled: true
     command: cd {{ redmine_root }} && bundle exec rake redmine:email:receive_imap
     params:
@@ -2268,7 +2280,7 @@ redmine_cron_jobs:
       # - port=143
       # - ssl=false
       # - folder=INBOX
-    minute: "*/10"
+    minute: "*/5"
 
 ## --------------------
 ## Redmineインストール時にデフォルトデータのロードをスキップする
