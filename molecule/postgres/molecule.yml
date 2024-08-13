@@ -34,9 +34,9 @@ provisioner:
       stdout_callback: yaml
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
-  # verifier:
-  #   name: ansible
-  # scenario:
+# verifier:
+#   name: ansible
+scenario:
   test_sequence:
     - dependency
     - cleanup
