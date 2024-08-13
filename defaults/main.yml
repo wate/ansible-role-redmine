@@ -1081,7 +1081,7 @@ redmine_settings: {}
   #   dmsf_webdav: 0
 
 ## --------------------
-## ワークフローの設定
+## 「ワークフロー」の設定
 ## --------------------
 # redmine_reimport_workflow: false
 redmine_workflows: []
