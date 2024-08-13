@@ -6,6 +6,7 @@ redmine_dependency_packages:
   - ruby-rmagick
   - bundler
   - libmagickcore-dev
+  - libyaml-dev
   - git
   - acl
   - pkg-config
