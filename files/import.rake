@@ -842,8 +842,11 @@ namespace :redmine do
             setting = {}
             setting[lang] = message_customize_setting
             plugin_setting = CustomMessageSetting.find_or_default
-            plugin_setting.update_with_custom_messages_yaml(setting)
-            puts setting
+            if plugin_setting.update_with_custom_messages_yaml(setting)
+              puts setting
+            else
+              raise "Import error"
+            end
           end
         end
         FileUtils.rm_f(data_file) unless ENV['IMPORT_DATA_FILE_NO_DELETE']
