@@ -93,9 +93,9 @@
         - name: Assert installed redmine_issue_templates plugin
           ansible.builtin.assert:
             that: check_installed_plugin_result.stat.exists
-        - name: Check installed redmine_slack plugin
+        - name: Check installed redmine_messenger plugin
           ansible.builtin.stat:
-            path: /opt/redmine/plugins/redmine_slack
+            path: /opt/redmine/plugins/redmine_messenger
           register: check_installed_plugin_result
         - name: Assert installed redmine_slack plugin
           ansible.builtin.assert:

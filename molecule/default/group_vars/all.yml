@@ -86,9 +86,9 @@ redmine_plugins:
   redmine_issue_templates:
     repo: https://github.com/agileware-jp/redmine_issue_templates.git
     version: master
-  redmine_slack:
-    repo: https://github.com/cat-in-136/redmine-slack.git
-    version: evolved
+  redmine_messenger:
+    repo: https://github.com/alphanodes/redmine_messenger.git
+    version: main
   redmine_dashboard:
     repo: https://github.com/jgraichen/redmine_dashboard.git
     version: main
@@ -1399,6 +1399,14 @@ redmine_wiki_content_infra: "{{ lookup('file', 'files/wiki/infra.md') }}"
 redmine_wiki_content_infra_cloud: "{{ lookup('file', 'files/wiki/infra/cloud.md') }}"
 redmine_wiki_content_infra_dns: "{{ lookup('file', 'files/wiki/infra/dns.md') }}"
 redmine_wiki_content_infra_server: "{{ lookup('file', 'files/wiki/infra/server.md') }}"
+## インフラ情報 - サーバー情報
+redmine_wiki_content_infra_server_package: "{{ lookup('file', 'files/wiki/infra/server/package.md') }}"
+redmine_wiki_content_infra_server_disk: "{{ lookup('file', 'files/wiki/infra/server/disk.md') }}"
+redmine_wiki_content_infra_server_file: "{{ lookup('file', 'files/wiki/infra/server/file.md') }}"
+redmine_wiki_content_infra_server_port: "{{ lookup('file', 'files/wiki/infra/server/port.md') }}"
+redmine_wiki_content_infra_server_traffic: "{{ lookup('file', 'files/wiki/infra/server/traffic.md') }}"
+redmine_wiki_content_infra_server_other: "{{ lookup('file', 'files/wiki/infra/server/other.md') }}"
+
 ## ヘルプ
 redmine_wiki_content_help: "{{ lookup('file', 'files/wiki/help.md') }}"
 redmine_wiki_content_help_format: "{{ lookup('file', 'files/wiki/help/format.md') }}"
@@ -1410,7 +1418,6 @@ redmine_wiki_content_help_workflow_request: "{{ lookup('file', 'files/wiki/help/
 redmine_wiki_content_help_workflow_task: "{{ lookup('file', 'files/wiki/help/workflow/task.md') }}"
 redmine_wiki_content_help_workflow_bug: "{{ lookup('file', 'files/wiki/help/workflow/bug.md') }}"
 redmine_wiki_content_help_workflow_inquiry: "{{ lookup('file', 'files/wiki/help/workflow/inquiry.md') }}"
-redmine_wiki_content_help_workflow_other: "{{ lookup('file', 'files/wiki/help/workflow/other.md') }}"
 
 redmine_wiki_page_sidebar: "{{ redmine_wiki_content_sidebar }}"
 redmine_wiki_page_help:
@@ -1425,7 +1432,6 @@ redmine_wiki_page_help:
         タスク: "{{ redmine_wiki_content_help_workflow_task }}"
         不具合: "{{ redmine_wiki_content_help_workflow_bug }}"
         問い合わせ: "{{ redmine_wiki_content_help_workflow_inquiry }}"
-        その他: "{{ redmine_wiki_content_help_workflow_other }}"
     マクロ一覧: "{{ redmine_wiki_content_help_macro_list }}"
 redmine_wiki_page_orverview:
   content: "{{ redmine_wiki_content_overview }}"
@@ -1451,7 +1457,15 @@ redmine_wiki_page_infra:
   childlen:
     クラウド情報: "{{ redmine_wiki_content_infra_cloud }}"
     DNS情報: "{{ redmine_wiki_content_infra_dns }}"
-    サーバー情報: "{{ redmine_wiki_content_infra_server }}"
+    サーバー情報:
+      content: "{{ redmine_wiki_content_infra_server }}"
+      childlen:
+        パッケージ情報: "{{ redmine_wiki_content_infra_server_package }}"
+        ディスク使用量: "{{ redmine_wiki_content_infra_server_disk }}"
+        ファイル: "{{ redmine_wiki_content_infra_server_file }}"
+        待受ポート: "{{ redmine_wiki_content_infra_server_port }}"
+        トラフィック: "{{ redmine_wiki_content_infra_server_traffic }}"
+        その他: "{{ redmine_wiki_content_infra_server_other }}"
 
 ## --------------------
 ## プロジェクト
