@@ -328,74 +328,74 @@ redmine_lang: ja
 ## インストールするテーマ
 ## --------------------
 redmine_themes: {}
-#   PurpleMine2:
-#     repo: https://github.com/mrliptontea/PurpleMine2.git
-#     version: master
-#   gitmike:
-#     repo: https://github.com/makotokw/redmine-theme-gitmike.git
-#     version: master
-#   farend_fancy:
-#     repo: https://github.com/farend/redmine_theme_farend_fancy.git
-#     version: master
-#   farend_basic:
-#     repo: https://github.com/farend/redmine_theme_farend_basic.git
-#     version: master
-#   bleuclair:
-#     repo: https://github.com/farend/redmine_theme_farend_bleuclair.git
-#     version: master
+  # PurpleMine2:
+  #   repo: https://github.com/mrliptontea/PurpleMine2.git
+  #   version: master
+  # gitmike:
+  #   repo: https://github.com/makotokw/redmine-theme-gitmike.git
+  #   version: master
+  # farend_fancy:
+  #   repo: https://github.com/farend/redmine_theme_farend_fancy.git
+  #   version: master
+  # farend_basic:
+  #   repo: https://github.com/farend/redmine_theme_farend_basic.git
+  #   version: master
+  # bleuclair:
+  #   repo: https://github.com/farend/redmine_theme_farend_bleuclair.git
+  #   version: master
 
 ## --------------------
 ## インストールするプラグイン
 ## --------------------
 redmine_plugins: {}
-#   view_customize:
-#     repo: https://github.com/onozaty/redmine-view-customize.git
-#     version: master
-#   redmine_issue_templates:
-#     repo: https://github.com/agileware-jp/redmine_issue_templates.git
-#     version: master
-#   redmine_slack:
-#     repo: https://github.com/cat-in-136/redmine-slack.git
-#     version: evolved
-#   redmine_dashboard:
-#     repo: https://github.com/jgraichen/redmine_dashboard.git
-#     version: main
-#   redmine_drawio:
-#     repo: https://github.com/mikitex70/redmine_drawio.git
-#     version: master
-#   redmica_ui_extension:
-#     repo: https://github.com/redmica/redmica_ui_extension.git
-#     version: master
-#   redmine_message_customize:
-#     repo: https://github.com/farend/redmine_message_customize.git
-#     version: master
-#   redmine_dmsf:
-#     repo: https://github.com/danmunn/redmine_dmsf.git
-#     version: master
-#     required_packages:
-#       # CGI search interface and indexers using Xapian
-#       - xapian-omega
-#       # Xapian 検索エンジンライブラリ用開発ファイル
-#       - libxapian-dev
-#       # Xapian search engine interface for Ruby
-#       - ruby-xapian
-#       # Converts MS Word files to text, PS, PDF and XML
-#       - antiword
-#       # text extractor for MS-Office files
-#       - catdoc
-#       # PDF 向けユーティリティ
-#       - poppler-utils
-#       # Universally Unique Identifier Command-Line Tool
-#       - uuid
-#     cron_job:
-#       cmd: ruby {{ redmine_root }}/plugins/redmine_dmsf/extra/xapian_indexer.rb -v
-#       minute: 10
-#   additionals:
-#     repo: https://github.com/AlphaNodes/additionals.git
-#     version: stable
-#   redmine_sudo:
-#     repo: https://github.com/AlphaNodes/redmine_sudo.git
-#     version: stable
+  # view_customize:
+  #   repo: https://github.com/onozaty/redmine-view-customize.git
+  #   version: master
+  # redmine_issue_templates:
+  #   repo: https://github.com/agileware-jp/redmine_issue_templates.git
+  #   version: master
+  # redmine_messenger:
+  #   repo: https://github.com/alphanodes/redmine_messenger.git
+  #   version: main
+  # redmine_dashboard:
+  #   repo: https://github.com/jgraichen/redmine_dashboard.git
+  #   version: main
+  # redmine_drawio:
+  #   repo: https://github.com/mikitex70/redmine_drawio.git
+  #   version: master
+  # redmica_ui_extension:
+  #   repo: https://github.com/redmica/redmica_ui_extension.git
+  #   version: master
+  # redmine_message_customize:
+  #   repo: https://github.com/farend/redmine_message_customize.git
+  #   version: master
+  # redmine_dmsf:
+  #   repo: https://github.com/danmunn/redmine_dmsf.git
+  #   version: master
+  #   required_packages:
+  #     # CGI search interface and indexers using Xapian
+  #     - xapian-omega
+  #     # Xapian 検索エンジンライブラリ用開発ファイル
+  #     - libxapian-dev
+  #     # Xapian search engine interface for Ruby
+  #     - ruby-xapian
+  #     # Converts MS Word files to text, PS, PDF and XML
+  #     - antiword
+  #     # text extractor for MS-Office files
+  #     - catdoc
+  #     # PDF 向けユーティリティ
+  #     - poppler-utils
+  #     # Universally Unique Identifier Command-Line Tool
+  #     - uuid
+  #   cron_job:
+  #     cmd: ruby {{ redmine_root }}/plugins/redmine_dmsf/extra/xapian_indexer.rb -v
+  #     minute: 10
+  # additionals:
+  #   repo: https://github.com/AlphaNodes/additionals.git
+  #   version: stable
+  # redmine_sudo:
+  #   repo: https://github.com/AlphaNodes/redmine_sudo.git
+  #   version: stable
 
 ## --------------------
 ## 再実行時の全設定データの再インポート設定
@@ -769,13 +769,6 @@ redmine_project_custom_fields: []
   #   field_format: link
   #   description: 管理画面のURLを設定します
   #   visible: true
-  # - name: Slack Channel
-  #   field_format: string
-  #   visible: true
-  # - name: Slack URL
-  #   field_format: string
-  #   visible:
-  #     - 管理者
 
 ## --------------------
 ## 「ユーザー」の「カスタムフィールド」の設定
@@ -862,10 +855,6 @@ redmine_user_custom_fields: []
   #   field_format: string
   #   description: ログイン後のURLを「/」で始まるURLで指定します。
   #   regexp: "^/+"
-  #   visible: false
-  # - name: Slack Username
-  #   field_format: string
-  #   description: SlackのユーザーIDを設定します
   #   visible: false
 
 ## --------------------
@@ -1075,6 +1064,18 @@ redmine_settings: {}
   # plugin_redmine_issue_templates:
   #   # グローバルチケットテンプレートを全てのプロジェクトに適用
   #   apply_global_template_to_all_projects: "true"
+  # ### メッセンジャー
+  # plugin_redmine_messenger:
+  #   # チケットの更新
+  #   post_updates: 1
+  #   # チケット作成時に説明を含める
+  #   new_include_description: 1
+  #   # チケット更新時に説明を含める
+  #   updated_include_description: 1
+  #   # Wikiの作成
+  #   post_wiki: 1
+  #   # Wikiの更新
+  #   post_wiki_updates: 1
   # ### DMSF(文書管理)
   # plugin_redmine_dmsf:
   #   # WebDAV
@@ -1423,7 +1424,6 @@ redmine_groups: []
   #     - authority_check_repoter
   #     - authority_check_guest
 
-
 ## --------------------
 ## 「チケット」の「カスタムクエリ」の設定
 ## --------------------
@@ -1766,44 +1766,54 @@ redmine_project_queries: []
 # --------------------
 # Wikiページの定義情報
 # --------------------
-# # ホーム
+# ## ホーム
 # redmine_wiki_content_home: "{{ lookup('file', 'files/wiki/home.md') }}"
-# # サイドバー
+# ## サイドバー
 # redmine_wiki_content_sidebar: "{{ lookup('file', 'files/wiki/sidebar.md') }}"
-# # システム概要
+
+# ## システム概要
 # redmine_wiki_content_overview: "{{ lookup('file', 'files/wiki/overview.md') }}"
 # redmine_wiki_content_overview_architecture: "{{ lookup('file', 'files/wiki/overview/architecture.md') }}"
 # redmine_wiki_content_overview_data_structure: "{{ lookup('file', 'files/wiki/overview/data_structure.md') }}"
 # redmine_wiki_content_overview_technology: "{{ lookup('file', 'files/wiki/overview/technology.md') }}"
 # redmine_wiki_content_overview_feature: "{{ lookup('file', 'files/wiki/overview/feature.md') }}"
-# # 環境情報
+
+# ## 環境情報
 # redmine_wiki_content_environment: "{{ lookup('file', 'files/wiki/environment.md') }}"
 # redmine_wiki_content_environment_development: "{{ lookup('file', 'files/wiki/environment/development.md') }}"
 # redmine_wiki_content_environment_staging: "{{ lookup('file', 'files/wiki/environment/staging.md') }}"
 # redmine_wiki_content_environment_production: "{{ lookup('file', 'files/wiki/environment/production.md') }}"
-# # 開発情報
+# ## 開発情報
 # redmine_wiki_content_development: "{{ lookup('file', 'files/wiki/development.md') }}"
 # redmine_wiki_content_development_deploy: "{{ lookup('file', 'files/wiki/development/deploy.md') }}"
 # redmine_wiki_content_development_local_dev_env: "{{ lookup('file', 'files/wiki/development/local_dev_env.md') }}"
 # redmine_wiki_content_development_repository: "{{ lookup('file', 'files/wiki/development/repository.md') }}"
-# # インフラ情報
+# ## インフラ情報
 # redmine_wiki_content_infra: "{{ lookup('file', 'files/wiki/infra.md') }}"
 # redmine_wiki_content_infra_cloud: "{{ lookup('file', 'files/wiki/infra/cloud.md') }}"
 # redmine_wiki_content_infra_dns: "{{ lookup('file', 'files/wiki/infra/dns.md') }}"
 # redmine_wiki_content_infra_server: "{{ lookup('file', 'files/wiki/infra/server.md') }}"
-# # ヘルプ
+# ## インフラ情報 - サーバー情報
+# redmine_wiki_content_infra_server_package: "{{ lookup('file', 'files/wiki/infra/server/package.md') }}"
+# redmine_wiki_content_infra_server_disk: "{{ lookup('file', 'files/wiki/infra/server/disk.md') }}"
+# redmine_wiki_content_infra_server_file: "{{ lookup('file', 'files/wiki/infra/server/file.md') }}"
+# redmine_wiki_content_infra_server_port: "{{ lookup('file', 'files/wiki/infra/server/port.md') }}"
+# redmine_wiki_content_infra_server_traffic: "{{ lookup('file', 'files/wiki/infra/server/traffic.md') }}"
+# redmine_wiki_content_infra_server_other: "{{ lookup('file', 'files/wiki/infra/server/other.md') }}"
+
+# ## ヘルプ
 # redmine_wiki_content_help: "{{ lookup('file', 'files/wiki/help.md') }}"
 # redmine_wiki_content_help_format: "{{ lookup('file', 'files/wiki/help/format.md') }}"
 # redmine_wiki_content_help_operation: "{{ lookup('file', 'files/wiki/help/operation.md') }}"
 # redmine_wiki_content_help_macro_list: "{{ lookup('file', 'files/wiki/help/macro_list.md') }}"
-# # ヘルプ - ワークフロー
+# ### ヘルプ - ワークフロー
 # redmine_wiki_content_help_workflow: "{{ lookup('file', 'files/wiki/help/workflow.md') }}"
 # redmine_wiki_content_help_workflow_request: "{{ lookup('file', 'files/wiki/help/workflow/request.md') }}"
 # redmine_wiki_content_help_workflow_task: "{{ lookup('file', 'files/wiki/help/workflow/task.md') }}"
 # redmine_wiki_content_help_workflow_bug: "{{ lookup('file', 'files/wiki/help/workflow/bug.md') }}"
 # redmine_wiki_content_help_workflow_inquiry: "{{ lookup('file', 'files/wiki/help/workflow/inquiry.md') }}"
-# redmine_wiki_content_help_workflow_other: "{{ lookup('file', 'files/wiki/help/workflow/other.md') }}"
-# # 「ヘルプ」以下のWikiページの階層構造
+
+# redmine_wiki_page_sidebar: "{{ redmine_wiki_content_sidebar }}"
 # redmine_wiki_page_help:
 #   content: "{{ redmine_wiki_content_help }}"
 #   childlen:
@@ -1816,8 +1826,40 @@ redmine_project_queries: []
 #         タスク: "{{ redmine_wiki_content_help_workflow_task }}"
 #         不具合: "{{ redmine_wiki_content_help_workflow_bug }}"
 #         問い合わせ: "{{ redmine_wiki_content_help_workflow_inquiry }}"
-#         その他: "{{ redmine_wiki_content_help_workflow_other }}"
 #     マクロ一覧: "{{ redmine_wiki_content_help_macro_list }}"
+# redmine_wiki_page_orverview:
+#   content: "{{ redmine_wiki_content_overview }}"
+#   childlen:
+#     システム構成: "{{ redmine_wiki_content_overview_architecture }}"
+#     データ構造: "{{ redmine_wiki_content_overview_data_structure }}"
+#     技術スタック: "{{ redmine_wiki_content_overview_technology }}"
+#     機能一覧: "{{ redmine_wiki_content_overview_feature }}"
+# redmine_wiki_page_environment:
+#   content: "{{ redmine_wiki_content_environment }}"
+#   childlen:
+#     開発環境: "{{ redmine_wiki_content_environment_development }}"
+#     ステージング環境: "{{ redmine_wiki_content_environment_staging }}"
+#     本番環境: "{{ redmine_wiki_content_environment_production }}"
+# redmine_wiki_page_development:
+#   content: "{{ redmine_wiki_content_development }}"
+#   childlen:
+#     デプロイ方法: "{{ redmine_wiki_content_development_deploy }}"
+#     ローカル開発環境: "{{ redmine_wiki_content_development_local_dev_env }}"
+#     リポジトリ情報: "{{ redmine_wiki_content_development_repository }}"
+# redmine_wiki_page_infra:
+#   content: "{{ redmine_wiki_content_infra }}"
+#   childlen:
+#     クラウド情報: "{{ redmine_wiki_content_infra_cloud }}"
+#     DNS情報: "{{ redmine_wiki_content_infra_dns }}"
+#     サーバー情報:
+#       content: "{{ redmine_wiki_content_infra_server }}"
+#       childlen:
+#         パッケージ情報: "{{ redmine_wiki_content_infra_server_package }}"
+#         ディスク使用量: "{{ redmine_wiki_content_infra_server_disk }}"
+#         ファイル: "{{ redmine_wiki_content_infra_server_file }}"
+#         待受ポート: "{{ redmine_wiki_content_infra_server_port }}"
+#         トラフィック: "{{ redmine_wiki_content_infra_server_traffic }}"
+#         その他: "{{ redmine_wiki_content_infra_server_other }}"
 
 ## --------------------
 ## 「プロジェクト」の設定
@@ -1882,10 +1924,10 @@ redmine_projects: {}
   #   wiki_main_page: Wiki
   #   wiki_pages:
   #     Wiki:
-  #       content: "Wikiの本文"
+  #       content: "{{ lookup('file', 'files/wiki/home/client.md') }}"
   #       childlen:
   #         ヘルプ: "{{ redmine_wiki_page_help }}"
-  #     Sidebar: "{{ redmine_wiki_content_sidebar }}"
+  #     Sidebar: "{{ redmine_wiki_page_sidebar }}"
   #   issue_queries: []
   #   time_entry_queries: []
   #   childlen:
@@ -1894,46 +1936,32 @@ redmine_projects: {}
   #       description: Web制作用のテンプレートプロジェクトです
   #       is_public: false
   #       inherit_members: true
+  #       homepage: https://example.com/
   #       custom_fields:
-  #         - name: Slack Channel
-  #           value: "#オフィシャルサイト"
+  #         - name: 管理画面URL
+  #           value: https://example.com/wp-login.php
   #       wiki_main_page: Wiki
   #       wiki_pages:
   #         Wiki:
   #           content: "{{ lookup('file', 'files/wiki/home/web.md') }}"
   #           childlen:
   #             ヘルプ: "{{ redmine_wiki_page_help }}"
-  #         Sidebar: "{{ redmine_wiki_content_sidebar }}"
+  #         Sidebar: "{{ redmine_wiki_page_sidebar }}"
   #     develop:
   #       name: システム開発
   #       description: システム開発用のテンプレートプロジェクトです
   #       inherit_members: true
+  #       homepage: https://app.example.com/
   #       custom_fields:
-  #         - name: Slack Channel
-  #           value: "#自社システム"
+  #         - name: 管理画面URL
+  #           value: https://admin.example.com/
   #       wiki_pages:
   #         Wiki:
   #           content: "{{ lookup('file', 'files/wiki/home/develop.md') }}"
   #           childlen:
-  #             システム概要:
-  #               content: "{{ redmine_wiki_content_overview }}"
-  #               childlen:
-  #                 システム構成: "{{ redmine_wiki_content_overview_architecture }}"
-  #                 データ構造: "{{ redmine_wiki_content_overview_data_structure }}"
-  #                 技術スタック: "{{ redmine_wiki_content_overview_technology }}"
-  #                 機能一覧: "{{ redmine_wiki_content_overview_feature }}"
-  #             インフラ情報:
-  #               content: "{{ redmine_wiki_content_infra }}"
-  #               childlen:
-  #                 クラウド情報: "{{ redmine_wiki_content_infra_cloud }}"
-  #                 DNS情報: "{{ redmine_wiki_content_infra_dns }}"
-  #                 サーバー情報: "{{ redmine_wiki_content_infra_server }}"
-  #             環境情報:
-  #               content: "{{ redmine_wiki_content_environment }}"
-  #               childlen:
-  #                 開発環境: "{{ redmine_wiki_content_environment_development }}"
-  #                 ステージング環境: "{{ redmine_wiki_content_environment_staging }}"
-  #                 本番環境: "{{ redmine_wiki_content_environment_production }}"
+  #             システム概要: "{{ redmine_wiki_page_orverview }}"
+  #             インフラ情報: "{{ redmine_wiki_page_infra }}"
+  #             環境情報: "{{ redmine_wiki_page_environment }}"
   #             開発情報: "{{ redmine_wiki_page_development }}"
   #             ヘルプ: "{{ redmine_wiki_page_help }}"
   #         Sidebar: "{{ redmine_wiki_page_sidebar }}"
@@ -1941,28 +1969,22 @@ redmine_projects: {}
   #       name: インフラ管理
   #       description: インフラ管理用のテンプレートプロジェクトです
   #       inherit_members: true
-  #       custom_fields:
-  #         - name: Slack Channel
-  #           value: "#インフラ"
   #       wiki_pages:
   #         Wiki:
   #           content: "{{ lookup('file', 'files/wiki/home/infra.md') }}"
   #           childlen:
   #             ヘルプ: "{{ redmine_wiki_page_help }}"
-  #         Sidebar: "{{ redmine_wiki_content_sidebar }}"
+  #         Sidebar: "{{ redmine_wiki_page_sidebar }}"
   #     support:
   #       name: カスタマーサポート
   #       description: 問い合わせ管理用のテンプレートプロジェクトです
   #       inherit_members: true
-  #       custom_fields:
-  #         - name: Slack Channel
-  #           value: "#カスタマーサポート"
   #       wiki_pages:
   #         Wiki:
   #           content: "{{ lookup('file', 'files/wiki/home/support.md') }}"
   #           childlen:
   #             ヘルプ: "{{ redmine_wiki_page_help }}"
-  #         Sidebar: "{{ redmine_wiki_content_sidebar }}"
+  #         Sidebar: "{{ redmine_wiki_page_sidebar }}"
 
 ## --------------------
 ## 「添付ファイル」の設定
