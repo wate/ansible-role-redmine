@@ -712,7 +712,7 @@ namespace :redmine do
           end
           unless project_query
             project_query = ProjectQuery.new({name: data['name']})
-            project_query.visibility = 2
+            project_query.visibility = Query::VISIBILITY_PUBLIC
             project_query.user = User.current
           end
           project_query.name = data['name']
@@ -740,7 +740,7 @@ namespace :redmine do
           end
           form_params = {
             c: [],
-            visibility: 2,
+            visibility: Query::VISIBILITY_PUBLIC,
             display_type: 'bord'
           }
           ## フィルター
@@ -752,7 +752,7 @@ namespace :redmine do
             form_params[:description] = data['description']
           end
           ## 表示
-          form_params[:visibility] = !!data['visibility'] ? 2 : 0 if data.key?('visibility')
+          form_params[:visibility] = !!data['visibility'] ? Query::VISIBILITY_PUBLIC : Query::VISIBILITY_PRIVATE if data.key?('visibility')
           ## 表示形式
           form_params[:display_type] = data['display_type'] if data.key?('display_type')
           ## グループ条件
@@ -1259,7 +1259,7 @@ namespace :redmine do
     unless issue_query
       issue_query = IssueQuery.new({name: data['name']})
       # 表示：全てのユーザー
-      issue_query.visibility = 2
+      issue_query.visibility = Query::VISIBILITY_PUBLIC
       # 全プロジェクト向け
       issue_query.project = project
       issue_query.user = User.current
