@@ -2201,7 +2201,8 @@ redmine_message_customize: {}
   # label_auto_watch_on_issue_created: 自分が作成した課題
   # button_apply_issues_filter: 課題のフィルタを適用
   # label_view_previous_annotation: この更新以前の注釈
-  # setting_copy_attachments_on_issue_copy: 課題をコピーするとき添付ファイルもコピー
+  # ## 以下、Redmine 6以降で有効
+  # # setting_copy_attachments_on_issue_copy: 課題をコピーするとき添付ファイルもコピー
 
 ## --------------------
 ## 「view customizeプラグイン」に登録するデータ
