@@ -77,11 +77,10 @@ namespace :redmine do
         statuses.each do |data|
           if data['id'].present?
             status = IssueStatus.find_by_id(data['id'])
-            status.name = data['name']
           else
             status = IssueStatus.find_by_name(data['name'])
           end
-          status ||= IssueStatus.new
+          status ||= IssueStatus.new(name: data['name'])
           status.safe_attributes = data
           status.position = data['position'] if data['position'].present?
           status.save!
@@ -103,7 +102,6 @@ namespace :redmine do
         import_trackers.each do |data|
           if data['id'].present?
             tracker = Tracker.find_by_id(data['id'])
-            tracker.name = data['name']
           else
             tracker = Tracker.find_by_name(data['name'])
           end
@@ -122,6 +120,7 @@ namespace :redmine do
               'description'
             ]
           end
+          tracker.name = data['name']
           tracker.core_fields = data['enabled_standard_fields'] if data['enabled_standard_fields'].present?
           tracker.description = data['description'] if data.key?('description')
           tracker.default_status_id = default_issue_status.id
@@ -158,7 +157,6 @@ namespace :redmine do
         roles.each do |data|
           if data['id'].present?
             role = Role.find_by_id(data['id'])
-            role.name = data['name']
           else
             role = Role.find_by_name(data['name'])
           end
@@ -172,6 +170,7 @@ namespace :redmine do
             role.users_visibility = 'all'
             role.time_entries_visibility = 'all'
           end
+          role.name = data['name']
           # このロールにチケットを割り当て可能
           role.assignable = data['assignable'] if data.key?('assignable')
           # 表示できるチケット
@@ -561,13 +560,9 @@ namespace :redmine do
           # プロポーショナル
           'proportional'
         ]
-        users.each do |data|
-          next unless data.key?('login')
-
-          user = User.find_by_login(data['login'])
+        users.each do |login, data|
+          user = User.find_by_login(login)
           if user
-            next if user.id == 1
-
             # 既存ユーザー情報の更新
             user.firstname = data['firstname'] if data.key?('firstname')
             user.lastname = data['lastname'] if data.key?('lastname')
@@ -579,7 +574,7 @@ namespace :redmine do
           else
             # ユーザーの新規登録
             user = User.new(:language => Setting.default_language, :mail_notification => Setting.default_notification_option)
-            user.login = data['login']
+            user.login = login
             # 名
             user.firstname = data['firstname']
             # 姓
