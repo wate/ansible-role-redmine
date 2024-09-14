@@ -30,7 +30,7 @@
     label: "{{ item.name }}"
 - name: Set redmine cron job
   ansible.builtin.cron:
-    name: "{{ item.name | default(omit) }}"
+    name: "role:redmine/{{ item.name | default(omit) }}"
     job: cd {{ redmine_root }} && {{ item.command }} {{ item.params | default([]) | join(' ') }}
     hour: "{{ item.hour | default('*') | string }}"
     minute: "{{ item.minute | default('*') | string }}"
