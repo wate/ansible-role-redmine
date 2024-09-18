@@ -14,7 +14,8 @@ redmine_version: 5.1-stable
 ## --------------------
 ## 追加の環境設定
 ## --------------------
-redmine_additional_environment: ""
+redmine_additional_environment: |
+  config.logger = Logger.new("log/#{Rails.env}.log", 'daily')
 
 ## --------------------
 ## 追加インストールするgemパッケージ
