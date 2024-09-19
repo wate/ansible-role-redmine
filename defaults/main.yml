@@ -2123,22 +2123,22 @@ redmine_cron_vars: []
 ## --------------------
 redmine_cron_jobs:
   - name: Execute redmine:attachments:prune
-    disabled: true
+    # disabled: true
     command: bundle exec rake redmine:attachments:prune
     hour: 1
     minute: 0
   - name: Execute redmine:tokens:prune
-    disabled: true
+    # disabled: true
     command: bundle exec rake redmine:tokens:prune
     hour: 1
     minute: 5
   - name: Execute redmine:users:prune
-    disabled: true
+    # disabled: true
     command: bundle exec rake redmine:users:prune
     hour: 1
     minute: 10
   - name: Execute redmine:watchers:prune
-    disabled: true
+    # disabled: true
     command: bundle exec rake redmine:watchers:prune
     hour: 1
     minute: 15
