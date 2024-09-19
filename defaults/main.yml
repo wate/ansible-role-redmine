@@ -2123,24 +2123,28 @@ redmine_cron_vars: []
 ## --------------------
 redmine_cron_jobs:
   - name: Execute redmine:attachments:prune
-    command: cd {{ redmine_root }} && bundle exec rake redmine:attachments:prune
+    disabled: true
+    command: bundle exec rake redmine:attachments:prune
     hour: 1
     minute: 0
   - name: Execute redmine:tokens:prune
-    command: cd {{ redmine_root }} && bundle exec rake redmine:tokens:prune
+    disabled: true
+    command: bundle exec rake redmine:tokens:prune
     hour: 1
     minute: 5
   - name: Execute redmine:users:prune
-    command: cd {{ redmine_root }} && bundle exec rake redmine:users:prune
+    disabled: true
+    command: bundle exec rake redmine:users:prune
     hour: 1
     minute: 10
   - name: Execute redmine:watchers:prune
-    command: cd {{ redmine_root }} && bundle exec rake redmine:watchers:prune
+    disabled: true
+    command: bundle exec rake redmine:watchers:prune
     hour: 1
     minute: 15
   - name: Execute redmine:send_reminders
     disabled: true
-    command: cd {{ redmine_root }} && rake redmine:send_reminders
+    command: rake redmine:send_reminders
     params:
       - days=7
       # - 'tracker=1'
@@ -2149,7 +2153,7 @@ redmine_cron_jobs:
     minute: 30
   - name: Execute redmine:email:receive_pop3
     disabled: true
-    command: cd {{ redmine_root }} && bundle exec rake redmine:email:receive_pop3
+    command: bundle exec rake redmine:email:receive_pop3
     params:
       - username=pop3_acount
       - password=pop3_password
@@ -2159,7 +2163,7 @@ redmine_cron_jobs:
     minute: "*/5"
   - name: Execute redmine:email:receive_imap
     disabled: true
-    command: cd {{ redmine_root }} && bundle exec rake redmine:email:receive_imap
+    command: bundle exec rake redmine:email:receive_imap
     params:
       - username=imap_acount
       - password=imap_password
