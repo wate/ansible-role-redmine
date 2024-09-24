@@ -14,9 +14,9 @@ After=network.target
 Type=simple
 User={{ redmine_user }}
 Group={{ redmine_group }}
-Environment=REDMINE_LANG={{ redmine_lang }}
+EnvironmentFile=/etc/default/redmine
 WorkingDirectory={{ redmine_root }}
-ExecStart=/usr/bin/bundle exec puma -C {{ redmine_root }}/config/puma.rb -e {{ redmine_mode }}
+ExecStart=bundle exec rails server
 ExecStop=/bin/kill -TERM $MAINPID
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always

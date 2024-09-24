@@ -1,0 +1,5 @@
+{% for var_name, var_value in redmine_envs.items() %}
+{{ var_name }}="{{ var_value }}"
+{% endfor %}
+RAILS_ENV={{ redmine_mode }}
+REDMINE_LANG={{ redmine_lang }}
