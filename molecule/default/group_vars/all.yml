@@ -5,7 +5,7 @@
 redmine_version: 5.1-stable
 
 logrotate_settings:
-  - name: redmine
+  redmine:
     paths:
       - /opt/redmine/log/*.log*
     frequency: daily
@@ -14,10 +14,7 @@ logrotate_settings:
     compress: true
     delaycompress: true
     notifempty: true
-    create: true
-    create_mode: "0640"
-    create_user: redmine
-    create_group: redmine
+    copytruncate: true
 
 redmine_db_cfg:
   production:
