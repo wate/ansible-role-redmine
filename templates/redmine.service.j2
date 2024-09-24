@@ -19,7 +19,7 @@ WorkingDirectory={{ redmine_root }}
 ExecStart=/usr/bin/bundle exec puma -C {{ redmine_root }}/config/puma.rb -e {{ redmine_mode }}
 ExecStop=/bin/kill -TERM $MAINPID
 ExecReload=/bin/kill -HUP $MAINPID
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
