@@ -29,6 +29,10 @@ Redmineのバージョン(ブランチ名)
 
 追加の環境設定
 
+#### `redmine_gemfile_local_packages`
+
+追加インストールするgemパッケージ
+
 #### `redmine_mode`
 
 Redmineの動作モード
