@@ -11,12 +11,13 @@ After=network.target
 {% endif %}
 
 [Service]
-Type=simple
+Type=notify
+WatchdogSec=10
 User={{ redmine_user }}
 Group={{ redmine_group }}
 EnvironmentFile=/etc/default/redmine
 WorkingDirectory={{ redmine_root }}
-ExecStart=bundle exec rails server
+ExecStart=/bin/bash -lc 'bundle exec puma -C config/puma.rb'
 ExecStop=/bin/kill -TERM $MAINPID
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always

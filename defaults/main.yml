@@ -21,9 +21,8 @@ redmine_additional_environment: ""
 ## --------------------
 ## 追加インストールするgemパッケージ
 ## --------------------
-# redmine_gemfile_local_packages:
-#   rails-erd:
-#   annotate:
+redmine_gemfile_local_packages:
+  sd_notify:
 
 ## --------------------
 ## Redmineの動作モード
