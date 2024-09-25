@@ -7,6 +7,12 @@
   become: true
   become_user: "{{ redmine_user }}"
   notify: restart redmine
+- name: Create/update envirnment file
+  ansible.builtin.template:
+    src: environment_file.j2
+    dest: /etc/default/redmine
+    mode: "0644"
+  notify: restart redmine
 - name: Create redmine systemd unit file
   ansible.builtin.template:
     src: redmine.service.j2

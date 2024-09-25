@@ -29,6 +29,10 @@ Redmineのバージョン(ブランチ名)
 
 追加の環境設定
 
+#### `redmine_gemfile_local_packages`
+
+追加インストールするgemパッケージ
+
 #### `redmine_mode`
 
 Redmineの動作モード
@@ -167,7 +171,12 @@ Redmineのcron設定
 
 #### `redmine_skip_load_default_data`
 
-Redmineインストール時にデフォルトデータのロードをスキップする
+インストール時にデフォルトデータのロードをスキップするか否か
+
+#### `redmine_envs`
+
+その他の環境変数  
+※「RAILS_ENV」にはredmine_mode変数の値が、「REDMILE_LANG」にはredmine_lang変数の値が設定されます
 
 #### `redmine_restore`
 

@@ -17,13 +17,14 @@ redmine_version: 5.1-stable
 redmine_additional_environment: ""
 # redmine_additional_environment: |
 #   config.logger = Logger.new("log/#{Rails.env}.log", 'daily')
+#   config.active_job.queue_adapter = :sidekiq
 
 ## --------------------
 ## 追加インストールするgemパッケージ
 ## --------------------
-# redmine_gemfile_local_packages:
-#   rails-erd:
-#   annotate:
+redmine_gemfile_local_packages:
+  sd_notify:
+  # sidekiq:
 
 ## --------------------
 ## Redmineの動作モード
@@ -2174,9 +2175,15 @@ redmine_cron_jobs:
     minute: "*/5"
 
 ## --------------------
-## Redmineインストール時にデフォルトデータのロードをスキップする
+## インストール時にデフォルトデータのロードをスキップするか否か
 ## --------------------
 redmine_skip_load_default_data: false
+
+## --------------------------
+## その他の環境変数
+## ※「RAILS_ENV」にはredmine_mode変数の値が、「REDMILE_LANG」にはredmine_lang変数の値が設定されます
+## --------------------------
+redmine_envs: {}
 
 ## --------------------
 ## Redmineのバックアップデータのリストア
