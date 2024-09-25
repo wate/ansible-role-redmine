@@ -17,12 +17,14 @@ redmine_version: 5.1-stable
 redmine_additional_environment: ""
 # redmine_additional_environment: |
 #   config.logger = Logger.new("log/#{Rails.env}.log", 'daily')
+#   config.active_job.queue_adapter = :sidekiq
 
 ## --------------------
 ## 追加インストールするgemパッケージ
 ## --------------------
 redmine_gemfile_local_packages:
   sd_notify:
+  # sidekiq:
 
 ## --------------------
 ## Redmineの動作モード

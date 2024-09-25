@@ -1,3 +1,4 @@
+#  @see https://github.com/puma/puma/blob/master/docs/systemd.md
 [Unit]
 Description=Redmine
 {% if redmine_db_cfg[redmine_mode]['host'] is defined and redmine_db_cfg[redmine_mode]['host'] in ['localhost', '127.0.0.1']  -%}
@@ -17,7 +18,7 @@ User={{ redmine_user }}
 Group={{ redmine_group }}
 EnvironmentFile=/etc/default/redmine
 WorkingDirectory={{ redmine_root }}
-ExecStart=/bin/bash -lc 'bundle exec puma -C config/puma.rb'
+ExecStart=bundle exec rails server
 ExecStop=/bin/kill -TERM $MAINPID
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
