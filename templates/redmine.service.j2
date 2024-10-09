@@ -17,7 +17,7 @@ User={{ redmine_user }}
 Group={{ redmine_group }}
 EnvironmentFile=/etc/default/redmine
 WorkingDirectory={{ redmine_root }}
-ExecStart={{ redmine_root }}/bin/rails server
+ExecStart/bin/bash -c 'bundle exec rails server'
 TimeoutSec=300
 ExecStop=/bin/kill -TERM $MAINPID
 ExecReload=/bin/kill -HUP $MAINPID
