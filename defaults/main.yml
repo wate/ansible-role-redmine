@@ -23,6 +23,7 @@ redmine_additional_environment: ""
 ## 追加インストールするgemパッケージ
 ## --------------------
 redmine_gemfile_local_packages: {}
+  # sd_notify:
   # sidekiq:
 
 ## --------------------
@@ -308,7 +309,7 @@ redmine_cfg:
 ## Pumaの追加設定
 ## --------------------
 redmine_puma_extra_cfg: |
-  # port 3000
+  # port 9292
   bind "unix://#{app_root}/tmp/redmine.sock"
 
 ## --------------------
