@@ -13,7 +13,7 @@ After=network.target
 
 [Service]
 Type=notify
-WatchdogSec=10
+WatchdogSec=30
 User={{ redmine_user }}
 Group={{ redmine_group }}
 WorkingDirectory={{ redmine_root }}
