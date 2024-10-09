@@ -33,10 +33,6 @@
         - name: Set Gemfile.local setting variable
           ansible.builtin.set_fact:
             redmine_gemfile_local_packages: "{{ redmine_gemfile_local_packages | default({}) | combine({'puma': redmine_puma_package[1] | default('')}) }}"
-    - name: Set Gemfile.local setting variable
-      ansible.builtin.set_fact:
-        redmine_gemfile_local_packages: "{{ redmine_gemfile_local_packages | combine({'sd_notify': default('')}) }}"
-      when: redmine_gemfile_local_packages is undefined or redmine_gemfile_local_packages['sd_notify'] is undefined
     - name: Create/update Gemfile.local file
       ansible.builtin.template:
         src: Gemfile.local.j2
