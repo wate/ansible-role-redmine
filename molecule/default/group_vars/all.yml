@@ -98,10 +98,10 @@ redmine_plugins:
   additionals:
     repo: https://github.com/AlphaNodes/additionals.git
     directory: additionals
-    version: stable
+    version: main
   redmine_sudo:
     repo: https://github.com/AlphaNodes/redmine_sudo.git
-    version: stable
+    version: main
   redmine_dmsf:
     repo: https://github.com/danmunn/redmine_dmsf.git
     required_packages:
