@@ -1,6 +1,6 @@
 #  @see https://github.com/puma/puma/blob/master/docs/systemd.md
 [Unit]
-Description=Redmine
+Description=Redmine server
 {% if redmine_db_cfg[redmine_mode]['host'] is defined and redmine_db_cfg[redmine_mode]['host'] in ['localhost', '127.0.0.1']  -%}
 {% if redmine_db_cfg[redmine_mode]['adapter'] in 'mysql2'%}
 After=network.target mariadb.service
@@ -13,14 +13,12 @@ After=network.target
 
 [Service]
 Type=notify
-WatchdogSec=10
+WatchdogSec=30
 User={{ redmine_user }}
 Group={{ redmine_group }}
-EnvironmentFile=/etc/default/redmine
 WorkingDirectory={{ redmine_root }}
-ExecStart=bundle exec rails server
-ExecStop=/bin/kill -TERM $MAINPID
-ExecReload=/bin/kill -HUP $MAINPID
+EnvironmentFile=/etc/default/redmine
+ExecStart=bundle exec puma
 Restart=always
 
 [Install]

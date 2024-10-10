@@ -61,10 +61,6 @@
           ansible.builtin.command:
             cmd: bundle update
             chdir: "{{ redmine_root }}"
-        - name: Execute bundle exec rake db:migrate
-          ansible.builtin.command:
-            cmd: bundle exec rake db:migrate
-            chdir: "{{ redmine_root }}"
         - name: Execute bundle exec rake redmine:plugins:migrate
           ansible.builtin.command:
             cmd: bundle exec rake redmine:plugins:migrate
