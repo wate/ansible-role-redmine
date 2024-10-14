@@ -178,6 +178,15 @@ Redmineのcron設定
 その他の環境変数  
 ※「RAILS_ENV」にはredmine_mode変数の値が、「REDMILE_LANG」にはredmine_lang変数の値が設定されます
 
+#### `redmine_register_sidekiq_service`
+
+sidekiqのサービス化を行うか否か
+
+#### `redmine_sidekiq_service_dependencies`
+
+sidekiqサービスの依存関係  
+※SystemdのユニットファイルのAfter句に定義する依存サービスを指定します
+
 #### `redmine_restore`
 
 Redmineのバックアップデータのリストア  
