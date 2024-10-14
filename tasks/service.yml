@@ -13,7 +13,7 @@
     dest: /etc/default/redmine
     mode: "0644"
   notify: restart redmine
-- name: Create redmine systemd unit file
+- name: Create Redmine systemd unit file
   ansible.builtin.template:
     src: redmine.service.j2
     dest: /lib/systemd/system/redmine.service
@@ -25,3 +25,18 @@
     name: redmine
     state: started
     enabled: true
+- name: Create Sidekiq systemd unit file
+  when: redmine_register_sidekiq_service
+  block:
+    - name: Create Sidekiq systemd unit file
+      ansible.builtin.template:
+        src: sidekiq.service.j2
+        dest: /lib/systemd/system/sidekiq.service
+        mode: "0644"
+      notify: restart sidekiq
+    - name: Service Sidekiq is active and enable on system startup
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+        name: sidekiq
+        state: started
+        enabled: true

@@ -1,0 +1,23 @@
+[Unit]
+Description=sidekiq
+After=syslog.target
+After=network.target
+{% for dependency in redmine_sidekiq_service_dependencies %}
+After={{ dependency }}
+{% endfor %}
+
+[Service]
+Type=notify
+NotifyAccess=all
+WatchdogSec=10
+
+User={{ redmine_user }}
+Group={{ redmine_group }}
+WorkingDirectory={{ redmine_root }}
+EnvironmentFile=/etc/default/redmine
+ExecStart=bundle exec sidekiq
+RestartSec=1
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

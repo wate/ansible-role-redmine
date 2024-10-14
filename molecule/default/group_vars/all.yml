@@ -1,7 +1,4 @@
 ---
-## --------------------
-## Redmineのバージョン(ブランチ名)
-## --------------------
 redmine_version: 5.1-stable
 
 logrotate_settings:

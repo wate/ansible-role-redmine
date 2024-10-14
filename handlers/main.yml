@@ -9,3 +9,8 @@
   ansible.builtin.systemd_service:
     name: redmine
     state: reloaded
+- name: restart sidekiq
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+    name: sidekiq
+    state: restarted

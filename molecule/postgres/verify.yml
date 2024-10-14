@@ -34,9 +34,9 @@
           - ansible_facts.packages['acl']
           - ansible_facts.packages['git']
     ## サービスのテスト
-    - name: Populate service facts
+    - name: Gather service facts
       ansible.builtin.service_facts:
-    - name: Assert service
+    - name: Assert Redmine service
       ansible.builtin.assert:
         that:
           - ansible_facts.services['redmine.service']
