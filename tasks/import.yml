@@ -10,7 +10,7 @@
       ansible.builtin.copy:
         src: import.rake
         dest: "{{ redmine_root }}/lib/tasks/import.rake"
-        mode: "0750"
+        mode: "0644"
     - name: Create import admin setting files
       ansible.builtin.template:
         src: import_data.yml.j2
