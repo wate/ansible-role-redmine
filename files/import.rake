@@ -844,10 +844,10 @@ namespace :redmine do
             setting = {}
             setting[lang] = message_customize_setting
             plugin_setting = CustomMessageSetting.find_or_default
-            if plugin_setting.update_with_custom_messages_yaml(setting)
+            if plugin_setting.update_with_custom_messages_yaml(setting.to_yaml)
               puts setting
             else
-              raise "Import error"
+              raise "message customize import error"
             end
           end
         end
