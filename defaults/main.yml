@@ -23,7 +23,6 @@ redmine_additional_environment: ""
 ## 追加インストールするgemパッケージ
 ## --------------------
 redmine_gemfile_local_packages: {}
-  # sd_notify:
   # sidekiq:
 
 ## --------------------

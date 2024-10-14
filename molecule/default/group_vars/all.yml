@@ -119,8 +119,10 @@ redmine_plugins:
       - poppler-utils
       # Universally Unique Identifier Command-Line Tool
       - uuid
+      # Libreoffice
+      - libreoffice
     cron_job:
-      cmd: cd {{ redmine_root }}/plugins && /usr/bin/ruby redmine_dmsf/extra/xapian_indexer.rb -v
+      cmd: cd {{ redmine_root }}/plugins && XAPIAN_CJK_NGRAM=true ruby redmine_dmsf/extra/xapian_indexer.rb -v
       minute: 10
   redmine_message_customize:
     repo: https://github.com/farend/redmine_message_customize.git

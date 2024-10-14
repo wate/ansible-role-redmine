@@ -1,24 +1,24 @@
 #  @see https://github.com/puma/puma/blob/master/docs/systemd.md
 [Unit]
 Description=Redmine server
+After=network.target
 {% if redmine_db_cfg[redmine_mode]['host'] is defined and redmine_db_cfg[redmine_mode]['host'] in ['localhost', '127.0.0.1']  -%}
 {% if redmine_db_cfg[redmine_mode]['adapter'] in 'mysql2'%}
-After=network.target mariadb.service
+After=mariadb.service
 {% elif redmine_db_cfg[redmine_mode]['adapter'] == 'postgresql' -%}
-After=network.target postgresql.service
+After=postgresql.service
 {% endif -%}
-{% else -%}
-After=network.target
 {% endif %}
 
 [Service]
 Type=notify
-WatchdogSec=30
+WatchdogSec=10
 User={{ redmine_user }}
 Group={{ redmine_group }}
 WorkingDirectory={{ redmine_root }}
 EnvironmentFile=/etc/default/redmine
 ExecStart=bundle exec puma
+RestartSec=1
 Restart=always
 
 [Install]
