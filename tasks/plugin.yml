@@ -22,7 +22,7 @@
         src: "{{ plugin.value.file }}"
         dest: "{{ redmine_plugin_dir }}"
         mode: "0755"
-      loop: "{{ redmine_plugins | dict2items | selectattr('value.file', 'defined') | list }}"
+      loop: "{{ redmine_plugins | dict2items | selectattr('value.file', 'defined') }}"
       loop_control:
         loop_var: plugin
         label: "{{ plugin.key }}"
@@ -67,8 +67,9 @@
             chdir: "{{ redmine_root }}"
         - name: Execute plugin post install action
           ansible.builtin.command:
-            cmd: "{{ item.post_install_action }}"
+            cmd: "{{ plugin.value.post_install_action }}"
             chdir: "{{ redmine_root }}"
-          loop: "{{ redmine_plugins | selectattr('post_install_action', 'defined') | list }}"
+          loop: "{{ redmine_plugins | dict2items | selectattr('value.post_install_action', 'defined') }}"
           loop_control:
-            label: "{{ item.name }}"
+            loop_var: plugin
+            label: "{{ plugin.key }}"
