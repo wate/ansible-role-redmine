@@ -1,0 +1,73 @@
+---
+## --------------------
+## Redmineのバージョン(ブランチ名)
+## --------------------
+redmine_version: 5.1-stable
+
+## --------------------
+## 追加インストールするgemパッケージ
+## --------------------
+redmine_gemfile_local_packages:
+  sidekiq:
+
+## --------------------
+## Redmineのデータベース設定(config/database.yml)
+## --------------------
+redmine_db_cfg:
+  production:
+    adapter: mysql2
+    database: redmine
+    host: localhost
+    username: redmine
+    password: redmine_password
+    encoding: utf8mb4
+  development:
+    adapter: mysql2
+    database: redmine_dev
+    host: localhost
+    username: redmine_dev_user
+    password: redmine_dev_password
+    encoding: utf8mb4
+  test:
+    adapter: mysql2
+    database: redmine_test
+    host: localhost
+    username: redmine_test_user
+    password: redmine_test_password
+    encoding: utf8mb4
+
+## --------------------
+## Pumaの追加設定
+## --------------------
+redmine_puma_extra_cfg: |
+  port 3000
+
+## --------------------------
+## その他の環境変数
+## --------------------------
+redmine_envs:
+  ## @see https://github.com/sidekiq/sidekiq/wiki/Using-Redis
+  REDIS_URL: redis://localhost:6379/0
+
+## --------------------------
+## sidekiqのサービス化を行うか否か
+## --------------------------
+redmine_register_sidekiq_service: true
+
+## --------------------------
+## sidekiqサービスの依存関係
+## --------------------------
+redmine_sidekiq_service_dependencies:
+  - redis-server.service
+
+logrotate_settings:
+  redmine:
+    paths:
+      - /opt/redmine/log/*.log*
+    frequency: daily
+    missingok: true
+    rotate: 14
+    compress: true
+    delaycompress: true
+    notifempty: true
+    copytruncate: true

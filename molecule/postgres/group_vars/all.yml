@@ -4,18 +4,9 @@
 ## --------------------
 redmine_version: 5.1-stable
 
-logrotate_settings:
-  redmine:
-    paths:
-      - /opt/redmine/log/*.log*
-    frequency: daily
-    missingok: true
-    rotate: 14
-    compress: true
-    delaycompress: true
-    notifempty: true
-    copytruncate: true
-
+## --------------------
+## Redmineのデータベース設定(config/database.yml)
+## --------------------
 redmine_db_cfg:
   production:
     adapter: postgresql
@@ -40,7 +31,19 @@ redmine_db_cfg:
     encoding: UTF8
 
 ## --------------------
-## Pumaの設定
+## Pumaの追加設定
 ## --------------------
 redmine_puma_extra_cfg: |
   port 3000
+
+logrotate_settings:
+  redmine:
+    paths:
+      - /opt/redmine/log/*.log*
+    frequency: daily
+    missingok: true
+    rotate: 14
+    compress: true
+    delaycompress: true
+    notifempty: true
+    copytruncate: true

@@ -1,18 +1,12 @@
 ---
+## --------------------
+## Redmineのバージョン(ブランチ名)
+## --------------------
 redmine_version: 5.1-stable
 
-logrotate_settings:
-  redmine:
-    paths:
-      - /opt/redmine/log/*.log*
-    frequency: daily
-    missingok: true
-    rotate: 14
-    compress: true
-    delaycompress: true
-    notifempty: true
-    copytruncate: true
-
+## --------------------
+## Redmineのデータベース設定(config/database.yml)
+## --------------------
 redmine_db_cfg:
   production:
     adapter: mysql2
@@ -45,7 +39,7 @@ redmine_cfg:
     sudo_mode_timeout: 15
 
 ## --------------------
-## Pumaの設定
+## Pumaの追加設定
 ## --------------------
 redmine_puma_extra_cfg: |
   port 3000
@@ -1713,3 +1707,15 @@ redmine_note_templates:
     name: レビュー結果
     description: "{{ lookup('file', 'files/template/note/review.md') }}"
     enabled: true
+
+logrotate_settings:
+  redmine:
+    paths:
+      - /opt/redmine/log/*.log*
+    frequency: daily
+    missingok: true
+    rotate: 14
+    compress: true
+    delaycompress: true
+    notifempty: true
+    copytruncate: true

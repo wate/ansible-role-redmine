@@ -2183,6 +2183,7 @@ redmine_skip_load_default_data: false
 ## ※「RAILS_ENV」にはredmine_mode変数の値が、「REDMILE_LANG」にはredmine_lang変数の値が設定されます
 ## --------------------------
 redmine_envs: {}
+  ## @see https://github.com/sidekiq/sidekiq/wiki/Using-Redis
   # REDIS_URL: redis://localhost:6379/0
 
 ## --------------------------
