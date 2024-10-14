@@ -42,6 +42,18 @@
           - ansible_facts.services['redmine.service']
           - ansible_facts.services['redmine.service']['state'] == 'running'
           - ansible_facts.services['redmine.service']['status'] == 'enabled'
+    - name: Assert Redis service
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['redis-server.service']
+          - ansible_facts.services['redis-server.service']['state'] == 'running'
+          - ansible_facts.services['redis-server.service']['status'] == 'enabled'
+    - name: Assert Sidekiq service
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['sidekiq.service']
+          - ansible_facts.services['sidekiq.service']['state'] == 'running'
+          - ansible_facts.services['sidekiq.service']['status'] == 'enabled'
     ## 待受ポートのテスト
     - name: Gather facts on listening ports
       community.general.listen_ports_facts:
@@ -50,7 +62,11 @@
       ansible.builtin.set_fact:
         listen_tcp_posts: "{{ ansible_facts.tcp_listen | map(attribute='port') | unique | list }}"
         listen_udp_posts: "{{ ansible_facts.udp_listen | map(attribute='port') | unique | list }}"
-    - name: Assert listen port
+    - name: Assert redmine listen port
       ansible.builtin.assert:
         that:
           - 3000 in listen_tcp_posts
+    - name: Assert Redis listen port
+      ansible.builtin.assert:
+        that:
+          - 6379 in listen_tcp_posts
