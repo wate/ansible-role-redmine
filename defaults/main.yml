@@ -308,7 +308,7 @@ redmine_cfg:
 ## Pumaの追加設定
 ## --------------------
 redmine_puma_extra_cfg: |
-  # port 9292
+  # port 3000
   bind "unix://#{app_root}/tmp/redmine.sock"
 
 ## --------------------
