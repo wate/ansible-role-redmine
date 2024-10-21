@@ -27,3 +27,4 @@
   loop_control:
     loop_var: custom_message
     label: "{{ custom_message.lang }}"
+  notify: restart redmine
