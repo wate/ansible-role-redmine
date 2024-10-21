@@ -83,7 +83,7 @@
       ansible.builtin.import_tasks:
         file: import.yml
       when: |
-        (generate_secret_token_result is defiled and generate_secret_token_result is changed)
+        (generate_secret_token_result is defind and generate_secret_token_result is changed)
         or
         redmine_reimport | default(false)
       tags: role_redmine_import
