@@ -79,10 +79,6 @@
       ansible.builtin.import_tasks:
         file: plugin.yml
       tags: role_redmine_plugin
-    - name: Import Redmine customize task
-      ansible.builtin.import_tasks:
-        file: customize.yml
-      tags: role_redmine_customize
     - name: Import Redmine setting import task
       ansible.builtin.import_tasks:
         file: import.yml
@@ -91,6 +87,10 @@
         or
         redmine_reimport | default(false)
       tags: role_redmine_import
+    - name: Import Redmine customize task
+      ansible.builtin.import_tasks:
+        file: customize.yml
+      tags: role_redmine_customize
 - name: Import cron job task
   ansible.builtin.import_tasks:
     file: cron.yml
