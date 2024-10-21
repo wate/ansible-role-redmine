@@ -19,7 +19,7 @@
       vars:
         redmine_import_data: "{{ redmine_admin | default({}) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_admin | default(false)
     - name: Create import issue status setting files
@@ -30,7 +30,7 @@
       vars:
         redmine_import_data: "{{ redmine_statuses | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -43,7 +43,7 @@
       vars:
         redmine_import_data: "{{ redmine_trackers | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -56,7 +56,7 @@
       vars:
         redmine_import_data: "{{ redmine_roles | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -69,7 +69,7 @@
       vars:
         redmine_import_data: "{{ redmine_priorities | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -82,7 +82,7 @@
       vars:
         redmine_import_data: "{{ redmine_document_categories | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -95,7 +95,7 @@
       vars:
         redmine_import_data: "{{ redmine_time_entry_activities | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -108,7 +108,7 @@
       vars:
         redmine_import_data: "{{ redmine_issue_custom_fields | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -121,7 +121,7 @@
       vars:
         redmine_import_data: "{{ redmine_project_custom_fields | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -134,7 +134,7 @@
       vars:
         redmine_import_data: "{{ redmine_user_custom_fields | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -147,7 +147,7 @@
       vars:
         redmine_import_data: "{{ redmine_settings | default({}) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -160,7 +160,7 @@
       vars:
         redmine_import_data: "{{ redmine_workflows | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -173,7 +173,7 @@
       vars:
         redmine_import_data: "{{ redmine_field_permissions | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -186,7 +186,7 @@
       vars:
         redmine_import_data: "{{ redmine_users | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -199,7 +199,7 @@
       vars:
         redmine_import_data: "{{ redmine_groups | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -212,7 +212,7 @@
       vars:
         redmine_import_data: "{{ redmine_issue_queries | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -225,7 +225,7 @@
       vars:
         redmine_import_data: "{{ redmine_project_queries | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -238,7 +238,7 @@
       vars:
         redmine_import_data: "{{ redmine_time_entry_queries | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -251,14 +251,14 @@
       vars:
         redmine_import_data: "{{ redmine_projects | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
         redmine_reimport_project | default(false)
     - name: Create import attachment setting files
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -289,7 +289,7 @@
       vars:
         redmine_import_data: "{{ redmine_message_customize | default({}) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -302,7 +302,7 @@
       vars:
         redmine_import_data: "{{ redmine_view_customize | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -315,7 +315,7 @@
       vars:
         redmine_import_data: "{{ redmine_issue_templates | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
@@ -328,7 +328,7 @@
       vars:
         redmine_import_data: "{{ redmine_note_templates | default([]) }}"
       when: >
-        (generate_secret_token_result is defind and generate_secret_token_result is changed)
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport_all | default(false)
         or
