@@ -51,8 +51,11 @@
         mode: "0644"
       notify: restart redmine
     - name: Create/update additional environment file
-      ansible.builtin.template:
-        src: additional_environment.rb.j2
-        dest: "{{ redmine_root }}/config/additional_environment.rb"
+      ansible.builtin.blockinfile:
+        path: "{{ redmine_root }}/config/additional_environment.rb"
+        marker: "# {mark} additional_environment ANSIBLE MANAGED BLOCK"
+        content: |
+          {{ redmine_additional_environment }}
         mode: "0644"
+        create: true
       notify: restart redmine

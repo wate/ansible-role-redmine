@@ -2173,6 +2173,14 @@ redmine_cron_jobs:
       # - folder=INBOX
     minute: "*/5"
 
+redmine_customize_base_dir: vendor
+
+redmine_customize_message: {}
+redmine_customize_message_dir: "{{ redmine_customize_base_dir }}/config/locales"
+
+redmine_customize_view_path_dir: ""
+# redmine_customize_view_path_dir: "{{ redmine_customize_base_dir }}/views"
+
 ## --------------------
 ## インストール時にデフォルトデータのロードをスキップするか否か
 ## --------------------
