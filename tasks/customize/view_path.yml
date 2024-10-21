@@ -1,0 +1,19 @@
+---
+- name: Set view_path variable
+  ansible.builtin.set_fact:
+    redmine_view_paths: "{{ [redmine_customize_view_path_dir] + ['app/views'] }}"
+- name: Create/update additional environment file
+  ansible.builtin.blockinfile:
+    path: "{{ redmine_root }}/config/additional_environment.rb"
+    marker: "# {mark} customize_view_path ANSIBLE MANAGED BLOCK"
+    content: config.paths['app/views'] = ['{{ redmine_view_paths | join("', '") }}']
+    mode: "0644"
+    create: true
+  notify: restart redmine
+- name: Create redmine customize view path directory
+  ansible.builtin.file:
+    path: "{{ redmine_root }}/{{ redmine_customize_view_path_dir }}"
+    state: directory
+    owner: "{{ redmine_user }}"
+    group: "{{ redmine_group }}"
+    mode: "0755"

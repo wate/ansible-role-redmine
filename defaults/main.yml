@@ -2199,6 +2199,28 @@ redmine_sidekiq_service_dependencies: []
 # redmine_sidekiq_service_dependencies:
 #   - redis-server.service
 
+## --------------------------
+## カスタマイズ設定用ベースディレクトリ
+## --------------------------
+redmine_customize_base_dir: customize
+
+## --------------------------
+## メッセージのカスタマイズ設定格納用ディレクトリ
+## --------------------------
+redmine_customize_message_dir: "{{ redmine_customize_base_dir }}/config/locales"
+
+## --------------------------
+## メッセージのカスタマイズ設定
+## --------------------------
+redmine_customize_message:
+  ja: {}
+
+## --------------------------
+## ビューファイルのカスタマイズ設定格納用ディレクトリ
+## --------------------------
+redmine_customize_view_path_dir: ""
+# redmine_customize_view_path_dir: "{{ redmine_customize_base_dir }}/views"
+
 ## --------------------
 ## Redmineのバックアップデータのリストア
 ##
