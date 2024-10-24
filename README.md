@@ -187,6 +187,22 @@ sidekiqのサービス化を行うか否か
 sidekiqサービスの依存関係  
 ※SystemdのユニットファイルのAfter句に定義する依存サービスを指定します
 
+#### `redmine_customize_base_dir`
+
+カスタマイズ設定用ベースディレクトリ
+
+#### `redmine_customize_message_dir`
+
+メッセージのカスタマイズ設定格納用ディレクトリ
+
+#### `redmine_customize_message`
+
+メッセージのカスタマイズ設定
+
+#### `redmine_customize_view_path_dir`
+
+ビューファイルのカスタマイズ設定格納用ディレクトリ
+
 #### `redmine_restore`
 
 Redmineのバックアップデータのリストア  

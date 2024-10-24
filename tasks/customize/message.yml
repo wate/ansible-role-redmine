@@ -3,7 +3,7 @@
   ansible.builtin.blockinfile:
     path: "{{ redmine_root }}/config/additional_environment.rb"
     marker: "# {mark} customize_message ANSIBLE MANAGED BLOCK"
-    content: config.paths['config/locales'] = ['config/locales', '{{ redmine_customize_message_dir }}']
+    content: config.i18n.load_path += Dir[Rails.root.join('{{ redmine_customize_message_dir }}/*.yml').to_s]
     mode: "0644"
     create: true
   notify: restart redmine
