@@ -9,7 +9,7 @@ redmine_repo: https://github.com/redmine/redmine.git
 redmine_version: 6.0-stable
 ## RedMica
 ## redmine_repo: https://github.com/redmica/redmica.git
-## redmine_version: "stable-2.0"
+## redmine_version: "stable-3.1"
 
 ## --------------------
 ## 追加の環境設定
@@ -427,7 +427,7 @@ redmine_statuses: []
   # - name: 未対応
   #   id: 1
   #   position: 1
-  #   ## この項目はテーブルには存在しません、以下の内容はWellcomeメッセージに出力するテキストです
+  #   ## この項目はテーブルには存在しません、以下の内容はWelcomeメッセージに出力するテキストです
   #   description: |
   #     何も対応を行っていない状態を表しています
   # - name: 対応中
@@ -1362,12 +1362,12 @@ redmine_users: {}
   #   custom_fields:
   #     - name: 自己紹介
   #       value: このユーザーは権限チェック完了後にロックしてください
-  # authority_check_repoter:
+  # authority_check_reporter:
   #   firstname: 報告者
   #   lastname: 権限チェック
   #   mail: check@example.org
   #   hide_mail: true
-  #   password: authority_check_repoter_password
+  #   password: authority_check_reporter_password
   #   mail_notification: none
   #   admin: false
   #   auto_watch_on: false
@@ -1426,7 +1426,7 @@ redmine_groups: []
   #   users:
   #     - authority_check_admin
   #     - authority_check_developer
-  #     - authority_check_repoter
+  #     - authority_check_reporter
   #     - authority_check_guest
 
 ## --------------------
@@ -1913,10 +1913,10 @@ redmine_projects: {}
   #       role: 開発者
   #     - login: admin
   #       role: [管理者, 開発者]
-  #     - login: authority_check_repoter
+  #     - login: authority_check_reporter
   #       role: 報告者
   #   ## トラッカー
-  #   trackes:
+  #   trackers:
   #     - 要望
   #     - タスク
   #     - 不具合
@@ -1961,7 +1961,7 @@ redmine_projects: {}
   #         Wiki:
   #           content: "{{ lookup('file', 'files/wiki/home/develop.md') }}"
   #           children:
-  #             システム概要: "{{ redmine_wiki_page_orverview }}"
+  #             システム概要: "{{ redmine_wiki_page_overview }}"
   #             インフラ情報: "{{ redmine_wiki_page_infra }}"
   #             環境情報: "{{ redmine_wiki_page_environment }}"
   #             開発情報: "{{ redmine_wiki_page_development }}"
@@ -2102,7 +2102,7 @@ redmine_issue_templates: []
 ## --------------------
 ## 「グローバルノートテンプレート」に登録するデータ
 ## --------------------
-# redmine_reimport_note_template: fasle
+# redmine_reimport_note_template: false
 redmine_note_templates: []
   # - tracker: タスク
   #   name: レビュー結果
@@ -2155,7 +2155,7 @@ redmine_cron_jobs:
     disabled: true
     command: bundle exec rake redmine:email:receive_pop3
     params:
-      - username=pop3_acount
+      - username=pop3_account
       - password=pop3_password
       # - host=127.0.0.1
       # - port=110
@@ -2165,7 +2165,7 @@ redmine_cron_jobs:
     disabled: true
     command: bundle exec rake redmine:email:receive_imap
     params:
-      - username=imap_acount
+      - username=imap_account
       - password=imap_password
       # - host=127.0.0.1
       # - port=143
@@ -2180,7 +2180,7 @@ redmine_skip_load_default_data: false
 
 ## --------------------------
 ## その他の環境変数
-## ※「RAILS_ENV」にはredmine_mode変数の値が、「REDMILE_LANG」にはredmine_lang変数の値が設定されます
+## ※「RAILS_ENV」にはredmine_mode変数の値が、「REDMINE_LANG」にはredmine_lang変数の値が設定されます
 ## --------------------------
 redmine_envs: {}
   ## @see https://github.com/sidekiq/sidekiq/wiki/Using-Redis

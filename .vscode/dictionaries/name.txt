@@ -1,4 +1,5 @@
 additionals
+ajax
 antiword
 bleuclair
 catdoc
@@ -7,8 +8,11 @@ dmsf
 dotenv
 farend
 geerlingguy
+ghostscript
 gitmike
+gmail
 gnupg
+imagemagick
 libreoffice
 mariadb
 mssql
@@ -17,9 +21,14 @@ poppler
 postgres
 postgresql
 reddit
+redis
 redmica
 redmine
 rubygems
+sendmail
+sidekiq
+sqlite
+TOTP
 uuid
 webdav
 xapian
