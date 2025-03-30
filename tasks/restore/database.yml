@@ -2,9 +2,9 @@
 - name: Check database restore file exists
   ansible.builtin.stat:
     path: "{{ redmine_restore_database_dump_file }}"
-  register: redmine_restor_file_result
+  register: redmine_restore_file_result
 - name: Restore redmine database dump data
-  when: redmine_restor_file_result.stat.exists
+  when: redmine_restore_file_result.stat.exists
   block:
     - name: Restore Database
       ansible.builtin.include_tasks:

@@ -1614,7 +1614,9 @@ redmine_message_customize:
   error_no_tracker_in_project: 'このプロジェクトにはチケット種別が登録されていません。プロジェクト設定を確認してください。'
   error_workflow_copy_source: 'コピー元となるチケット種別またはロールを選択してください'
   error_workflow_copy_target: 'コピー先となるチケット種別とロールを選択してください'
-  error_can_not_delete_tracker: 'このチケット種別は使用中です。削除できません。'
+  error_can_not_delete_tracker_html: 'このチケット種別は使用中です。削除できません。<p>以下のプロジェクトにこのトラッカーを使用しているチケットがあります:<br>%{projects}</p>'
+  error_scm_annotate_big_text_file: テキストファイルサイズの上限を超えているため注釈できません。
+  error_no_tracker_allowed_for_new_issue_in_project: このプロジェクトにはチケットの追加が許可されているチケット種別がありません
   field_tracker: チケット種別
   setting_default_projects_tracker_ids: 新規プロジェクトにおいてデフォルトで有効になるチケット種別
   permission_view_news: お知らせの閲覧
@@ -1650,11 +1652,9 @@ redmine_message_customize:
   default_doc_category_tech: 技術ドキュメント
   enumeration_doc_categories: ドキュメントカテゴリー
   description_issue_category_reassign: 新しいカテゴリーを選択してください
-  error_scm_annotate_big_text_file: テキストファイルサイズの上限を超えているため注釈できません。
   permission_add_documents: ドキュメントの追加
   permission_edit_documents: ドキュメントの編集
   permission_delete_documents: ドキュメントの削除
-  error_no_tracker_allowed_for_new_issue_in_project: このプロジェクトにはチケットの追加が許可されているチケット種別がありません
   label_tracker_all: すべてのチケット種別
   text_status_no_workflow: このステータスはどのチケット種別のワークフローでも使われていません
   label_trackers_description: チケット種別の説明

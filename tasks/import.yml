@@ -264,7 +264,7 @@
         or
         redmine_reimport_attachment | default(false)
       block:
-        - name: Set tempolary upload file variables
+        - name: Set temporary upload file variables
           ansible.builtin.set_fact:
             uploaded_attachments: []
         - name: Upload attachment files

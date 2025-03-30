@@ -1,8 +1,8 @@
 ---
-# - name: Import Redmine initializers task
+# - name: Import Redmine initialize task
 #   ansible.builtin.import_tasks:
-#     file: customize/initializers.yml
-#   tags: role_redmine_customize_initializers
+#     file: customize/initialize.yml
+#   tags: role_redmine_customize_initialize
 - name: Import Redmine customize message task
   ansible.builtin.import_tasks:
     file: customize/message.yml
