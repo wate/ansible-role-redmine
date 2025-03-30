@@ -1,4 +1,5 @@
 ---
 - name: Include database setup task
-  ansible.builtin.include_tasks: database/{{ redmine_db_cfg[redmine_mode].adapter }}.yml
+  ansible.builtin.include_tasks:
+    file: database/{{ redmine_db_cfg[redmine_mode].adapter }}.yml
   when: redmine_db_cfg[redmine_mode].host | default('localhost') in ['localhost', '127.0.0.1']

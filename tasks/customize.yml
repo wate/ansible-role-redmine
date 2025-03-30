@@ -1,0 +1,15 @@
+---
+# - name: Import Redmine initialize task
+#   ansible.builtin.import_tasks:
+#     file: customize/initialize.yml
+#   tags: role_redmine_customize_initialize
+- name: Import Redmine customize message task
+  ansible.builtin.import_tasks:
+    file: customize/message.yml
+  tags: role_redmine_customize_message
+  when: redmine_customize_message | dict2items | length > 0
+- name: Import Redmine customize view_path task
+  ansible.builtin.import_tasks:
+    file: customize/message.yml
+  tags: role_redmine_customize_view_path
+  when: redmine_customize_view_path_dir | length > 0

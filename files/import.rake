@@ -1210,13 +1210,13 @@ namespace :redmine do
       end
     end
     if data.key?('time_entry_queries') && data['time_entry_queries'].present?
-      puts "\n##### Import time entry queriy\n\n"
+      puts "\n##### Import time entry query\n\n"
       data['time_entry_queries'].each do |time_entry_query|
         import_time_entry_query time_entry_query, project
       end
     end
-    if data.key?('childlen') && data['childlen']
-      data['childlen'].each do |child_identifier, child_data|
+    if data.key?('children') && data['children']
+      data['children'].each do |child_identifier, child_data|
         import_project child_identifier, child_data, project
       end
     end
@@ -1242,8 +1242,8 @@ namespace :redmine do
         # if data.key?('files') && data['files']
         #   import_attachment wiki_page, data
         # end
-        if data.key?('childlen') && data['childlen']
-          import_wiki_page project, data['childlen'], wiki_page
+        if data.key?('children') && data['children']
+          import_wiki_page project, data['children'], wiki_page
         end
       end
     end

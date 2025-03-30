@@ -3,7 +3,7 @@ role_name_check: 1
 dependency:
   name: galaxy
 driver:
-  name: ${DRIVER_NAME:-docker}
+  name: ${DRIVER_NAME:-vagrant}
 platforms:
   - name: bookworm
     groups:
@@ -20,8 +20,8 @@ platforms:
     pre_build_image: true
     # driver:vagrant
     box: wate/debian-12
-    memory: 2048
-    cpus: 2
+    memory: 1024
+    cpus: 1
 provisioner:
   name: ansible
   # env:

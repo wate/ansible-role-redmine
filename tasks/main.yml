@@ -1,5 +1,5 @@
 ---
-- name: Find pratform variable file
+- name: Find platform variable file
   ansible.builtin.set_fact:
     variable_file: "{{ lookup('first_found', params, errors='ignore') }}"
   vars:
@@ -10,20 +10,20 @@
         - "{{ ansible_facts.os_family }}.yml"
       paths:
         - vars
+  tags: role_redmine_include_vars
 - name: Include variable file
   ansible.builtin.include_vars:
     file: "{{ variable_file }}"
   when: variable_file | length > 0
+  tags: role_redmine_include_vars
 - name: Import dependency task
   ansible.builtin.import_tasks:
     file: dependency.yml
-  tags:
-    - role_redmine_dependency
+  tags: role_redmine_dependency
 - name: Import database task
   ansible.builtin.import_tasks:
     file: database.yml
-  tags:
-    - role_redmine_database
+  tags: role_redmine_database
 - name: Setup Redmine
   become: true
   become_user: "{{ redmine_user }}"
@@ -40,8 +40,7 @@
     - name: Import setting task
       ansible.builtin.import_tasks:
         file: setting.yml
-      tags:
-        - role_redmine_setting
+      tags: role_redmine_setting
     - name: Install/update gem packages
       ansible.builtin.command:
         cmd: bundle update
@@ -55,17 +54,16 @@
     - name: Import restore task
       ansible.builtin.import_tasks:
         file: restore.yml
-      tags:
-        - role_redmine_restore
+      tags: role_redmine_restore
     - name: Migrate database
       ansible.builtin.command:
         cmd: bundle exec rake db:migrate
         chdir: "{{ redmine_root }}"
       notify: restart redmine
       when: |
-        checkout_result is changed
+        (checkout_result is defined and checkout_result is changed)
         or
-        db_config_result is changed
+        (db_config_result is defined and db_config_result is changed)
     - name: Load default data
       ansible.builtin.command:
         cmd: bundle exec rake redmine:load_default_data
@@ -76,29 +74,28 @@
     - name: Import theme task
       ansible.builtin.import_tasks:
         file: theme.yml
-      tags:
-        - role_redmine_theme
+      tags: role_redmine_theme
     - name: Import plugin task
       ansible.builtin.import_tasks:
         file: plugin.yml
-      tags:
-        - role_redmine_plugin
+      tags: role_redmine_plugin
     - name: Import Redmine setting import task
       ansible.builtin.import_tasks:
         file: import.yml
       when: |
-        generate_secret_token_result is changed
+        (generate_secret_token_result is defined and generate_secret_token_result is changed)
         or
         redmine_reimport | default(false)
-      tags:
-        - role_redmine_import
+      tags: role_redmine_import
+    - name: Import Redmine customize task
+      ansible.builtin.import_tasks:
+        file: customize.yml
+      tags: role_redmine_customize
 - name: Import cron job task
   ansible.builtin.import_tasks:
     file: cron.yml
-  tags:
-    - role_redmine_cron
+  tags: role_redmine_cron
 - name: Import service task
   ansible.builtin.import_tasks:
     file: service.yml
-  tags:
-    - role_redmine_service
+  tags: role_redmine_service

@@ -1,21 +1,7 @@
 ---
 ## --------------------
-## Redmineのバージョン(ブランチ名)
+## Redmineのデータベース設定(config/database.yml)
 ## --------------------
-redmine_version: 5.1-stable
-
-logrotate_settings:
-  redmine:
-    paths:
-      - /opt/redmine/log/*.log*
-    frequency: daily
-    missingok: true
-    rotate: 14
-    compress: true
-    delaycompress: true
-    notifempty: true
-    copytruncate: true
-
 redmine_db_cfg:
   production:
     adapter: mysql2
@@ -48,7 +34,7 @@ redmine_cfg:
     sudo_mode_timeout: 15
 
 ## --------------------
-## Pumaの設定
+## Pumaの追加設定
 ## --------------------
 redmine_puma_extra_cfg: |
   port 3000
@@ -119,8 +105,10 @@ redmine_plugins:
       - poppler-utils
       # Universally Unique Identifier Command-Line Tool
       - uuid
+      # Libreoffice
+      - libreoffice
     cron_job:
-      cmd: cd {{ redmine_root }}/plugins && /usr/bin/ruby redmine_dmsf/extra/xapian_indexer.rb -v
+      cmd: cd {{ redmine_root }}/plugins && XAPIAN_CJK_NGRAM=true ruby redmine_dmsf/extra/xapian_indexer.rb -v
       minute: 10
   redmine_message_customize:
     repo: https://github.com/farend/redmine_message_customize.git
@@ -991,12 +979,12 @@ redmine_users:
     custom_fields:
       - name: 自己紹介
         value: このユーザーは権限チェック完了後にロックしてください
-  authority_check_repoter:
+  authority_check_reporter:
     firstname: 報告者
     lastname: 権限チェック
     mail: check@example.org
     hide_mail: true
-    password: authority_check_repoter_password
+    password: authority_check_reporter_password
     mail_notification: none
     admin: false
     auto_watch_on: false
@@ -1420,44 +1408,44 @@ redmine_wiki_content_help_workflow_inquiry: "{{ lookup('file', 'files/wiki/help/
 redmine_wiki_page_sidebar: "{{ redmine_wiki_content_sidebar }}"
 redmine_wiki_page_help:
   content: "{{ redmine_wiki_content_help }}"
-  childlen:
+  children:
     Redmine記法: "{{ redmine_wiki_content_help_format }}"
     運用方法: "{{ redmine_wiki_content_help_operation }}"
     ワークフロー:
       content: "{{ redmine_wiki_content_help_workflow }}"
-      childlen:
+      children:
         要望: "{{ redmine_wiki_content_help_workflow_request }}"
         タスク: "{{ redmine_wiki_content_help_workflow_task }}"
         不具合: "{{ redmine_wiki_content_help_workflow_bug }}"
         問い合わせ: "{{ redmine_wiki_content_help_workflow_inquiry }}"
     マクロ一覧: "{{ redmine_wiki_content_help_macro_list }}"
-redmine_wiki_page_orverview:
+redmine_wiki_page_overview:
   content: "{{ redmine_wiki_content_overview }}"
-  childlen:
+  children:
     システム構成: "{{ redmine_wiki_content_overview_architecture }}"
     データ構造: "{{ redmine_wiki_content_overview_data_structure }}"
     技術スタック: "{{ redmine_wiki_content_overview_technology }}"
     機能一覧: "{{ redmine_wiki_content_overview_feature }}"
 redmine_wiki_page_environment:
   content: "{{ redmine_wiki_content_environment }}"
-  childlen:
+  children:
     開発環境: "{{ redmine_wiki_content_environment_development }}"
     ステージング環境: "{{ redmine_wiki_content_environment_staging }}"
     本番環境: "{{ redmine_wiki_content_environment_production }}"
 redmine_wiki_page_development:
   content: "{{ redmine_wiki_content_development }}"
-  childlen:
+  children:
     デプロイ方法: "{{ redmine_wiki_content_development_deploy }}"
     ローカル開発環境: "{{ redmine_wiki_content_development_local_dev_env }}"
     リポジトリ情報: "{{ redmine_wiki_content_development_repository }}"
 redmine_wiki_page_infra:
   content: "{{ redmine_wiki_content_infra }}"
-  childlen:
+  children:
     クラウド情報: "{{ redmine_wiki_content_infra_cloud }}"
     DNS情報: "{{ redmine_wiki_content_infra_dns }}"
     サーバー情報:
       content: "{{ redmine_wiki_content_infra_server }}"
-      childlen:
+      children:
         パッケージ情報: "{{ redmine_wiki_content_infra_server_package }}"
         ディスク使用量: "{{ redmine_wiki_content_infra_server_disk }}"
         ファイル: "{{ redmine_wiki_content_infra_server_file }}"
@@ -1515,7 +1503,7 @@ redmine_projects:
       - login: authority_check_repoter
         role: 報告者
     ## トラッカー
-    trackes:
+    trackers:
       - 要望
       - タスク
       - 不具合
@@ -1529,12 +1517,12 @@ redmine_projects:
     wiki_pages:
       Wiki:
         content: "{{ lookup('file', 'files/wiki/home/client.md') }}"
-        childlen:
+        children:
           ヘルプ: "{{ redmine_wiki_page_help }}"
       Sidebar: "{{ redmine_wiki_page_sidebar }}"
     issue_queries: []
     time_entry_queries: []
-    childlen:
+    children:
       web:
         name: Web制作
         description: Web制作用のテンプレートプロジェクトです
@@ -1547,7 +1535,7 @@ redmine_projects:
         wiki_pages:
           Wiki:
             content: "{{ lookup('file', 'files/wiki/home/web.md') }}"
-            childlen:
+            children:
               ヘルプ: "{{ redmine_wiki_page_help }}"
           Sidebar: "{{ redmine_wiki_page_sidebar }}"
       develop:
@@ -1560,8 +1548,8 @@ redmine_projects:
         wiki_pages:
           Wiki:
             content: "{{ lookup('file', 'files/wiki/home/develop.md') }}"
-            childlen:
-              システム概要: "{{ redmine_wiki_page_orverview }}"
+            children:
+              システム概要: "{{ redmine_wiki_page_overview }}"
               インフラ情報: "{{ redmine_wiki_page_infra }}"
               環境情報: "{{ redmine_wiki_page_environment }}"
               開発情報: "{{ redmine_wiki_page_development }}"
@@ -1577,7 +1565,7 @@ redmine_projects:
         wiki_pages:
           Wiki:
             content: "{{ lookup('file', 'files/wiki/home/infra.md') }}"
-            childlen:
+            children:
               ヘルプ: "{{ redmine_wiki_page_help }}"
           Sidebar: "{{ redmine_wiki_page_sidebar }}"
       support:
@@ -1590,7 +1578,7 @@ redmine_projects:
         wiki_pages:
           Wiki:
             content: "{{ lookup('file', 'files/wiki/home/support.md') }}"
-            childlen:
+            children:
               ヘルプ: "{{ redmine_wiki_page_help }}"
           Sidebar: "{{ redmine_wiki_page_sidebar }}"
 
@@ -1626,7 +1614,9 @@ redmine_message_customize:
   error_no_tracker_in_project: 'このプロジェクトにはチケット種別が登録されていません。プロジェクト設定を確認してください。'
   error_workflow_copy_source: 'コピー元となるチケット種別またはロールを選択してください'
   error_workflow_copy_target: 'コピー先となるチケット種別とロールを選択してください'
-  error_can_not_delete_tracker: 'このチケット種別は使用中です。削除できません。'
+  error_can_not_delete_tracker_html: 'このチケット種別は使用中です。削除できません。<p>以下のプロジェクトにこのトラッカーを使用しているチケットがあります:<br>%{projects}</p>'
+  error_scm_annotate_big_text_file: テキストファイルサイズの上限を超えているため注釈できません。
+  error_no_tracker_allowed_for_new_issue_in_project: このプロジェクトにはチケットの追加が許可されているチケット種別がありません
   field_tracker: チケット種別
   setting_default_projects_tracker_ids: 新規プロジェクトにおいてデフォルトで有効になるチケット種別
   permission_view_news: お知らせの閲覧
@@ -1662,11 +1652,9 @@ redmine_message_customize:
   default_doc_category_tech: 技術ドキュメント
   enumeration_doc_categories: ドキュメントカテゴリー
   description_issue_category_reassign: 新しいカテゴリーを選択してください
-  error_scm_annotate_big_text_file: テキストファイルサイズの上限を超えているため注釈できません。
   permission_add_documents: ドキュメントの追加
   permission_edit_documents: ドキュメントの編集
   permission_delete_documents: ドキュメントの削除
-  error_no_tracker_allowed_for_new_issue_in_project: このプロジェクトにはチケットの追加が許可されているチケット種別がありません
   label_tracker_all: すべてのチケット種別
   text_status_no_workflow: このステータスはどのチケット種別のワークフローでも使われていません
   label_trackers_description: チケット種別の説明
@@ -1714,3 +1702,15 @@ redmine_note_templates:
     name: レビュー結果
     description: "{{ lookup('file', 'files/template/note/review.md') }}"
     enabled: true
+
+logrotate_settings:
+  redmine:
+    paths:
+      - /opt/redmine/log/*.log*
+    frequency: daily
+    missingok: true
+    rotate: 14
+    compress: true
+    delaycompress: true
+    notifempty: true
+    copytruncate: true
