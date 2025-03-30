@@ -1,0 +1,15 @@
+ansible
+blockinfile
+chdir
+cronvar
+elif
+endfor
+fileglob
+fqcn
+jinja
+lineinfile
+linux
+posix
+selectattr
+subelements
+wantlist

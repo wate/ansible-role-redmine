@@ -14,7 +14,7 @@
     owner: "{{ redmine_user }}"
     group: "{{ redmine_group }}"
     mode: "0755"
-- name: Create customize massege files
+- name: Create customize message files
   ansible.builtin.template:
     src: customize/lang.yml.j2
     dest: "{{ redmine_root }}/{{ redmine_customize_message_dir }}/{{ custom_message.lang }}.yml"

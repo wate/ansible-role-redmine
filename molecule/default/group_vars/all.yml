@@ -2,7 +2,7 @@
 ## --------------------
 ## Redmineのバージョン(ブランチ名)
 ## --------------------
-redmine_version: 5.1-stable
+redmine_version: 6.0-stable
 
 ## --------------------
 ## Redmineのデータベース設定(config/database.yml)
@@ -984,12 +984,12 @@ redmine_users:
     custom_fields:
       - name: 自己紹介
         value: このユーザーは権限チェック完了後にロックしてください
-  authority_check_repoter:
+  authority_check_reporter:
     firstname: 報告者
     lastname: 権限チェック
     mail: check@example.org
     hide_mail: true
-    password: authority_check_repoter_password
+    password: authority_check_reporter_password
     mail_notification: none
     admin: false
     auto_watch_on: false
@@ -1413,44 +1413,44 @@ redmine_wiki_content_help_workflow_inquiry: "{{ lookup('file', 'files/wiki/help/
 redmine_wiki_page_sidebar: "{{ redmine_wiki_content_sidebar }}"
 redmine_wiki_page_help:
   content: "{{ redmine_wiki_content_help }}"
-  childlen:
+  children:
     Redmine記法: "{{ redmine_wiki_content_help_format }}"
     運用方法: "{{ redmine_wiki_content_help_operation }}"
     ワークフロー:
       content: "{{ redmine_wiki_content_help_workflow }}"
-      childlen:
+      children:
         要望: "{{ redmine_wiki_content_help_workflow_request }}"
         タスク: "{{ redmine_wiki_content_help_workflow_task }}"
         不具合: "{{ redmine_wiki_content_help_workflow_bug }}"
         問い合わせ: "{{ redmine_wiki_content_help_workflow_inquiry }}"
     マクロ一覧: "{{ redmine_wiki_content_help_macro_list }}"
-redmine_wiki_page_orverview:
+redmine_wiki_page_overview:
   content: "{{ redmine_wiki_content_overview }}"
-  childlen:
+  children:
     システム構成: "{{ redmine_wiki_content_overview_architecture }}"
     データ構造: "{{ redmine_wiki_content_overview_data_structure }}"
     技術スタック: "{{ redmine_wiki_content_overview_technology }}"
     機能一覧: "{{ redmine_wiki_content_overview_feature }}"
 redmine_wiki_page_environment:
   content: "{{ redmine_wiki_content_environment }}"
-  childlen:
+  children:
     開発環境: "{{ redmine_wiki_content_environment_development }}"
     ステージング環境: "{{ redmine_wiki_content_environment_staging }}"
     本番環境: "{{ redmine_wiki_content_environment_production }}"
 redmine_wiki_page_development:
   content: "{{ redmine_wiki_content_development }}"
-  childlen:
+  children:
     デプロイ方法: "{{ redmine_wiki_content_development_deploy }}"
     ローカル開発環境: "{{ redmine_wiki_content_development_local_dev_env }}"
     リポジトリ情報: "{{ redmine_wiki_content_development_repository }}"
 redmine_wiki_page_infra:
   content: "{{ redmine_wiki_content_infra }}"
-  childlen:
+  children:
     クラウド情報: "{{ redmine_wiki_content_infra_cloud }}"
     DNS情報: "{{ redmine_wiki_content_infra_dns }}"
     サーバー情報:
       content: "{{ redmine_wiki_content_infra_server }}"
-      childlen:
+      children:
         パッケージ情報: "{{ redmine_wiki_content_infra_server_package }}"
         ディスク使用量: "{{ redmine_wiki_content_infra_server_disk }}"
         ファイル: "{{ redmine_wiki_content_infra_server_file }}"
@@ -1508,7 +1508,7 @@ redmine_projects:
       - login: authority_check_repoter
         role: 報告者
     ## トラッカー
-    trackes:
+    trackers:
       - 要望
       - タスク
       - 不具合
@@ -1522,12 +1522,12 @@ redmine_projects:
     wiki_pages:
       Wiki:
         content: "{{ lookup('file', 'files/wiki/home/client.md') }}"
-        childlen:
+        children:
           ヘルプ: "{{ redmine_wiki_page_help }}"
       Sidebar: "{{ redmine_wiki_page_sidebar }}"
     issue_queries: []
     time_entry_queries: []
-    childlen:
+    children:
       web:
         name: Web制作
         description: Web制作用のテンプレートプロジェクトです
@@ -1540,7 +1540,7 @@ redmine_projects:
         wiki_pages:
           Wiki:
             content: "{{ lookup('file', 'files/wiki/home/web.md') }}"
-            childlen:
+            children:
               ヘルプ: "{{ redmine_wiki_page_help }}"
           Sidebar: "{{ redmine_wiki_page_sidebar }}"
       develop:
@@ -1553,8 +1553,8 @@ redmine_projects:
         wiki_pages:
           Wiki:
             content: "{{ lookup('file', 'files/wiki/home/develop.md') }}"
-            childlen:
-              システム概要: "{{ redmine_wiki_page_orverview }}"
+            children:
+              システム概要: "{{ redmine_wiki_page_overview }}"
               インフラ情報: "{{ redmine_wiki_page_infra }}"
               環境情報: "{{ redmine_wiki_page_environment }}"
               開発情報: "{{ redmine_wiki_page_development }}"
@@ -1570,7 +1570,7 @@ redmine_projects:
         wiki_pages:
           Wiki:
             content: "{{ lookup('file', 'files/wiki/home/infra.md') }}"
-            childlen:
+            children:
               ヘルプ: "{{ redmine_wiki_page_help }}"
           Sidebar: "{{ redmine_wiki_page_sidebar }}"
       support:
@@ -1583,7 +1583,7 @@ redmine_projects:
         wiki_pages:
           Wiki:
             content: "{{ lookup('file', 'files/wiki/home/support.md') }}"
-            childlen:
+            children:
               ヘルプ: "{{ redmine_wiki_page_help }}"
           Sidebar: "{{ redmine_wiki_page_sidebar }}"
 
