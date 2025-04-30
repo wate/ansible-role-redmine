@@ -176,7 +176,7 @@ Redmineのcron設定
 #### `redmine_envs`
 
 その他の環境変数  
-※「RAILS_ENV」にはredmine_mode変数の値が、「REDMILE_LANG」にはredmine_lang変数の値が設定されます
+※「RAILS_ENV」にはredmine_mode変数の値が、「REDMINE_LANG」にはredmine_lang変数の値が設定されます
 
 #### `redmine_register_sidekiq_service`
 
