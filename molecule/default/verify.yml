@@ -2,37 +2,50 @@
 - name: Verify
   hosts: all
   gather_facts: false
-  check_mode: true
   become: true
   tasks:
-    ## ユーザーのテスト
-    - name: Add user check
-      ansible.builtin.user:
-        name: redmine
-      register: result
-    - name: Assert user
-      ansible.builtin.assert:
-        that: result is not changed
-    ## グループのテスト
-    - name: Add group check
-      ansible.builtin.group:
-        name: redmine
-      register: result
-    - name: Assert group
-      ansible.builtin.assert:
-        that: result is not changed
-    ## パッケージのテスト
-    - name: Gather the package facts
+    ## 前処理：各種ファクト取得
+    - name: Gather package facts
       ansible.builtin.package_facts:
         manager: auto
-    - name: Assert package
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+    - name: Gather listen ports facts
+      community.general.listen_ports_facts:
+        command: ss
+    ## ユーザーとグループのテスト
+    - name: Check user redmine exists
+      ansible.builtin.getent:
+        database: passwd
+        key: redmine
+    - name: Assert user redmine exists
       ansible.builtin.assert:
         that:
-          - ansible_facts.packages['ruby']
-          - ansible_facts.packages['ruby-dev']
-          - ansible_facts.packages['rubygems-integration']
-          - ansible_facts.packages['acl']
-          - ansible_facts.packages['git']
+          - ansible_facts["getent_passwd"]["redmine"] is defined
+        fail_msg: "redmine user does not exist"
+        success_msg: "redmine user exists"
+    - name: Check group redmine exists
+      ansible.builtin.getent:
+        database: group
+        key: redmine
+    - name: Assert group redmine exists
+      ansible.builtin.assert:
+        that:
+          - ansible_facts["getent_group"]["redmine"] is defined
+        fail_msg: "redmine group does not exist"
+        success_msg: "redmine group exists"
+    ## パッケージのテスト
+    - name: Assert required packages are installed
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.packages['ruby'] is defined
+          - ansible_facts.packages['ruby-dev'] is defined
+          - ansible_facts.packages['rubygems-integration'] is defined
+          - ansible_facts.packages['acl'] is defined
+          - ansible_facts.packages['git'] is defined
+        fail_msg: "Required packages are missing"
+        success_msg: "Required packages are installed"
+    ## テーマのテスト
     - name: Check theme directory
       ansible.builtin.stat:
         path: /opt/redmine/themes
@@ -156,24 +169,137 @@
     - name: Assert import task
       ansible.builtin.assert:
         that: import_task_result.stat.exists
+        fail_msg: "Import task does not exist"
+        success_msg: "Import task exists"
     ## サービスのテスト
-    - name: Populate service facts
-      ansible.builtin.service_facts:
-    - name: Assert service
+    - name: Assert Redmine service
       ansible.builtin.assert:
         that:
-          - ansible_facts.services['redmine.service']
+          - ansible_facts.services['redmine.service'] is defined
           - ansible_facts.services['redmine.service']['state'] == 'running'
           - ansible_facts.services['redmine.service']['status'] == 'enabled'
+        fail_msg: "redmine.service is not running or not enabled"
+        success_msg: "redmine.service is running and enabled"
     ## 待受ポートのテスト
-    - name: Gather facts on listening ports
-      community.general.listen_ports_facts:
-        command: ss
-    - name: Set assert variables
-      ansible.builtin.set_fact:
-        listen_tcp_posts: "{{ ansible_facts.tcp_listen | map(attribute='port') | unique | list }}"
-        listen_udp_posts: "{{ ansible_facts.udp_listen | map(attribute='port') | unique | list }}"
-    - name: Assert listen port
+    - name: Assert listen port 3000
       ansible.builtin.assert:
         that:
-          - 3000 in listen_tcp_posts
+          - 3000 in (ansible_facts.tcp_listen | map(attribute='port') | unique | list)
+        fail_msg: "Port 3000 is not listening"
+        success_msg: "Port 3000 is listening"
+    ## Redmine設定ファイルのテスト
+    - name: Test Redmine configuration
+      block:
+        - name: Check database.yml exists
+          ansible.builtin.stat:
+            path: /opt/redmine/config/database.yml
+          register: check_database_yml
+        - name: Assert database.yml exists
+          ansible.builtin.assert:
+            that: check_database_yml.stat.exists
+            fail_msg: "database.yml does not exist"
+            success_msg: "database.yml exists"
+        - name: Check configuration.yml exists
+          ansible.builtin.stat:
+            path: /opt/redmine/config/configuration.yml
+          register: check_configuration_yml
+        - name: Assert configuration.yml exists
+          ansible.builtin.assert:
+            that: check_configuration_yml.stat.exists
+            fail_msg: "configuration.yml does not exist"
+            success_msg: "configuration.yml exists"
+        - name: Check environment file exists
+          ansible.builtin.stat:
+            path: /etc/default/redmine
+          register: check_environment_file
+        - name: Assert environment file exists
+          ansible.builtin.assert:
+            that: check_environment_file.stat.exists
+            fail_msg: "/etc/default/redmine does not exist"
+            success_msg: "/etc/default/redmine exists"
+    ## Redmineディレクトリ構造のテスト
+    - name: Test Redmine directory structure
+      block:
+        - name: Check required directories
+          ansible.builtin.stat:
+            path: "{{ item }}"
+          register: check_directories
+          loop:
+            - /opt/redmine/plugins
+            - /opt/redmine/themes
+            - /opt/redmine/public
+            - /opt/redmine/tmp
+            - /opt/redmine/log
+            - /opt/redmine/files
+        - name: Assert required directories exist
+          ansible.builtin.assert:
+            that:
+              - check_directories.results[0].stat.isdir
+              - check_directories.results[1].stat.isdir
+              - check_directories.results[2].stat.isdir
+              - check_directories.results[3].stat.isdir
+              - check_directories.results[4].stat.isdir
+              - check_directories.results[5].stat.isdir
+            fail_msg: "Some required directories are missing"
+            success_msg: "All required directories exist"
+    ## Bundlerのテスト
+    - name: Test Bundler installation
+      block:
+        - name: Check vendor/bundle directory exists
+          ansible.builtin.stat:
+            path: /opt/redmine/vendor/bundle
+          register: check_vendor_bundle
+        - name: Assert vendor/bundle directory exists
+          ansible.builtin.assert:
+            that: check_vendor_bundle.stat.isdir
+            fail_msg: "vendor/bundle directory does not exist"
+            success_msg: "vendor/bundle directory exists"
+        - name: Check Gemfile.lock exists
+          ansible.builtin.stat:
+            path: /opt/redmine/Gemfile.lock
+          register: check_gemfile_lock
+        - name: Assert Gemfile.lock exists
+          ansible.builtin.assert:
+            that: check_gemfile_lock.stat.exists
+            fail_msg: "Gemfile.lock does not exist"
+            success_msg: "Gemfile.lock exists"
+    ## Puma設定のテスト
+    - name: Test Puma configuration
+      block:
+        - name: Check puma config exists
+          ansible.builtin.stat:
+            path: /opt/redmine/config/puma.rb
+          register: check_puma_config
+        - name: Assert puma config exists
+          ansible.builtin.assert:
+            that: check_puma_config.stat.exists
+            fail_msg: "puma.rb does not exist"
+            success_msg: "puma.rb exists"
+    ## ログファイルのテスト
+    - name: Test log files
+      block:
+        - name: Check production log exists
+          ansible.builtin.stat:
+            path: /opt/redmine/log/production.log
+          register: check_production_log
+        - name: Assert production log exists
+          ansible.builtin.assert:
+            that: check_production_log.stat.exists
+            fail_msg: "production.log does not exist"
+            success_msg: "production.log exists"
+    ## HTTPレスポンステスト
+    - name: Test HTTP response
+      block:
+        - name: Wait for Redmine to be ready
+          ansible.builtin.pause:
+            seconds: 2
+        - name: Check HTTP response
+          ansible.builtin.uri:
+            url: http://localhost:3000/
+            status_code: [200, 302, 403]
+          register: http_response
+        - name: Assert HTTP response
+          ansible.builtin.assert:
+            that: http_response.status in [200, 302, 403]
+            fail_msg: "HTTP response is not successful"
+            success_msg: "HTTP response is successful (status: {{ http_response.status }})"

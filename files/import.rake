@@ -1,6 +1,6 @@
 IMPORT_DATA_DIR = ENV['IMPORT_DATA_DIR'] || File.join(Rails.root, 'tmp')
 
-ALLOW_FIELD_FORMTS = [
+ALLOW_FIELD_FORMATS = [
   'string',
   'text',
   'link',
@@ -313,7 +313,7 @@ namespace :redmine do
       if custom_fields.present?
         puts "\nImport issue custom field\n-----------------------\n\n"
         custom_fields.each do |data|
-          next unless ALLOW_FIELD_FORMTS.include?(data['field_format'])
+          next unless ALLOW_FIELD_FORMATS.include?(data['field_format'])
 
           cf = IssueCustomField.find_by_name(data['name'])
           cf ||= IssueCustomField.new({name: data['name']})
@@ -329,7 +329,7 @@ namespace :redmine do
       if custom_fields.present?
         puts "\nImport project custom field\n-----------------------\n\n"
         custom_fields.each do |data|
-          next unless ALLOW_FIELD_FORMTS.include?(data['field_format'])
+          next unless ALLOW_FIELD_FORMATS.include?(data['field_format'])
 
           cf = ProjectCustomField.find_by_name(data['name'])
           cf ||= ProjectCustomField.new({name: data['name']})
@@ -345,7 +345,7 @@ namespace :redmine do
       if custom_fields.present?
         puts "\nImport user custom field\n-----------------------\n\n"
         custom_fields.each do |data|
-          next unless ALLOW_FIELD_FORMTS.include?(data['field_format'])
+          next unless ALLOW_FIELD_FORMATS.include?(data['field_format'])
 
           cf = UserCustomField.find_by_name(data['name'])
           cf ||= UserCustomField.new({name: data['name']})
