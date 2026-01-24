@@ -2,6 +2,8 @@
 - name: Converge
   hosts: all
   become: true
+  environment:
+    IMPORT_DATA_FILE_NO_DELETE: "1"
   pre_tasks:
     - name: Update cache(apt)
       ansible.builtin.apt:
@@ -21,3 +23,10 @@
     - name: Include role
       ansible.builtin.include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+    - name: Copy import test file
+      ansible.builtin.copy:
+        src: files/import_test.rb
+        dest: /opt/redmine/test/integration/
+        owner: redmine
+        group: redmine
+        mode: '0644'

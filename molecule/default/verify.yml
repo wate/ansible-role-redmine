@@ -303,3 +303,26 @@
             that: http_response.status in [200, 302, 403]
             fail_msg: "HTTP response is not successful"
             success_msg: "HTTP response is successful (status: {{ http_response.status }})"
+    ## import.rake Minitest テスト（production環境 + YAML参照）
+    - name: Test import.rake with Minitest
+      block:
+        - name: Run Minitest tests for import.rake (production)
+          ansible.builtin.command:
+            cmd: bundle exec ruby test/integration/import_test.rb
+            chdir: /opt/redmine
+          environment:
+            IMPORT_DATA_FILE_NO_DELETE: "1"
+            RAILS_ENV: production
+          become_user: redmine
+          become: true
+          register: test_result
+          changed_when: false
+        - name: Display test results
+          ansible.builtin.debug:
+            var: test_result.stdout_lines
+        - name: Check test status
+          ansible.builtin.assert:
+            that:
+              - test_result.rc == 0
+            fail_msg: "Minitest tests failed"
+            success_msg: "All Minitest tests passed"
