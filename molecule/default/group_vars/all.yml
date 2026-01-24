@@ -1350,9 +1350,9 @@ redmine_project_queries:
     display_type: list
 
 ## --------------------
-## 時間管理のカスタムクエリ(未実装)
+## 時間管理のカスタムクエリ
 ## --------------------
-# redmine_reimport_time_entry_query: true
+redmine_reimport_time_entry_query: false
 redmine_time_entry_queries: []
 
 ## --------------------
