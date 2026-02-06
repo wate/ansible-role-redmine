@@ -1,18 +1,35 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: '3'
 tasks:
+  notify:
+    internal: true
+    silent: true
+    cmds:
+      - afplay /System/Library/Sounds/Glass.aiff
+  notify:all:
+    internal: true
+    silent: true
+    cmds:
+      - afplay /System/Library/Sounds/Hero.aiff
   default:
     desc: Run Molecule tests for default scenario
-    cmd: molecule test
+    cmds:
+      - molecule test
+      - task: notify
   postgres:
     desc: Run Molecule tests for postgres scenario
-    cmd: molecule test -s postgres
+    cmds:
+      - molecule test -s postgres
+      - task: notify
   sidekiq:
     desc: Run Molecule tests for sidekiq scenario
-    cmd: molecule test -s sidekiq
+    cmds:
+      - molecule test -s sidekiq
+      - task: notify
   all:
     desc: Run Molecule tests for all scenarios (sequential)
     cmds:
       - task: default
       - task: postgres
       - task: sidekiq
+      - task: notify:all
