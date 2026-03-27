@@ -573,7 +573,7 @@ namespace :redmine do
     task :group => :environment do
       import_with_data_file('group.yml', 'group') do |groups|
         groups.each do |data|
-          group = find_or_initialize_record(Group, data, name_key: 'lastname')
+          group = find_or_initialize_record(Group, data, name_key: 'name')
           group.name = data['name']
           group.save!
           if data['users'].present?
