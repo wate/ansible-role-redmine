@@ -1,7 +1,16 @@
 ---
 - name: Set upload file variables
   ansible.builtin.set_fact:
-    attachment_hash: "{{ attachment.file | hash('sha256') }}"
+    attachment_hash: >-
+      {{
+        [
+          attachment.file,
+          attachment.project | default(''),
+          attachment.wiki | default(''),
+          attachment.filename | default(''),
+          attachment_index | string
+        ] | join('::') | hash('sha256')
+      }}
     attachment_ext: "{{ (attachment.file | basename).split('.')[-1] }}"
 - name: Set remote file path variable
   ansible.builtin.set_fact:
