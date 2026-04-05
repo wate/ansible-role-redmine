@@ -573,7 +573,14 @@ namespace :redmine do
     task :group => :environment do
       import_with_data_file('group.yml', 'group') do |groups|
         groups.each do |data|
-          group = find_or_initialize_record(Group, data, name_key: 'lastname')
+          # Group は Principal を継承しており、グループ名は lastname カラムに格納される
+          # find_or_initialize_record の name_key は data のキーと検索カラムを兼ねるため
+          # ここでは直接 lastname カラムを指定して検索する
+          group = if data['id'].present?
+            Group.find_or_initialize_by(id: data['id'])
+          else
+            Group.find_or_initialize_by(lastname: data['name'])
+          end
           group.name = data['name']
           group.save!
           if data['users'].present?

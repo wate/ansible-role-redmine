@@ -273,6 +273,7 @@
           loop: "{{ redmine_attachments | default([]) }}"
           loop_control:
             loop_var: attachment
+            index_var: attachment_index
             label: "{{ attachment.file | basename }}"
         - name: Create import attachment setting files
           ansible.builtin.template:
