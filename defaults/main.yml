@@ -6,10 +6,7 @@ redmine_repo: https://github.com/redmine/redmine.git
 ## --------------------
 ## Redmineのバージョン(ブランチ名)
 ## --------------------
-redmine_version: 6.1-stable
-## RedMica
-## redmine_repo: https://github.com/redmica/redmica.git
-## redmine_version: "stable-3.1"
+redmine_version: 7.0-stable
 
 ## --------------------
 ## 追加の環境設定
@@ -356,20 +353,11 @@ redmine_plugins: {}
   # redmine_issue_templates:
   #   repo: https://github.com/agileware-jp/redmine_issue_templates.git
   #   version: master
-  # redmine_messenger:
-  #   repo: https://github.com/alphanodes/redmine_messenger.git
-  #   version: main
   # redmine_dashboard:
   #   repo: https://github.com/jgraichen/redmine_dashboard.git
   #   version: main
-  # redmine_drawio:
-  #   repo: https://github.com/mikitex70/redmine_drawio.git
-  #   version: master
   # redmica_ui_extension:
   #   repo: https://github.com/redmica/redmica_ui_extension.git
-  #   version: master
-  # redmine_message_customize:
-  #   repo: https://github.com/farend/redmine_message_customize.git
   #   version: master
   # redmine_dmsf:
   #   repo: https://github.com/danmunn/redmine_dmsf.git

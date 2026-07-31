@@ -55,20 +55,6 @@
         - name: Overwrite redmine_theme_dir variable
           ansible.builtin.set_fact:
             redmine_theme_dir: "/opt/redmine/{{ 'themes' if redmine_theme_dir_result.stat.exists else 'public/themes' }}"
-        - name: Check installed PurpleMine2 theme
-          ansible.builtin.stat:
-            path: "{{ redmine_theme_dir }}/PurpleMine2"
-          register: check_installed_theme_result
-        - name: Assert installed PurpleMine2 theme
-          ansible.builtin.assert:
-            that: check_installed_theme_result.stat.exists
-        - name: Check installed gitmike theme
-          ansible.builtin.stat:
-            path: "{{ redmine_theme_dir }}/gitmike"
-          register: check_installed_theme_result
-        - name: Assert installed gitmike theme
-          ansible.builtin.assert:
-            that: check_installed_theme_result.stat.exists
         - name: Check installed farend_fancy theme
           ansible.builtin.stat:
             path: "{{ redmine_theme_dir }}/farend_fancy"
@@ -106,25 +92,11 @@
         - name: Assert installed redmine_issue_templates plugin
           ansible.builtin.assert:
             that: check_installed_plugin_result.stat.exists
-        - name: Check installed redmine_messenger plugin
-          ansible.builtin.stat:
-            path: /opt/redmine/plugins/redmine_messenger
-          register: check_installed_plugin_result
-        - name: Assert installed redmine_slack plugin
-          ansible.builtin.assert:
-            that: check_installed_plugin_result.stat.exists
         - name: Check installed redmine_dashboard plugin
           ansible.builtin.stat:
             path: /opt/redmine/plugins/redmine_dashboard
           register: check_installed_plugin_result
         - name: Assert installed redmine_dashboard plugin
-          ansible.builtin.assert:
-            that: check_installed_plugin_result.stat.exists
-        - name: Check installed redmine_drawio plugin
-          ansible.builtin.stat:
-            path: /opt/redmine/plugins/redmine_drawio
-          register: check_installed_plugin_result
-        - name: Assert installed redmine_drawio plugin
           ansible.builtin.assert:
             that: check_installed_plugin_result.stat.exists
         - name: Check installed redmica_ui_extension plugin
@@ -141,25 +113,11 @@
         - name: Assert installed additionals plugin
           ansible.builtin.assert:
             that: check_installed_plugin_result.stat.exists
-        - name: Check installed redmine_message_customize plugin
-          ansible.builtin.stat:
-            path: /opt/redmine/plugins/redmine_message_customize
-          register: check_installed_plugin_result
-        - name: Assert installed redmine_message_customize plugin
-          ansible.builtin.assert:
-            that: check_installed_plugin_result.stat.exists
         - name: Check installed redmine_sudo plugin
           ansible.builtin.stat:
             path: /opt/redmine/plugins/redmine_sudo
           register: check_installed_plugin_result
         - name: Assert installed redmine_sudo plugin
-          ansible.builtin.assert:
-            that: check_installed_plugin_result.stat.exists
-        - name: Check installed redmine_dmsf plugin
-          ansible.builtin.stat:
-            path: /opt/redmine/plugins/redmine_dmsf
-          register: check_installed_plugin_result
-        - name: Assert installed redmine_dmsf plugin
           ansible.builtin.assert:
             that: check_installed_plugin_result.stat.exists
     - name: Check import task
