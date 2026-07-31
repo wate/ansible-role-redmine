@@ -39,16 +39,7 @@ redmine_cfg:
 redmine_puma_extra_cfg: |
   port 3000
 
-## --------------------
-## テーマ
-## --------------------
 redmine_themes:
-  PurpleMine2:
-    repo: https://github.com/mrliptontea/PurpleMine2.git
-    version: master
-  gitmike:
-    repo: https://github.com/makotokw/redmine-theme-gitmike.git
-    version: master
   farend_fancy:
     repo: https://github.com/farend/redmine_theme_farend_fancy.git
     version: master
@@ -69,15 +60,9 @@ redmine_plugins:
   redmine_issue_templates:
     repo: https://github.com/agileware-jp/redmine_issue_templates.git
     version: master
-  redmine_messenger:
-    repo: https://github.com/alphanodes/redmine_messenger.git
-    version: main
   redmine_dashboard:
     repo: https://github.com/jgraichen/redmine_dashboard.git
     version: main
-  redmine_drawio:
-    repo: https://github.com/mikitex70/redmine_drawio.git
-    version: master
   redmica_ui_extension:
     repo: https://github.com/redmica/redmica_ui_extension.git
     version: master
@@ -88,31 +73,6 @@ redmine_plugins:
   redmine_sudo:
     repo: https://github.com/AlphaNodes/redmine_sudo.git
     version: main
-  redmine_dmsf:
-    repo: https://github.com/danmunn/redmine_dmsf.git
-    required_packages:
-      # CGI search interface and indexers using Xapian
-      - xapian-omega
-      # Xapian 検索エンジンライブラリ用開発ファイル
-      - libxapian-dev
-      # Xapian search engine interface for Ruby
-      - ruby-xapian
-      # Converts MS Word files to text, PS, PDF and XML
-      - antiword
-      # text extractor for MS-Office files
-      - catdoc
-      # PDF 向けユーティリティ
-      - poppler-utils
-      # Universally Unique Identifier Command-Line Tool
-      - uuid
-      # Libreoffice
-      - libreoffice
-    cron_job:
-      cmd: cd {{ redmine_root }}/plugins && XAPIAN_CJK_NGRAM=true ruby redmine_dmsf/extra/xapian_indexer.rb -v
-      minute: 10
-  redmine_message_customize:
-    repo: https://github.com/farend/redmine_message_customize.git
-    version: master
 
 ## --------------------
 ## 全データの再インポート
@@ -283,29 +243,6 @@ redmine_roles:
       ## Webhooks
       # Manage hook
       - manage_hook
-      ## DMSF(ドキュメント管理)
-      # ダウンロード履歴の表示
-      - view_dmsf_file_revision_accesses
-      # リビジョン履歴の表示
-      - view_dmsf_file_revisions
-      # ファイルの一覧
-      - view_dmsf_folders
-      # ユーザー設定
-      - user_preferences
-      # ファイルの表示
-      - view_dmsf_files
-      # 文書をメールで送信
-      - email_documents
-      # フォルダ操作
-      - folder_manipulation
-      # ファイル操作
-      - file_manipulation
-      # ファイルの削除
-      - file_delete
-      # ファイルの強制ロック解除
-      - force_file_unlock
-      # ファイルの承認
-      - file_approval
       # ワークフローの管理
       - manage_workflows
   - name: 開発者
@@ -361,27 +298,6 @@ redmine_roles:
       - view_dashboards
       # 終了済みチケットの作業時間の入力
       - log_time_on_closed_issues
-      ## DMSF(ドキュメント管理)
-      # ダウンロード履歴の表示
-      - view_dmsf_file_revision_accesses
-      # リビジョン履歴の表示
-      - view_dmsf_file_revisions
-      # ファイルの一覧
-      - view_dmsf_folders
-      # ユーザー設定
-      - user_preferences
-      # ファイルの表示
-      - view_dmsf_files
-      # 文書をメールで送信
-      - email_documents
-      # フォルダ操作
-      - folder_manipulation
-      # ファイル操作
-      - file_manipulation
-      # ファイルの削除
-      - file_delete
-      # ファイルの承認
-      - file_approval
   - name: 報告者
     id: 5
     ## 権限
@@ -397,15 +313,6 @@ redmine_roles:
       ## 時間管理
       # 自分の作業時間の編集
       - edit_own_time_entries
-      ## DMSF(ドキュメント管理)
-      # ダウンロード履歴の表示
-      - view_dmsf_file_revision_accesses
-      # リビジョン履歴の表示
-      - view_dmsf_file_revisions
-      # ファイルの一覧
-      - view_dmsf_folders
-      # ファイルの表示
-      - view_dmsf_files
 
 ## --------------------
 ## チケットの優先度
@@ -689,7 +596,6 @@ redmine_settings:
       - repository
     # ツールバーで無効にするマクロ
     hidden_macros_in_toolbar:
-      - drawio
       - reddit
       - redmine_issue
       - redmine_wiki
@@ -724,10 +630,6 @@ redmine_settings:
   plugin_redmine_issue_templates:
     # グローバルチケットテンプレートを全てのプロジェクトに適用
     apply_global_template_to_all_projects: "true"
-  ### DMSF(文書管理)
-  plugin_redmine_dmsf:
-    # WebDAV
-    dmsf_webdav: 0
 
 ## --------------------
 ## ワークフロー
@@ -1488,8 +1390,6 @@ redmine_projects:
       - issue_templates
       ## ダッシュボード
       - dashboard
-      ## DMSF
-      - dmsf
     ## メンバーを継承
     # inherit_members: true
     ## メンバー
@@ -1594,73 +1494,6 @@ redmine_attachments:
     wiki: Wiki
     file: files/attachment/dummy_wiki.txt
     filename: dummy.txt
-
-## --------------------
-## message customizeプラグイン
-## --------------------
-# 置換内容
-# ------------------
-# トラッカー => チケット種別
-# 文書 => ドキュメント
-# ニュース => お知らせ
-# カテゴリ => カテゴリー
-# カスタムクエリ => 検索条件
-# 新しいクエリ => 新しい検索条件
-# アノテート => 注釈
-# ------------------
-# redmine_reimport_message_customize: true
-redmine_message_customize:
-  error_scm_annotate: "エントリが存在しない、もしくは注釈できません。"
-  error_no_tracker_in_project: 'このプロジェクトにはチケット種別が登録されていません。プロジェクト設定を確認してください。'
-  error_workflow_copy_source: 'コピー元となるチケット種別またはロールを選択してください'
-  error_workflow_copy_target: 'コピー先となるチケット種別とロールを選択してください'
-  error_can_not_delete_tracker_html: 'このチケット種別は使用中です。削除できません。<p>以下のプロジェクトにこのトラッカーを使用しているチケットがあります:<br>%{projects}</p>'
-  error_scm_annotate_big_text_file: テキストファイルサイズの上限を超えているため注釈できません。
-  error_no_tracker_allowed_for_new_issue_in_project: このプロジェクトにはチケットの追加が許可されているチケット種別がありません
-  field_tracker: チケット種別
-  setting_default_projects_tracker_ids: 新規プロジェクトにおいてデフォルトで有効になるチケット種別
-  permission_view_news: お知らせの閲覧
-  permission_manage_news: お知らせの管理
-  permission_comment_news: お知らせへのコメント
-  permission_view_documents: ドキュメントの閲覧
-  project_module_news: お知らせ
-  project_module_documents: ドキュメント
-  label_document: ドキュメント
-  label_document_new: 新しいドキュメント
-  label_document_plural: ドキュメント
-  label_document_added: ドキュメントの追加
-  label_tracker: チケット種別
-  label_tracker_plural: チケット種別
-  label_tracker_new: 新しいチケット種別
-  label_news: お知らせ
-  label_news_new: お知らせを追加
-  label_news_plural: お知らせ
-  label_news_latest: 最新お知らせ
-  label_news_view_all: すべてのお知らせを表示
-  label_news_added: お知らせの追加
-  label_news_comment_added: お知らせへのコメント追加
-  label_query: 検索条件
-  label_query_plural: 検索条件
-  label_query_new: 新しい検索条件
-  label_my_queries: マイ検索条件
-  label_display_used_statuses_only: このチケット種別で使用中のステータスのみ表示
-  button_annotate: 注釈
-  text_workflow_edit: ワークフローを編集するロールとチケット種別を選んでください
-  text_tracker_no_workflow: このチケット種別にワークフローが定義されていません
-  text_no_configuration_data: "ロール、チケット種別、チケットのステータス、ワークフローがまだ設定されていません。\nデフォルト設定のロードを強くお勧めします。ロードした後、それを修正することができます。"
-  default_doc_category_user: ユーザードキュメント
-  default_doc_category_tech: 技術ドキュメント
-  enumeration_doc_categories: ドキュメントカテゴリー
-  description_issue_category_reassign: 新しいカテゴリーを選択してください
-  permission_add_documents: ドキュメントの追加
-  permission_edit_documents: ドキュメントの編集
-  permission_delete_documents: ドキュメントの削除
-  label_tracker_all: すべてのチケット種別
-  text_status_no_workflow: このステータスはどのチケット種別のワークフローでも使われていません
-  label_trackers_description: チケット種別の説明
-  label_open_trackers_description: すべてのチケット種別の説明を表示
-  text_select_apply_tracker: このチケット種別を適用
-  label_view_previous_annotation: この更新以前の注釈
 
 ## --------------------
 ## view customizeプラグイン
