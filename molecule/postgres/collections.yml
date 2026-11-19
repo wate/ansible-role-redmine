@@ -1,0 +1,8 @@
+---
+collections:
+  ## moleculeのvagrantドライバで使用
+  - name: community.vagrant
+  ## ロール内で使用
+  - name: community.general
+  - name: community.mysql
+  - name: community.postgresql
