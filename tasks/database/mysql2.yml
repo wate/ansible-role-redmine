@@ -3,12 +3,12 @@
   ansible.builtin.apt:
     name: "{{ redmine_mysql2_dependency_packages }}"
 - name: Create database
-  community.mysql.mysql_db:
+  ansible.mariadb.mariadb_db:
     name: "{{ redmine_db_cfg[redmine_mode]['database'] }}"
     encoding: "{{ redmine_db_cfg[redmine_mode]['encoding'] | default('utf8mb4') }}"
     login_unix_socket: "{{ mariadb_unix_socket_path | default('/run/mysqld/mysqld.sock') }}"
 - name: Create database user
-  community.mysql.mysql_user:
+  ansible.mariadb.mariadb_user:
     name: "{{ redmine_db_cfg[redmine_mode]['username'] }}"
     password: "{{ redmine_db_cfg[redmine_mode]['password'] }}"
     host: "{{ item }}"

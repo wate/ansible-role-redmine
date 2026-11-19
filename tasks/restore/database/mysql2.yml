@@ -1,6 +1,6 @@
 ---
 - name: Restore redmine database dump data
-  community.mysql.mysql_db:
+  ansible.mariadb.mariadb_db:
     state: import
     target: "{{ redmine_restore_database_dump_file }}"
     name: "{{ redmine_db_cfg[redmine_mode]['database'] }}"
